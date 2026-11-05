@@ -95,6 +95,17 @@ h3{font-size:24px}
 .pause svg{width:16px;height:16px}
 html:not(.gl) .pause{display:none}
 
+/* bande ciseaux 3D */
+.snip-band{position:relative;overflow:hidden;background:radial-gradient(60% 80% at 72% 50%,#3D4B36 0%,var(--forest) 70%);color:var(--sage-100);min-height:min(88svh,820px);display:flex;align-items:center}
+#scene-ciseaux{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.snip-grid{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;width:100%}
+.snip-text h2{color:#fff;font-size:clamp(40px,5.2vw,68px)}
+.snip-text p{font-size:18px;margin:20px 0 32px;max-width:44ch}
+.snip-band .btn-primary{background:var(--gold);color:var(--forest)}
+.snip-band .btn-primary:hover{background:var(--gold-soft)}
+.snip-stage{height:min(70svh,640px)}
+.snip-band .pause{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.3);color:#fff}
+
 /* intro : les ciseaux coupent le rideau */
 .intro{display:none}
 .intro-on .intro{display:block;position:fixed;inset:0;z-index:100;cursor:pointer}
@@ -262,6 +273,9 @@ footer a{text-decoration:none}
   .hero .actions .btn{width:100%}
   .hero .tel{width:100%;justify-content:center}
   .member{grid-template-columns:1fr}
+  .snip-grid{grid-template-columns:1fr}
+  .snip-stage{order:-1;height:52svh}
+  .snip-band{padding-top:40px}
   .member .portrait{max-width:300px}
   .pause{bottom:auto;top:90px}
   .btns .btn{width:100%}
@@ -423,6 +437,20 @@ footer a{text-decoration:none}
         <a class="btn btn-ghost" href="#contact">Réserver par téléphone</a>
       </div>
     </div>
+  </section>
+
+  <!-- BANDE CISEAUX 3D -->
+  <section class="snip-band" id="ciseaux">
+    <canvas id="scene-ciseaux" aria-hidden="true"></canvas>
+    <div class="wrap snip-grid">
+      <div class="snip-text">
+        <h2>Une coupe adaptée à vos cheveux</h2>
+        <p>Avant chaque coupe ou couleur, Jade et Fabienne regardent avec vous la nature, la longueur et la couleur actuelle de vos cheveux.</p>
+        <a class="btn btn-primary" href="#contact">Réserver par téléphone</a>
+      </div>
+      <div class="snip-stage" id="ciseaux-stage"></div>
+    </div>
+    <button class="pause" id="pause-ciseaux" aria-label="Mettre l'animation en pause"><svg><use href="#i-pause"/></svg></button>
   </section>
 
   <!-- ÉQUIPE -->
