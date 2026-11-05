@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="fr" data-type="place">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Studio Shine Coiffure – Salon de coiffure à Trets</title>
+<meta name="description" content="Studio Shine Coiffure, salon de coiffure à Trets : coupes femmes, hommes et enfants, brushing, coloration et mèches. 255 route de Saint-Maximin, 13530 Trets.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Great+Vibes&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F7F4EC; --paper:#FFFDF8; --sage-50:#EEF1E8; --sage-100:#DFE5D5; --sage-300:#AEBB9E;
+  --sage-500:#7E8F6C; --sage-700:#55654A; --forest:#2E3A29; --ink:#26301F; --muted:#5C6653;
+  --gold:#B8925A; --gold-soft:#D9BE8C; --line:#D8D6C8;
+  --r-sm:6px; --r-md:12px; --r-pill:999px;
+  --wrap:1200px; --gut:clamp(16px,4vw,40px);
+  --script:'Great Vibes',cursive; --serif:'Cormorant Garamond',Georgia,serif; --sans:'Jost',system-ui,sans-serif;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{background:var(--cream);color:var(--ink);font:400 16px/1.6 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--gut)}
+section{padding:clamp(72px,10vw,120px) 0}
+h1,h2,h3{font-family:var(--serif);font-weight:600;color:var(--forest);line-height:1.1}
+h2{font-size:clamp(34px,4.6vw,56px)}
+h3{font-size:24px}
+.script{font-family:var(--script);font-weight:400;color:var(--sage-700)}
+.lead{font-size:18px;color:var(--muted);max-width:56ch;margin-top:16px}
+.head{margin-bottom:48px}
+
+/* buttons & links */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 28px;border-radius:var(--r-pill);
+  font:500 16px/1 var(--sans);text-decoration:none;border:1.5px solid transparent;cursor:pointer;transition:transform .2s var(--ease),background .2s,box-shadow .2s,color .2s}
+.btn:active{transform:translateY(1px) scale(.98)}
+.btn-primary{background:var(--sage-700);color:#fff}
+.btn-primary:hover{background:var(--forest);box-shadow:0 8px 24px -10px rgba(46,58,41,.6);transform:translateY(-2px)}
+.btn-ghost{border-color:var(--sage-500);color:var(--forest);background:transparent}
+.btn-ghost:hover{background:var(--sage-50);transform:translateY(-2px)}
+.btn svg{width:18px;height:18px;flex:none}
+.link{text-decoration:none;background:linear-gradient(var(--gold),var(--gold)) 0 100%/0 1.5px no-repeat;transition:background-size .3s var(--ease);padding-bottom:2px}
+.link:hover{background-size:100% 1.5px}
+
+/* header */
+.nav{position:fixed;inset:0 0 auto;z-index:50;transition:background .3s,box-shadow .3s}
+.nav.scrolled{background:rgba(247,244,236,.92);backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:76px}
+.brand{text-decoration:none;display:flex;flex-direction:column;line-height:1}
+.brand b{font:400 34px/1 var(--script);color:var(--forest)}
+.brand small{font:600 10px/1 var(--serif);letter-spacing:.42em;color:var(--sage-700);margin-top:2px;padding-left:4px}
+.menu{display:flex;gap:32px;align-items:center;list-style:none}
+.menu a:not(.btn){text-decoration:none;font-weight:500;font-size:15px}
+.menu .btn{min-height:44px;padding:0 22px;font-size:15px}
+.burger{display:none;width:44px;height:44px;border:0;background:none;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--forest);margin:5px auto;transition:transform .3s,opacity .3s}
+
+/* hero */
+.hero{min-height:100svh;display:flex;align-items:center;padding:110px 0 60px;position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;width:100%}
+.hero .script{font-size:clamp(28px,3vw,40px);display:block;margin-bottom:6px}
+.hero h1{font-size:clamp(46px,6.4vw,88px);letter-spacing:-.01em}
+.hero p{font-size:19px;color:var(--muted);margin:22px 0 34px;max-width:46ch}
+.hero .actions{display:flex;flex-wrap:wrap;gap:20px;align-items:center}
+.hero .tel{font:600 22px/1 var(--serif);color:var(--forest);text-decoration:none;display:flex;gap:10px;align-items:center}
+.hero .tel svg{width:20px;height:20px;color:var(--sage-700)}
+.facts{display:flex;gap:28px;margin-top:44px;padding-top:24px;border-top:1px solid var(--line);flex-wrap:wrap}
+.facts div{font-size:15px;color:var(--muted)}
+.facts strong{display:block;font:600 20px/1.2 var(--serif);color:var(--forest)}
+.leaf-corner{position:absolute;pointer-events:none;color:var(--sage-300);opacity:.55}
+.leaf-corner.tl{top:-30px;left:-40px;width:260px;transform:rotate(-12deg)}
+.leaf-corner.br{bottom:-40px;right:-50px;width:300px;transform:rotate(160deg)}
+
+/* 3D medallion */
+.stage{position:relative;aspect-ratio:1;width:min(100%,520px);justify-self:center;perspective:1100px}
+.medal{position:absolute;inset:0;transform-style:preserve-3d;animation:sway 9s ease-in-out infinite}
+.disc{position:absolute;inset:14%;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--paper),var(--sage-50) 70%);
+  box-shadow:inset 0 0 0 1px rgba(184,146,90,.35);display:grid;place-items:center;transform:translateZ(0)}
+.disc .logo{text-align:center;transform:translateZ(40px)}
+.disc .logo b{display:block;font:400 clamp(44px,6vw,74px)/1 var(--script);color:var(--forest)}
+.disc .logo small{display:block;font:600 clamp(13px,1.4vw,17px)/1 var(--serif);letter-spacing:.5em;color:var(--sage-700);margin-top:8px;padding-left:.5em}
+.disc .logo svg{width:44px;height:44px;margin:14px auto 0;color:var(--sage-700)}
+.stage::before{content:"";position:absolute;left:22%;right:22%;bottom:6%;height:9%;border-radius:50%;background:rgba(46,58,41,.28);filter:blur(18px)}
+.orbit{position:absolute;inset:0;transform-style:preserve-3d}
+.orbit.o1{animation:spin 16s linear infinite;transform:rotateX(72deg)}
+.orbit.o2{animation:spin2 22s linear infinite;transform:rotateX(64deg) rotateY(20deg)}
+.ring{position:absolute;inset:4%;border-radius:50%;border:2px solid var(--gold-soft)}
+.o2 .ring{inset:10%;border-width:1.5px;border-color:var(--gold)}
+.leaf3d{position:absolute;left:50%;top:50%;width:64px;height:64px;margin:-32px;transform-style:preserve-3d;color:var(--sage-500)}
+.leaf3d svg{width:100%;height:100%;transform:rotateX(-72deg);filter:drop-shadow(0 6px 6px rgba(46,58,41,.2))}
+.spark{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--gold-soft);opacity:.8}
+@keyframes spin{from{transform:rotateX(72deg) rotateZ(0)}to{transform:rotateX(72deg) rotateZ(360deg)}}
+@keyframes spin2{from{transform:rotateX(64deg) rotateY(20deg) rotateZ(360deg)}to{transform:rotateX(64deg) rotateY(20deg) rotateZ(0)}}
+@keyframes sway{0%,100%{transform:rotateY(-10deg) rotateX(6deg)}50%{transform:rotateY(10deg) rotateX(-4deg)}}
+.paused .medal,.paused .orbit{animation-play-state:paused}
+.pause{position:absolute;right:6%;bottom:4%;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--paper);cursor:pointer;display:grid;place-items:center;color:var(--forest);transition:transform .2s}
+.pause:hover{transform:translateY(-2px)}
+.pause svg{width:16px;height:16px}
+
+/* venir */
+.visit{background:var(--forest);color:var(--sage-100)}
+.visit h2,.visit h3{color:#fff}
+.visit .lead{color:var(--sage-100)}
+.visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.addr{font:600 clamp(30px,3.6vw,46px)/1.15 var(--serif);color:#fff;margin:28px 0 8px}
+.addr span{display:block;color:var(--gold-soft)}
+.visit .note{font-size:16px;margin-bottom:28px}
+.visit .btn-primary{background:var(--gold);color:var(--forest)}
+.visit .btn-primary:hover{background:var(--gold-soft)}
+.visit .btn-ghost{border-color:var(--sage-300);color:#fff}
+.visit .btn-ghost:hover{background:rgba(255,255,255,.08)}
+.hours{list-style:none;border-top:1px solid rgba(255,255,255,.15);margin-top:24px}
+.hours li{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.15)}
+.hours li.off{color:var(--sage-300)}
+.hours li.today{color:var(--gold-soft);font-weight:600}
+.plan{background:var(--paper);border-radius:var(--r-md);padding:20px;color:var(--ink)}
+.plan svg{width:100%;height:auto}
+.btns{display:flex;gap:14px;flex-wrap:wrap}
+
+/* prestations */
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:30px 28px;transition:transform .25s var(--ease),box-shadow .25s,border-color .25s}
+.card:hover{transform:translateY(-2px);box-shadow:0 18px 40px -24px rgba(46,58,41,.45);border-color:var(--sage-300)}
+.card .ico{width:52px;height:52px;border-radius:50%;background:var(--sage-50);display:grid;place-items:center;color:var(--sage-700);margin-bottom:22px}
+.card .ico svg{width:26px;height:26px}
+.card p{color:var(--muted);margin-top:8px;font-size:16px}
+.services-foot{margin-top:36px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;color:var(--muted)}
+
+/* réalisations */
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:clamp(180px,20vw,280px);gap:16px}
+.ph{position:relative;overflow:hidden;border-radius:var(--r-sm);background:var(--sage-100)}
+.ph:nth-child(1){grid-column:span 2;grid-row:span 2}
+.ph:nth-child(6){grid-column:span 2}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+.ph:hover img{transform:scale(1.03)}
+.ph .fb{position:absolute;inset:0;display:grid;place-items:center;transition:transform .5s var(--ease)}
+.ph:hover .fb{transform:scale(1.03)}
+.ph .fb svg{width:38%;max-width:140px;color:rgba(255,255,255,.75)}
+.ph.has-img .fb{display:none}
+.fb.g1{background:linear-gradient(140deg,#8C9C7A,#55654A)}
+.fb.g2{background:linear-gradient(160deg,#C9D2BC,#8C9C7A)}
+.fb.g3{background:linear-gradient(120deg,#D9BE8C,#A9B696)}
+.fb.g4{background:linear-gradient(150deg,#6E7F5E,#2E3A29)}
+.fb.g5{background:linear-gradient(130deg,#B7C3A8,#7E8F6C)}
+.fb.g6{background:linear-gradient(170deg,#E3D8BE,#AEBB9E)}
+
+/* Jade */
+.jade{background:var(--sage-50)}
+.jade-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:center}
+.portrait{position:relative;aspect-ratio:4/5;border-radius:var(--r-sm);overflow:hidden;background:var(--sage-300)}
+.portrait::after{content:"";position:absolute;inset:14px;border:1.5px solid rgba(217,190,140,.85);border-radius:4px;pointer-events:none}
+.portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+.portrait:hover img{transform:scale(1.02)}
+.jade .script{font-size:clamp(54px,7vw,92px);line-height:1;color:var(--forest);display:block;margin-bottom:8px}
+.jade p{color:var(--muted);font-size:18px;margin-top:18px;max-width:52ch}
+.jade ul{list-style:none;margin:28px 0 34px;display:grid;gap:12px}
+.jade li{display:flex;gap:12px;align-items:center}
+.jade li svg{width:20px;height:20px;color:var(--gold);flex:none}
+
+/* contact */
+.contact-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:56px;align-items:start}
+.channels{display:grid;gap:14px;margin-top:32px}
+.ch{display:flex;gap:16px;align-items:center;padding:18px 20px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--paper);text-decoration:none;transition:transform .25s var(--ease),border-color .25s}
+a.ch:hover{transform:translateY(-2px);border-color:var(--sage-300)}
+.ch svg{width:28px;height:28px;flex:none}
+.ch span{display:block;font-size:14px;color:var(--muted)}
+.ch strong{font-weight:500}
+form{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:clamp(24px,4vw,40px);display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.f{display:grid;gap:7px}
+.f.full{grid-column:1/-1}
+label{font-weight:500;font-size:15px}
+label i{font-style:normal;color:var(--muted);font-weight:400}
+input,select,textarea{font:inherit;font-size:16px;color:var(--ink);background:var(--cream);border:1.5px solid var(--line);border-radius:var(--r-sm);padding:13px 14px;width:100%;transition:border-color .2s,box-shadow .2s}
+textarea{min-height:120px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--sage-500);box-shadow:0 0 0 4px rgba(126,143,108,.18)}
+input:user-invalid{border-color:#B4543F}
+form .btn{grid-column:1/-1;width:100%}
+.consent{grid-column:1/-1;font-size:14px;color:var(--muted);display:flex;gap:10px;align-items:flex-start}
+.consent input{width:18px;height:18px;margin-top:3px;flex:none;accent-color:var(--sage-700)}
+.sent{grid-column:1/-1;display:none;background:var(--sage-50);border-radius:var(--r-sm);padding:20px;gap:14px}
+.sent.show{display:grid}
+.sent .btns .btn{min-height:46px}
+
+/* footer */
+footer{background:var(--forest);color:var(--sage-100);padding:56px 0 100px;font-size:15px}
+footer .wrap{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:32px}
+footer .brand b{color:#fff}
+footer .brand small{color:var(--gold-soft)}
+footer h3{color:#fff;font-size:20px;margin-bottom:12px}
+footer p{line-height:1.8}
+footer a{text-decoration:none}
+.copy{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.12);padding-top:22px;color:var(--sage-300);font-size:14px}
+
+/* mobile bar */
+.mbar{display:none}
+
+@media (max-width:1024px){
+  .services{grid-template-columns:repeat(2,1fr)}
+  .gallery{grid-template-columns:repeat(3,1fr)}
+  .ph:nth-child(6){grid-column:auto}
+}
+@media (max-width:860px){
+  .menu{position:fixed;inset:0;background:var(--cream);flex-direction:column;justify-content:center;gap:28px;font-size:22px;opacity:0;pointer-events:none;transition:opacity .3s}
+  .menu a:not(.btn){font-size:24px;font-family:var(--serif);font-weight:600}
+  .menu.open{opacity:1;pointer-events:auto}
+  .burger{display:block;position:relative;z-index:60}
+  .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .burger.open span:nth-child(2){opacity:0}
+  .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .hero .wrap,.visit-grid,.jade-grid,.contact-grid{grid-template-columns:1fr}
+  .hero{padding-top:96px}
+  .leaf-corner{opacity:.25}
+  .stage{width:min(80%,400px);order:-1;margin-bottom:-10px}
+  .portrait{max-width:440px}
+  footer .wrap{grid-template-columns:1fr}
+  .mbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:40;gap:10px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(247,244,236,.96);backdrop-filter:blur(8px);border-top:1px solid var(--line)}
+  .mbar .btn{flex:1;min-height:48px}
+  .mbar .call{flex:0 0 52px;padding:0}
+}
+@media (max-width:560px){
+  .services{grid-template-columns:1fr}
+  .gallery{grid-template-columns:repeat(2,1fr);grid-auto-rows:170px}
+  .ph:nth-child(1){grid-column:span 2}
+  form{grid-template-columns:1fr}
+  .hero .actions .btn{width:100%}
+  .hero .tel{width:100%;justify-content:center}
+  .btns .btn{width:100%}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .pause{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- Icônes réutilisables -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-leaf" viewBox="0 0 64 64"><path fill="currentColor" d="M54 8C30 8 12 20 10 42c-.3 3 .4 7 1.6 10C14 38 24 28 40 22 26 30 18 40 15 54c3 1.5 7 2 10 1.6C46 52 56 34 54 8z"/></symbol>
+  <symbol id="i-scissors" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="6" cy="18" r="3"/><circle cx="18" cy="18" r="3"/><path d="M8 15.8 18 3M16 15.8 6 3"/></g></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><path fill="currentColor" d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7z"/></symbol>
+</svg>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Studio Shine Coiffure, accueil"><b>Studio Shine</b><small>COIFFURE</small></a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+    <ul class="menu" id="menu">
+      <li><a class="link" href="#prestations">Prestations</a></li>
+      <li><a class="link" href="#realisations">Réalisations</a></li>
+      <li><a class="link" href="#jade">Jade</a></li>
+      <li><a class="link" href="#venir">Accès</a></li>
+      <li><a class="btn btn-primary" href="#contact">Prendre rendez-vous</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <svg class="leaf-corner tl" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-leaf"/></svg>
+    <svg class="leaf-corner br" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-leaf"/></svg>
+    <div class="wrap">
+      <div>
+        <span class="script">Studio Shine</span>
+        <h1>Salon de coiffure à Trets</h1>
+        <p>Coupes femmes, hommes et enfants, brushing, coloration et mèches, au 255 route de Saint-Maximin.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#contact">Prendre rendez-vous</a>
+          <a class="tel link" href="tel:+33745043629"><svg aria-hidden="true"><use href="#i-phone"/></svg>07 45 04 36 29</a>
+        </div>
+        <div class="facts">
+          <div><strong>Parking privé</strong>devant le salon</div>
+          <div><strong>Mardi au samedi</strong>sur rendez-vous</div>
+          <div><strong>Toute la famille</strong>femmes, hommes, enfants</div>
+        </div>
+      </div>
+
+      <div class="stage" id="stage">
+        <div class="medal" aria-hidden="true">
+          <div class="orbit o2"><div class="ring"></div></div>
+          <div class="disc">
+            <div class="logo"><b>Studio Shine</b><small>COIFFURE</small><svg><use href="#i-scissors"/></svg></div>
+          </div>
+          <div class="orbit o1" id="orbit"><div class="ring"></div></div>
+        </div>
+        <button class="pause" id="pause" aria-label="Mettre l'animation en pause"><svg><use href="#i-pause"/></svg></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCÈS -->
+  <section class="visit" id="venir">
+    <div class="wrap visit-grid">
+      <div>
+        <h2>Accès et horaires</h2>
+        <p class="addr">255, route de Saint-Maximin<span>13530 Trets</span></p>
+        <p class="note">Au rond-point de l’avenue Frédéric Mistral, prendre la route de Saint-Maximin. Parking privé réservé aux clientes et clients.</p>
+        <div class="btns">
+          <a class="btn btn-primary" href="https://www.openstreetmap.org/search?query=255%20route%20de%20Saint-Maximin%2013530%20Trets" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-pin"/></svg>Voir l’itinéraire</a>
+          <a class="btn btn-ghost" href="tel:+33745043629"><svg aria-hidden="true"><use href="#i-phone"/></svg>Appeler le salon</a>
+        </div>
+        <ul class="hours" id="hours">
+          <!-- Horaires provisoires : à confirmer par Jade -->
+          <li data-d="1" class="off"><span>Lundi</span><span>Fermé</span></li>
+          <li data-d="2"><span>Mardi</span><span>9h00 – 18h30</span></li>
+          <li data-d="3"><span>Mercredi</span><span>9h00 – 18h30</span></li>
+          <li data-d="4"><span>Jeudi</span><span>9h00 – 18h30</span></li>
+          <li data-d="5"><span>Vendredi</span><span>9h00 – 19h00</span></li>
+          <li data-d="6"><span>Samedi</span><span>8h30 – 16h00</span></li>
+          <li data-d="0" class="off"><span>Dimanche</span><span>Fermé</span></li>
+        </ul>
+      </div>
+      <div class="plan" role="img" aria-label="Plan d'accès : le salon se trouve route de Saint-Maximin, après le rond-point de l'avenue Frédéric Mistral, avec un parking privé.">
+        <svg viewBox="0 0 520 440" font-family="Jost, sans-serif">
+          <rect width="520" height="440" rx="10" fill="#F7F4EC"/>
+          <g stroke="#DAD7CB" stroke-width="22" stroke-linecap="round" fill="none">
+            <path d="M200 250 L40 110"/><path d="M200 250 L360 60"/><path d="M200 250 L30 330"/>
+            <path d="M200 250 L110 420"/><path d="M200 250 L500 330"/>
+          </g>
+          <circle cx="200" cy="250" r="26" fill="#fff" stroke="#AEBB9E" stroke-width="4"/>
+          <path d="M215 262 L470 326" stroke="#B8925A" stroke-width="4" stroke-dasharray="2 10" stroke-linecap="round" fill="none"/>
+          <g font-size="13" fill="#5C6653">
+            <text transform="translate(58 108) rotate(41)">Chemin du Val d’Europe</text>
+            <text transform="translate(240 190) rotate(-50)">Route de Pourrières</text>
+            <text transform="translate(40 318) rotate(-25)">Av. Frédéric Mistral</text>
+            <text transform="translate(110 405) rotate(-62)">Place des Colombes</text>
+            <text transform="translate(260 286) rotate(15)">Route de Saint-Maximin</text>
+          </g>
+          <g transform="translate(330 110)">
+            <rect width="150" height="70" rx="35" fill="#55654A"/>
+            <text x="75" y="31" text-anchor="middle" fill="#fff" font-size="15" font-weight="500">Studio Shine</text>
+            <text x="75" y="50" text-anchor="middle" fill="#D9BE8C" font-size="12" letter-spacing="2">COIFFURE</text>
+          </g>
+          <path d="M405 182 L405 238" stroke="#55654A" stroke-width="3"/><path d="M398 230 L405 242 L412 230" fill="#55654A"/>
+          <g transform="translate(355 245)"><rect width="100" height="44" rx="22" fill="#DFE5D5"/><text x="50" y="27" text-anchor="middle" font-size="14" fill="#2E3A29">Parking privé</text></g>
+          <circle cx="440" cy="318" r="9" fill="#B8925A"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRESTATIONS -->
+  <section id="prestations">
+    <div class="wrap">
+      <div class="head">
+        <h2>Les prestations du salon</h2>
+        <p class="lead">Coupe, couleur ou coiffage : Jade prend le temps d’un diagnostic avant chaque prestation, pour un résultat adapté à vos cheveux.</p>
+      </div>
+      <div class="services">
+        <article class="card"><div class="ico"><svg><use href="#i-scissors"/></svg></div><h3>Coupe femme</h3><p>Shampoing, coupe et coiffage, des cheveux courts aux longueurs.</p></article>
+        <article class="card"><div class="ico"><svg><use href="#i-scissors"/></svg></div><h3>Coupe homme</h3><p>Coupe aux ciseaux ou à la tondeuse, dégradé et finitions.</p></article>
+        <article class="card"><div class="ico"><svg><use href="#i-scissors"/></svg></div><h3>Coupe enfant</h3><p>Une coupe rapide et douce pour les plus petits comme pour les ados.</p></article>
+        <article class="card"><div class="ico"><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" d="M4 7c4-3 12-3 16 0M4 12c4-3 12-3 16 0M4 17c4-3 12-3 16 0"/></svg></div><h3>Brushing</h3><p>Lisse, wavy ou volume, pour tous les jours ou un événement.</p></article>
+        <article class="card"><div class="ico"><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg></div><h3>Coloration</h3><p>Couleur complète, racines ou ton sur ton, choisie avec vous.</p></article>
+        <article class="card"><div class="ico"><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" d="M6 21C8 14 8 8 6 3M12 21c2-7 2-13 0-18M18 21c2-7 2-13 0-18"/></svg></div><h3>Mèches et balayage</h3><p>Éclaircissement localisé pour apporter lumière et relief.</p></article>
+      </div>
+      <div class="services-foot">
+        <p>Tarifs communiqués au salon ou par téléphone, selon la longueur des cheveux.</p>
+        <a class="btn btn-ghost" href="#contact">Prendre rendez-vous</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- RÉALISATIONS -->
+  <section id="realisations" style="padding-top:0">
+    <div class="wrap">
+      <div class="head">
+        <h2>Les réalisations de Jade</h2>
+        <p class="lead">Coupes, couleurs et coiffages réalisés au salon. Retrouvez les dernières sur la page Facebook Studio Shine Coiffure.</p>
+      </div>
+      <div class="gallery" id="gallery">
+        <!-- Déposer les photos dans le dossier images/ : realisation-1.jpg à realisation-8.jpg -->
+        <figure class="ph"><div class="fb g1"><svg><use href="#i-leaf"/></svg></div><img src="images/realisation-1.jpg" alt="Réalisation Studio Shine : coupe et coiffage" loading="lazy"></figure>
+        <figure class="ph"><div class="fb g2"><svg><use href="#i-scissors"/></svg></div><img src="images/realisation-2.jpg" alt="Réalisation Studio Shine : coloration" loading="lazy"></figure>
+        <figure class="ph"><div class="fb g3"><svg><use href="#i-leaf"/></svg></div><img src="images/realisation-3.jpg" alt="Réalisation Studio Shine : mèches" loading="lazy"></figure>
+        <figure class="ph"><div class="fb g4"><svg><use href="#i-scissors"/></svg></div><img src="images/realisation-4.jpg" alt="Réalisation Studio Shine : coupe homme" loading="lazy"></figure>
+        <figure class="ph"><div class="fb g5"><svg><use href="#i-leaf"/></svg></div><img src="images/realisation-5.jpg" alt="Réalisation Studio Shine : brushing" loading="lazy"></figure>
+        <figure class="ph"><div class="fb g6"><svg><use href="#i-leaf"/></svg></div><img src="images/realisation-6.jpg" alt="Le salon Studio Shine à Trets" loading="lazy"></figure>
+        <figure class="ph"><div class="fb g2"><svg><use href="#i-scissors"/></svg></div><img src="images/realisation-7.jpg" alt="Réalisation Studio Shine : coupe enfant" loading="lazy"></figure>
+        <figure class="ph"><div class="fb g1"><svg><use href="#i-leaf"/></svg></div><img src="images/realisation-8.jpg" alt="Réalisation Studio Shine : balayage" loading="lazy"></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- JADE -->
+  <section class="jade" id="jade">
+    <div class="wrap jade-grid">
+      <div class="portrait">
+        <div class="fb g5" style="position:absolute;inset:0;display:grid;place-items:center"><svg style="width:30%;color:rgba(255,255,255,.75)"><use href="#i-scissors"/></svg></div>
+        <img src="images/jade.jpg" alt="Jade Toin, coiffeuse du salon Studio Shine" loading="lazy">
+      </div>
+      <div>
+        <h2>Votre coiffeuse</h2>
+        <span class="script">Jade Toin</span>
+        <p>Jade vous accueille au Studio Shine, son salon à Trets. Elle coiffe femmes, hommes et enfants et vous conseille sur la coupe et la couleur qui vous correspondent.</p>
+        <ul>
+          <li><svg><use href="#i-check"/></svg>Un rendez-vous, une seule coiffeuse du début à la fin</li>
+          <li><svg><use href="#i-check"/></svg>Un diagnostic avant chaque couleur</li>
+          <li><svg><use href="#i-check"/></svg>Parking privé devant le salon</li>
+        </ul>
+        <a class="btn btn-primary" href="#contact">Prendre rendez-vous</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap contact-grid">
+      <div>
+        <h2>Prendre rendez-vous</h2>
+        <p class="lead">Remplissez le formulaire, Jade vous recontacte pour fixer l’horaire. Pour un rendez-vous rapide, appelez directement le salon.</p>
+        <div class="channels" id="channels">
+          <a class="ch" href="tel:+33745043629"><svg style="color:var(--sage-700)"><use href="#i-phone"/></svg><div><span>Téléphone</span><strong>07 45 04 36 29</strong></div></a>
+          <a class="ch" href="https://www.facebook.com/search/top?q=Studio%20Shine%20Coiffure" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1877F2"/><path fill="#fff" d="M13.4 19.5v-6h2l.3-2.4h-2.3V9.6c0-.7.2-1.2 1.2-1.2h1.2V6.3c-.2 0-1-.1-1.8-.1-1.8 0-3 1.1-3 3.1v1.8H9v2.4h2v6z"/></svg>
+            <div><span>Facebook</span><strong>Studio Shine Coiffure</strong></div></a>
+          <!-- Instagram et email : ajoutés automatiquement dès qu'ils sont renseignés dans CONTACT (bas de page) -->
+        </div>
+      </div>
+
+      <form id="rdv" novalidate>
+        <div class="f"><label for="nom">Nom et prénom</label><input id="nom" name="nom" autocomplete="name" required></div>
+        <div class="f"><label for="tel">Téléphone</label><input id="tel" name="tel" type="tel" autocomplete="tel" inputmode="tel" required pattern="[0-9 +().-]{10,}"></div>
+        <div class="f full"><label for="email">Email <i>(facultatif)</i></label><input id="email" name="email" type="email" autocomplete="email"></div>
+        <div class="f"><label for="presta">Prestation</label>
+          <select id="presta" name="presta" required>
+            <option value="">Choisir…</option>
+            <option>Coupe femme</option><option>Coupe homme</option><option>Coupe enfant</option>
+            <option>Brushing</option><option>Coloration</option><option>Mèches et balayage</option><option>Autre</option>
+          </select></div>
+        <div class="f"><label for="date">Date souhaitée</label><input id="date" name="date" type="date"></div>
+        <div class="f full"><label for="msg">Message <i>(facultatif)</i></label><textarea id="msg" name="msg" placeholder="Longueur des cheveux, couleur actuelle, créneau préféré…"></textarea></div>
+        <label class="consent"><input type="checkbox" required> J’accepte que Studio Shine utilise ces informations pour me recontacter au sujet de ma demande.</label>
+        <button class="btn btn-primary" type="submit">Envoyer ma demande</button>
+        <div class="sent" id="sent" role="status" aria-live="polite">
+          <strong id="sent-title">Votre demande est prête.</strong>
+          <p id="sent-text">Envoyez-la au salon par SMS, ou appelez directement Jade.</p>
+          <div class="btns"><a class="btn btn-primary" id="sms" href="sms:+33745043629">Envoyer par SMS</a><a class="btn btn-ghost" href="tel:+33745043629">Appeler le salon</a></div>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><a class="brand" href="#top"><b>Studio Shine</b><small>COIFFURE</small></a><p style="margin-top:14px">Salon de coiffure de Jade Toin à Trets.</p></div>
+    <div><h3>Adresse</h3><p>255, route de Saint-Maximin<br>13530 Trets<br><a class="link" href="tel:+33745043629">07 45 04 36 29</a></p></div>
+    <div><h3>Suivre le salon</h3><p id="social"><a class="link" href="https://www.facebook.com/search/top?q=Studio%20Shine%20Coiffure" target="_blank" rel="noopener">Facebook : Studio Shine Coiffure</a></p></div>
+    <p class="copy">© <span id="y"></span> Studio Shine Coiffure · Trets</p>
+  </div>
+</footer>
+
+<div class="mbar">
+  <a class="btn btn-primary" href="#contact">Prendre rendez-vous</a>
+  <a class="btn btn-ghost call" href="tel:+33745043629" aria-label="Appeler le salon"><svg><use href="#i-phone"/></svg></a>
+</div>
+
+<script>
+/* ==========================================================
+   CONTACTS À COMPLÉTER — remplir entre les guillemets, puis enregistrer.
+   Un champ vide n'apparaît pas sur le site.
+   ========================================================== */
+const CONTACT = {
+  email: "",            // ex : "contact@studioshine-coiffure.fr"
+  instagram: "",        // ex : "studioshine.coiffure" (sans @)
+  facebookUrl: "",      // lien exact de la page Facebook (sinon : recherche Facebook)
+  formEndpoint: ""      // optionnel : URL Formspree/Getform pour recevoir les demandes par email
+};
+
+const $ = s => document.querySelector(s);
+$('#y').textContent = new Date().getFullYear();
+
+// Contacts optionnels
+const channels = $('#channels'), social = $('#social');
+if (CONTACT.facebookUrl) document.querySelectorAll('a[href*="facebook.com/search"]').forEach(a => a.href = CONTACT.facebookUrl);
+if (CONTACT.instagram) {
+  const url = 'https://www.instagram.com/' + CONTACT.instagram.replace('@','') + '/';
+  channels.insertAdjacentHTML('beforeend', `<a class="ch" href="${url}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><defs><radialGradient id="ig" cx="30%" cy="107%" r="150%"><stop offset="0" stop-color="#fdf497"/><stop offset=".45" stop-color="#fd5949"/><stop offset=".6" stop-color="#d6249f"/><stop offset=".9" stop-color="#285AEB"/></radialGradient></defs><rect width="24" height="24" rx="6" fill="url(#ig)"/><rect x="5" y="5" width="14" height="14" rx="4" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12" r="3.2" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="16.3" cy="7.7" r=".9" fill="#fff"/></svg><div><span>Instagram</span><strong>@${CONTACT.instagram.replace('@','')}</strong></div></a>`);
+  social.insertAdjacentHTML('beforeend', `<br><a class="link" href="${url}" target="_blank" rel="noopener">Instagram : @${CONTACT.instagram.replace('@','')}</a>`);
+}
+if (CONTACT.email) {
+  channels.insertAdjacentHTML('beforeend', `<a class="ch" href="mailto:${CONTACT.email}"><svg viewBox="0 0 24 24" style="color:var(--sage-700)"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M3 6h18v12H3z M3 6l9 7 9-7"/></svg><div><span>Email</span><strong>${CONTACT.email}</strong></div></a>`);
+}
+
+// Photos : on n'affiche le cadre décoratif que si la photo n'existe pas encore
+document.querySelectorAll('.ph img, .portrait img').forEach(img => {
+  const ok = () => img.closest('.ph')?.classList.add('has-img');
+  const ko = () => img.remove();
+  if (img.complete) (img.naturalWidth ? ok() : ko()); else { img.addEventListener('load', ok); img.addEventListener('error', ko); }
+});
+
+// Feuilles en orbite (3D)
+const orbit = $('#orbit');
+for (let i = 0; i < 6; i++) {
+  const a = i * 60, r = 46;
+  const x = 50 + r * Math.cos(a * Math.PI / 180), y = 50 + r * Math.sin(a * Math.PI / 180);
+  const el = document.createElement('div');
+  el.className = 'leaf3d';
+  el.style.left = x + '%'; el.style.top = y + '%';
+  el.style.transform = `rotateZ(${a + 90}deg) scale(${i % 2 ? .75 : 1})`;
+  el.innerHTML = '<svg><use href="#i-leaf"/></svg>';
+  orbit.appendChild(el);
+}
+for (let i = 0; i < 8; i++) {
+  const s = document.createElement('i'); s.className = 'spark';
+  const a = Math.random() * 360, r = 40 + Math.random() * 10;
+  s.style.left = (50 + r * Math.cos(a)) + '%'; s.style.top = (50 + r * Math.sin(a)) + '%';
+  s.style.transform = `scale(${.4 + Math.random() * .8})`;
+  orbit.appendChild(s);
+}
+const stage = $('#stage'), pause = $('#pause');
+pause.addEventListener('click', () => {
+  const p = stage.classList.toggle('paused');
+  pause.innerHTML = `<svg><use href="#i-${p ? 'play' : 'pause'}"/></svg>`;
+  pause.setAttribute('aria-label', p ? "Relancer l'animation" : "Mettre l'animation en pause");
+});
+
+// Header + menu mobile
+const nav = $('#nav'), burger = $('#burger'), menu = $('#menu');
+const onScroll = () => nav.classList.toggle('scrolled', scrollY > 20);
+addEventListener('scroll', onScroll, { passive: true }); onScroll();
+burger.addEventListener('click', () => {
+  const o = menu.classList.toggle('open'); burger.classList.toggle('open', o);
+  burger.setAttribute('aria-expanded', o); document.body.style.overflow = o ? 'hidden' : '';
+});
+menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { menu.classList.remove('open'); burger.classList.remove('open'); burger.setAttribute('aria-expanded', false); document.body.style.overflow = ''; }));
+
+// Jour courant dans les horaires
+const today = document.querySelector(`#hours li[data-d="${new Date().getDay()}"]`);
+if (today && !today.classList.contains('off')) today.classList.add('today');
+
+// Date minimale = aujourd'hui
+$('#date').min = new Date().toISOString().slice(0, 10);
+
+// Formulaire
+$('#rdv').addEventListener('submit', async e => {
+  e.preventDefault();
+  const f = e.target;
+  if (!f.checkValidity()) { f.reportValidity(); return; }
+  const d = Object.fromEntries(new FormData(f));
+  const dateTxt = d.date ? new Date(d.date + 'T12:00').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' }) : 'à convenir';
+  const body = `Bonjour Jade, demande de rendez-vous :\n${d.presta} – ${dateTxt}\n${d.nom} – ${d.tel}${d.email ? ' – ' + d.email : ''}${d.msg ? '\n' + d.msg : ''}`;
+  const sent = $('#sent');
+  if (CONTACT.formEndpoint) {
+    try {
+      const r = await fetch(CONTACT.formEndpoint, { method: 'POST', headers: { Accept: 'application/json' }, body: new FormData(f) });
+      if (!r.ok) throw 0;
+      $('#sent-title').textContent = 'Merci, votre demande est envoyée.';
+      $('#sent-text').textContent = 'Jade vous recontacte rapidement pour confirmer l’horaire.';
+      sent.querySelector('#sms').style.display = 'none';
+      sent.classList.add('show'); f.reset(); return;
+    } catch { /* repli SMS ci-dessous */ }
+  }
+  if (CONTACT.email) {
+    location.href = `mailto:${CONTACT.email}?subject=${encodeURIComponent('Rendez-vous – ' + d.presta)}&body=${encodeURIComponent(body)}`;
+  }
+  $('#sms').href = `sms:+33745043629${/iPhone|iPad/.test(navigator.userAgent) ? '&' : '?'}body=${encodeURIComponent(body)}`;
+  sent.classList.add('show');
+  sent.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+});
+</script>
+</body>
+</html>
