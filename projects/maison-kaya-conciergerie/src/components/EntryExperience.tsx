@@ -119,9 +119,9 @@ export default function EntryExperience() {
       scene.environment = env;
       const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
       camera.position.set(0, 0, 10);
-      const sun = new THREE.DirectionalLight(0xfff1dc, 1.6);
+      const sun = new THREE.DirectionalLight(0xffffff, 1.6);
       sun.position.set(-4, 6, 8);
-      scene.add(sun, new THREE.AmbientLight(0xffe8cc, 0.35));
+      scene.add(sun, new THREE.AmbientLight(0xfbfaf5, 0.45));
 
       const visibleH = 2 * 10 * Math.tan(THREE.MathUtils.degToRad(35 / 2));
       let W = 1,
@@ -130,9 +130,9 @@ export default function EntryExperience() {
 
       const keys = KEYS.map((k, i) => {
         const mat = new THREE.MeshStandardMaterial({
-          color: k.main ? 0xd4ad6a : i % 2 ? 0xb89a72 : 0xa88d6c,
-          metalness: 1,
-          roughness: k.main ? 0.22 : 0.34,
+          color: k.main ? 0x22221e : i % 2 ? 0x34332f : 0x2c2b28,
+          metalness: 0.85,
+          roughness: k.main ? 0.24 : 0.34,
         });
         const key = lib.createKey(mat);
         key.rotation.z = -Math.PI / 2; // anneau en haut
@@ -271,7 +271,7 @@ export default function EntryExperience() {
           const hv = hoverIdx === i ? 1 : 0;
           k.hover += (hv - k.hover) * 0.12;
           k.pivot.scale.setScalar(k.scale * (1 + k.hover * 0.08));
-          k.mat.emissive.setRGB(0.12 * k.hover, 0.08 * k.hover, 0.02 * k.hover);
+          k.mat.emissive.setRGB(0.07 * k.hover, 0.07 * k.hover, 0.065 * k.hover);
         });
         if (flight) {
           const f = flight;
@@ -360,7 +360,8 @@ export default function EntryExperience() {
               <div className="entry__panel entry__panel--top" />
               <div className="entry__panel entry__panel--bottom" />
               <div className="entry__plaque">
-                <span>MK</span>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/brand/logo-badge.png" alt="" />
               </div>
               <div className="entry__handle" />
               <div ref={keyholeRef} className="entry__keyhole" />
@@ -404,6 +405,8 @@ export default function EntryExperience() {
       </nav>
 
       <header className="entry__intro">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img className="entry__logo" src="/brand/logo-ink-dark.png" alt="Maison Kaya Conciergerie" width={96} height={96} />
         <p className="entry__brand">Maison Kaya</p>
         <p className="entry__kicker">Conciergerie · Val-de-Marne</p>
         <h2 className="entry__title">Le soin du détail, la sérénité en plus.</h2>

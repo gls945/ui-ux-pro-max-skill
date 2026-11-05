@@ -1,10 +1,16 @@
 import * as THREE from "three";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 
-/** Matériau laiton chaud, utilisé pour la clé et les accents. */
-export function brassMaterial() {
-  return new THREE.MeshStandardMaterial({ color: 0xc9a46a, metalness: 1, roughness: 0.28 });
+/** Métal encre / anthracite satiné — reprend l'encre du logo Maison Kaya. */
+export function inkMaterial() {
+  return new THREE.MeshStandardMaterial({ color: 0x2a2926, metalness: 0.85, roughness: 0.32 });
 }
+/** Nickel ivoire satiné — reprend le fond ivoire du logo (pour les fonds sombres). */
+export function ivoryMetalMaterial() {
+  return new THREE.MeshStandardMaterial({ color: 0xf1eee6, metalness: 1, roughness: 0.26 });
+}
+/** @deprecated conservé pour compatibilité */
+export const brassMaterial = inkMaterial;
 
 /** Renderer + environnement de lumière doux (reflets réalistes sur le métal). */
 export function createRenderer(canvas: HTMLCanvasElement) {
@@ -24,7 +30,7 @@ export function createRenderer(canvas: HTMLCanvasElement) {
  * Axe de la tige = +X ; l'anneau (anneau ornemental) est à gauche, le panneton à droite.
  * Renvoie un groupe dont l'origine est au centre de la tige.
  */
-export function createKey(material = brassMaterial()) {
+export function createKey(material = inkMaterial()) {
   const key = new THREE.Group();
 
   // Anneau (tête) avec motif intérieur en quadrilobe
@@ -76,10 +82,10 @@ export function createKey(material = brassMaterial()) {
 /** Sculpture architecturale abstraite : arches, sphères et dalles aux tons sable. */
 export function createSculpture() {
   const g = new THREE.Group();
-  const stone = new THREE.MeshStandardMaterial({ color: 0xe8dcc8, roughness: 0.85, metalness: 0 });
-  const sand = new THREE.MeshStandardMaterial({ color: 0xd8c6ad, roughness: 0.9 });
-  const taupe = new THREE.MeshStandardMaterial({ color: 0x89796a, roughness: 0.7 });
-  const brass = brassMaterial();
+  const stone = new THREE.MeshStandardMaterial({ color: 0xf7f5ef, roughness: 0.85, metalness: 0 });
+  const sand = new THREE.MeshStandardMaterial({ color: 0xe4ded3, roughness: 0.9 });
+  const taupe = new THREE.MeshStandardMaterial({ color: 0x2a2926, roughness: 0.35, metalness: 0.2 });
+  const brass = inkMaterial();
 
   // Arche (porte stylisée)
   const archShape = new THREE.Shape();

@@ -14,7 +14,7 @@ export default function ZoneMap() {
           </title>
           <defs>
             <pattern id="grid" width="5" height="5" patternUnits="userSpaceOnUse">
-              <path d="M5 0H0V5" fill="none" stroke="#89796A" strokeWidth=".08" opacity=".5" />
+              <path d="M5 0H0V5" fill="none" stroke="#2A2926" strokeWidth=".08" opacity=".5" />
             </pattern>
           </defs>
           <rect width="100" height="80" fill="url(#grid)" />

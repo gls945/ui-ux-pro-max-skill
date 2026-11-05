@@ -61,7 +61,7 @@ Les textes propres à une page sont dans `src/app/<page>/page.tsx`. Le logo prov
 
 ## À fournir / vérifier avant publication
 
-- [ ] Logo officiel.
+- [ ] Fichier source HD du logo (version actuelle extraite d'une capture).
 - [ ] Photos de l'entreprise (les photos actuelles sont des illustrations Unsplash, signalées comme telles).
 - [ ] Lien Calendly officiel.
 - [ ] Informations juridiques (marquées « À compléter » dans les mentions légales et la politique de confidentialité).

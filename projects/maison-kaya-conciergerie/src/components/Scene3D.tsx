@@ -39,16 +39,16 @@ export default function Scene3D({ variant, className }: Props) {
       scene.environment = env;
       const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 100);
       camera.position.set(0, 0, variant === "key" ? 9 : 10.5);
-      const light = new THREE.DirectionalLight(0xfff0d8, 2);
+      const light = new THREE.DirectionalLight(0xffffff, 2);
       light.position.set(-3, 5, 6);
       light.castShadow = false;
-      scene.add(light, new THREE.AmbientLight(0xfff3e2, 0.5));
+      scene.add(light, new THREE.AmbientLight(0xfbfaf5, 0.5));
 
       const root = new THREE.Group();
       scene.add(root);
       let extra: { ring?: import("three").Object3D; small?: import("three").Object3D; sphere?: import("three").Object3D } = {};
       if (variant === "key") {
-        const key = lib.createKey();
+        const key = lib.createKey(lib.ivoryMetalMaterial());
         key.rotation.set(0.35, -0.5, 0.45);
         root.add(key);
       } else {
