@@ -1,10 +1,11 @@
 # Photos du site Studio Shine
 
-Déposez vos photos dans ce dossier avec exactement ces noms :
+Photos en place (issues du compte Instagram du salon) :
 
-- `salon.jpg` : la grande photo du salon, affichée dans le miroir doré en haut de page (format vertical)
-- `realisation-1.jpg` à `realisation-8.jpg` : vos réalisations
-- `jade.jpg` et `fabienne.jpg` : vos portraits (format vertical 3:4)
+- `salon.jpg` : grande photo dans le miroir doré du haut de page (balayage blond cendré)
+- `coupe-femme.jpg`, `brushing.jpg`, `coloration.jpg`, `balayage.jpg` : cartes des prestations
+- `*-full.jpg` : versions grand format, affichées quand on clique sur une photo
 
-Tant qu'une photo manque, le site affiche un cadre vert sauge à sa place.
-Conseil : photos de 1600 px de large maximum, compressées (squoosh.app).
+À ajouter : `jade.jpg` et `fabienne.jpg` (portraits, format vertical 3:4).
+Pour remplacer une photo, gardez exactement le même nom de fichier.
+Conseil : 1600 px de large maximum, compressée (squoosh.app).

@@ -139,9 +139,10 @@
     viewH = 2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * camera.position.z;
     viewW = viewH * camera.aspect;
     const hr = hero.getBoundingClientRect(), mr = mirror.getBoundingClientRect();
-    const cx = (mr.left + mr.width / 2 - hr.left) / w, cy = (mr.top + mr.height * 0.48 - hr.top) / h;
+    // Les ciseaux débordent du coin bas-droit du miroir, sans cacher la photo
+    const cx = (mr.right - mr.width * 0.06 - hr.left) / w, cy = (mr.top + mr.height * 0.72 - hr.top) / h;
     anchor.set((cx - 0.5) * viewW, (0.5 - cy) * viewH, 0);
-    baseScale = (mr.height / h) * viewH * 0.78 / 4.4;
+    baseScale = (mr.height / h) * viewH * 0.5 / 4.4;
   }
   layout();
   addEventListener('resize', layout);

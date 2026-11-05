@@ -151,7 +151,7 @@ html:not(.gl) .pause{display:none}
 .btns{display:flex;gap:14px;flex-wrap:wrap}
 
 /* prestations */
-.services{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.services{display:grid;gap:20px}
 .card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:30px 28px;transition:transform .25s var(--ease),box-shadow .25s,border-color .25s}
 .card:hover{transform:translateY(-2px);box-shadow:0 18px 40px -24px rgba(46,58,41,.45);border-color:var(--sage-300)}
 .card .ico{width:52px;height:52px;border-radius:50%;background:var(--sage-50);display:grid;place-items:center;color:var(--sage-700);margin-bottom:22px}
@@ -159,17 +159,40 @@ html:not(.gl) .pause{display:none}
 .card p{color:var(--muted);margin-top:8px;font-size:16px}
 .services-foot{margin-top:36px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;color:var(--muted)}
 
-/* réalisations */
-.gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:clamp(180px,20vw,280px);gap:16px}
-.ph{position:relative;overflow:hidden;border-radius:var(--r-sm);background:var(--sage-100)}
-.ph:nth-child(1){grid-column:span 2;grid-row:span 2}
-.ph:nth-child(6){grid-column:span 2}
-.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
-.ph:hover img{transform:scale(1.03)}
-.ph .fb{position:absolute;inset:0;display:grid;place-items:center;transition:transform .5s var(--ease)}
-.ph:hover .fb{transform:scale(1.03)}
-.ph .fb svg{width:38%;max-width:140px;color:rgba(255,255,255,.75)}
-.ph.has-img .fb{display:none}
+/* réalisations : cartes photo 3D + lightbox */
+.works{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,2vw,24px);perspective:1000px}
+.work h3{margin-top:18px}
+.work p{color:var(--muted);font-size:15.5px;margin-top:6px}
+.work-img{position:relative;display:block;width:100%;aspect-ratio:4/5;padding:0;border:0;border-radius:var(--r-md);overflow:hidden;cursor:zoom-in;background:var(--sage-100);
+  transform-style:preserve-3d;transition:transform .45s var(--ease),box-shadow .45s var(--ease);will-change:transform}
+.work-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
+.work-img::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--gx,50%) var(--gy,0%),rgba(255,255,255,.38),rgba(255,255,255,0) 55%);opacity:0;transition:opacity .35s;pointer-events:none}
+.work-img:hover{box-shadow:0 34px 60px -28px rgba(46,58,41,.6)}
+.work-img:hover img{transform:scale(1.07)}
+.work-img:hover::after{opacity:1}
+.work-img:focus-visible{outline:3px solid var(--gold);outline-offset:4px}
+.zoom{position:absolute;right:12px;bottom:12px;width:42px;height:42px;border-radius:50%;background:rgba(255,253,248,.94);color:var(--forest);display:grid;place-items:center;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s var(--ease)}
+.zoom svg{width:20px;height:20px}
+.work-img:hover .zoom,.work-img:focus-visible .zoom{opacity:1;transform:translateY(0)}
+@media (hover:none){.zoom{opacity:1;transform:none}}
+.services-2{grid-template-columns:1fr 1fr;margin-top:28px}
+.services-2 .card{display:flex;gap:20px;align-items:center;padding:22px 24px}
+.services-2 .card .ico{margin:0;flex:none}
+.mirror{cursor:zoom-in}
+.lb{border:0;padding:0;margin:auto;background:transparent;max-width:min(92vw,1100px);max-height:92vh;overflow:visible;color:#fff}
+.lb::backdrop{background:rgba(26,33,23,.88);backdrop-filter:blur(6px)}
+.lb[open] .lb-fig{animation:lbIn .5s var(--ease)}
+@keyframes lbIn{from{opacity:0;transform:perspective(1000px) rotateY(-14deg) scale(.92)}to{opacity:1;transform:none}}
+.lb-fig{display:grid;grid-template-columns:auto 280px;gap:28px;align-items:end;margin:0}
+.lb-fig img{max-height:84vh;max-width:min(62vw,720px);width:auto;border-radius:var(--r-md);box-shadow:0 40px 80px -30px rgba(0,0,0,.6)}
+.lb-fig h3{color:#fff;font-size:32px}
+.lb-fig p{color:var(--sage-100);margin:10px 0 18px}
+.lb-count{color:var(--gold-soft);font-size:14px;letter-spacing:.08em}
+.lb-nav{display:flex;gap:10px}
+.lb-btn{width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#fff;cursor:pointer;display:grid;place-items:center;transition:background .2s,transform .2s}
+.lb-btn:hover{background:rgba(255,255,255,.2);transform:translateY(-2px)}
+.lb-btn svg{width:20px;height:20px}
+.lb-close{position:fixed;top:18px;right:18px}
 .fb.g1{background:linear-gradient(140deg,#8C9C7A,#55654A)}
 .fb.g2{background:linear-gradient(160deg,#C9D2BC,#8C9C7A)}
 .fb.g3{background:linear-gradient(120deg,#D9BE8C,#A9B696)}
@@ -211,9 +234,7 @@ footer a{text-decoration:none}
 .mbar{display:none}
 
 @media (max-width:1024px){
-  .services{grid-template-columns:repeat(2,1fr)}
-  .gallery{grid-template-columns:repeat(3,1fr)}
-  .ph:nth-child(6){grid-column:auto}
+  .works{grid-template-columns:repeat(2,1fr)}
 }
 @media (max-width:860px){
   .menu{position:fixed;inset:0;background:var(--cream);flex-direction:column;justify-content:center;gap:28px;font-size:22px;opacity:0;pointer-events:none;transition:opacity .3s}
@@ -233,9 +254,11 @@ footer a{text-decoration:none}
   .mbar .btn{flex:1;min-height:48px}
 }
 @media (max-width:560px){
-  .services{grid-template-columns:1fr}
-  .gallery{grid-template-columns:repeat(2,1fr);grid-auto-rows:170px}
-  .ph:nth-child(1){grid-column:span 2}
+  .services-2{grid-template-columns:1fr}
+  .work p{font-size:14.5px}
+  .lb-fig{grid-template-columns:1fr;gap:14px;padding:0 16px}
+  .lb-fig img{max-width:100%;max-height:68vh;justify-self:center}
+  .lb-fig h3{font-size:26px}
   .hero .actions .btn{width:100%}
   .hero .tel{width:100%;justify-content:center}
   .member{grid-template-columns:1fr}
@@ -275,7 +298,6 @@ footer a{text-decoration:none}
     <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
     <ul class="menu" id="menu">
       <li><a class="link" href="#prestations">Prestations</a></li>
-      <li><a class="link" href="#realisations">Réalisations</a></li>
       <li><a class="link" href="#equipe">L’équipe</a></li>
       <li><a class="link" href="#venir">Accès</a></li>
       <li><a class="btn btn-primary" href="#contact">Réserver par téléphone</a></li>
@@ -302,11 +324,11 @@ footer a{text-decoration:none}
           <div><strong>Mardi au samedi</strong>sur rendez-vous</div>
         </div>
       </div>
-      <div class="mirror">
+      <div class="mirror" data-lb="4" role="button" tabindex="0" aria-label="Agrandir la photo du salon">
         <div class="mirror-in">
           <svg class="mirror-fallback" aria-hidden="true"><use href="#i-scissors"/></svg>
           <!-- Grande photo du salon : déposer images/salon.jpg (format vertical) -->
-          <img src="images/salon.jpg" alt="L'intérieur du salon Studio Shine à Trets" fetchpriority="high">
+          <img src="images/salon.jpg" alt="Balayage blond cendré au salon Studio Shine, devant les miroirs dorés" fetchpriority="high">
         </div>
       </div>
     </div>
@@ -363,49 +385,42 @@ footer a{text-decoration:none}
     </div>
   </section>
 
-  <!-- PRESTATIONS -->
+  <!-- PRESTATIONS + RÉALISATIONS -->
   <section id="prestations">
     <div class="wrap">
       <div class="head">
         <h2>Les prestations du salon</h2>
-        <p class="lead">Coupe, couleur ou coiffage : Jade et Fabienne prennent le temps d’un diagnostic avant chaque prestation, pour un résultat adapté à vos cheveux.</p>
+        <p class="lead">Chaque photo est une réalisation du salon. Jade et Fabienne font un diagnostic avant chaque prestation. Touchez une photo pour l’agrandir.</p>
       </div>
-      <div class="services">
-        <article class="card"><div class="ico"><svg><use href="#i-scissors"/></svg></div><h3>Coupe femme</h3><p>Shampoing, coupe et coiffage, des cheveux courts aux longueurs.</p></article>
-        <article class="card"><div class="ico"><svg><use href="#i-scissors"/></svg></div><h3>Coupe homme</h3><p>Coupe aux ciseaux ou à la tondeuse, dégradé et finitions.</p></article>
-        <article class="card"><div class="ico"><svg><use href="#i-scissors"/></svg></div><h3>Coupe enfant</h3><p>Une coupe rapide et douce pour les plus petits comme pour les ados.</p></article>
-        <article class="card"><div class="ico"><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" d="M4 7c4-3 12-3 16 0M4 12c4-3 12-3 16 0M4 17c4-3 12-3 16 0"/></svg></div><h3>Brushing</h3><p>Lisse, wavy ou volume, pour tous les jours ou un événement.</p></article>
-        <article class="card"><div class="ico"><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg></div><h3>Coloration</h3><p>Couleur complète, racines ou ton sur ton, choisie avec vous.</p></article>
-        <article class="card"><div class="ico"><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" d="M6 21C8 14 8 8 6 3M12 21c2-7 2-13 0-18M18 21c2-7 2-13 0-18"/></svg></div><h3>Mèches et balayage</h3><p>Éclaircissement localisé pour apporter lumière et relief.</p></article>
+      <div class="works">
+        <article class="work">
+          <button class="work-img" type="button" data-lb="0" aria-label="Agrandir la photo : Coupe femme"><img src="images/coupe-femme.jpg" alt="Carré plongeant méché réalisé au salon Studio Shine" width="900" height="1125" loading="lazy" style="object-position:50% 40%"><span class="zoom" aria-hidden="true"><svg viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5M11 8v6M8 11h6"/></g></svg></span></button>
+          <h3>Coupe femme</h3>
+          <p>Shampoing, coupe et coiffage, du carré court aux longueurs. Ici, un carré plongeant à nuque courte.</p>
+        </article>
+        <article class="work">
+          <button class="work-img" type="button" data-lb="1" aria-label="Agrandir la photo : Brushing"><img src="images/brushing.jpg" alt="Brushing volume sur cheveux bruns au salon Studio Shine" width="900" height="1125" loading="lazy" style="object-position:50% 40%"><span class="zoom" aria-hidden="true"><svg viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5M11 8v6M8 11h6"/></g></svg></span></button>
+          <h3>Brushing</h3>
+          <p>Lisse, wavy ou volume, pour tous les jours ou un événement. Ici, un brushing volume sur cheveux bruns.</p>
+        </article>
+        <article class="work">
+          <button class="work-img" type="button" data-lb="2" aria-label="Agrandir la photo : Coloration"><img src="images/coloration.jpg" alt="Coloration rose fuchsia réalisée au salon Studio Shine" width="900" height="1125" loading="lazy" style="object-position:50% 30%"><span class="zoom" aria-hidden="true"><svg viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5M11 8v6M8 11h6"/></g></svg></span></button>
+          <h3>Coloration</h3>
+          <p>Couleur complète, racines ou ton sur ton, jusqu’aux teintes vives. Ici, un rose fuchsia.</p>
+        </article>
+        <article class="work">
+          <button class="work-img" type="button" data-lb="3" aria-label="Agrandir la photo : Mèches et balayage"><img src="images/balayage.jpg" alt="Balayage caramel sur cheveux ondulés, réalisé au salon Studio Shine" width="900" height="1125" loading="lazy" style="object-position:50% 40%"><span class="zoom" aria-hidden="true"><svg viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5M11 8v6M8 11h6"/></g></svg></span></button>
+          <h3>Mèches et balayage</h3>
+          <p>Éclaircissement localisé pour apporter lumière et relief. Ici, un balayage caramel.</p>
+        </article>
+      </div>
+      <div class="services services-2">
+        <article class="card"><div class="ico"><svg><use href="#i-scissors"/></svg></div><div><h3>Coupe homme</h3><p>Coupe aux ciseaux ou à la tondeuse, dégradé et finitions.</p></div></article>
+        <article class="card"><div class="ico"><svg><use href="#i-scissors"/></svg></div><div><h3>Coupe enfant</h3><p>Une coupe rapide et douce, des plus petits aux ados.</p></div></article>
       </div>
       <div class="services-foot">
-        <p>Tarifs communiqués au salon ou par téléphone, selon la longueur des cheveux.</p>
+        <p>Tarifs communiqués au salon ou par téléphone. Nouvelles réalisations sur <a class="link" href="https://www.instagram.com/studio_shine13530/" target="_blank" rel="noopener">@studio_shine13530</a>.</p>
         <a class="btn btn-ghost" href="#contact">Réserver par téléphone</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- RÉALISATIONS -->
-  <section id="realisations" style="padding-top:0">
-    <div class="wrap">
-      <div class="head">
-        <h2>Les réalisations du salon</h2>
-        <p class="lead">Coupes, couleurs et coiffages réalisés au salon. Retrouvez les dernières sur Instagram, <a class="link" href="https://www.instagram.com/studio_shine13530/" target="_blank" rel="noopener">@studio_shine13530</a>.</p>
-      </div>
-      <div class="gallery" id="gallery">
-        <!-- Déposer les photos dans le dossier images/ : realisation-1.jpg à realisation-8.jpg -->
-        <figure class="ph"><div class="fb g1"><svg><use href="#i-leaf"/></svg></div><img src="images/realisation-1.jpg" alt="Réalisation Studio Shine : coupe et coiffage" loading="lazy"></figure>
-        <figure class="ph"><div class="fb g2"><svg><use href="#i-scissors"/></svg></div><img src="images/realisation-2.jpg" alt="Réalisation Studio Shine : coloration" loading="lazy"></figure>
-        <figure class="ph"><div class="fb g3"><svg><use href="#i-leaf"/></svg></div><img src="images/realisation-3.jpg" alt="Réalisation Studio Shine : mèches" loading="lazy"></figure>
-        <figure class="ph"><div class="fb g4"><svg><use href="#i-scissors"/></svg></div><img src="images/realisation-4.jpg" alt="Réalisation Studio Shine : coupe homme" loading="lazy"></figure>
-        <figure class="ph"><div class="fb g5"><svg><use href="#i-leaf"/></svg></div><img src="images/realisation-5.jpg" alt="Réalisation Studio Shine : brushing" loading="lazy"></figure>
-        <figure class="ph"><div class="fb g6"><svg><use href="#i-leaf"/></svg></div><img src="images/realisation-6.jpg" alt="Le salon Studio Shine à Trets" loading="lazy"></figure>
-        <figure class="ph"><div class="fb g2"><svg><use href="#i-scissors"/></svg></div><img src="images/realisation-7.jpg" alt="Réalisation Studio Shine : coupe enfant" loading="lazy"></figure>
-        <figure class="ph"><div class="fb g1"><svg><use href="#i-leaf"/></svg></div><img src="images/realisation-8.jpg" alt="Réalisation Studio Shine : balayage" loading="lazy"></figure>
-      </div>
-      <div class="services-foot">
-        <p>Nouvelles coupes et couleurs publiées chaque semaine sur le compte du salon.</p>
-        <a class="btn btn-ghost" href="https://www.instagram.com/studio_shine13530/" target="_blank" rel="noopener">Voir le compte Instagram</a>
       </div>
     </div>
   </section>
@@ -486,6 +501,22 @@ footer a{text-decoration:none}
   </div>
 </footer>
 
+<dialog class="lb" id="lb" aria-label="Photo agrandie">
+  <button class="lb-btn lb-close" id="lb-close" aria-label="Fermer"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+  <figure class="lb-fig">
+    <img id="lb-img" src="" alt="">
+    <div>
+      <p class="lb-count" id="lb-count"></p>
+      <h3 id="lb-title"></h3>
+      <p id="lb-text"></p>
+      <div class="lb-nav">
+        <button class="lb-btn" id="lb-prev" aria-label="Photo précédente"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="lb-btn" id="lb-next" aria-label="Photo suivante"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+    </div>
+  </figure>
+</dialog>
+
 <div class="mbar">
   <a class="btn btn-primary" href="tel:+33745043629"><svg aria-hidden="true"><use href="#i-phone"/></svg>Appeler le salon · 07 45 04 36 29</a>
 </div>
@@ -517,8 +548,8 @@ if (CONTACT.email) {
 }
 
 // Photos : on n'affiche le cadre décoratif que si la photo n'existe pas encore
-document.querySelectorAll('.ph img, .portrait img, .mirror-in img').forEach(img => {
-  const ok = () => img.closest('.ph')?.classList.add('has-img');
+document.querySelectorAll('.portrait img, .mirror-in img').forEach(img => {
+  const ok = () => {};
   const ko = () => img.remove();
   if (img.complete) (img.naturalWidth ? ok() : ko()); else { img.addEventListener('load', ok); img.addEventListener('error', ko); }
 });
@@ -531,6 +562,46 @@ if (document.documentElement.classList.contains('intro-on')) {
   const tOpen = setTimeout(openIntro, 1450);
   intro.addEventListener('click', () => { clearTimeout(tOpen); openIntro(); }, { once: true });
 } else intro.remove();
+
+// Réalisations : inclinaison 3D au survol + agrandissement au clic
+const PHOTOS = [
+  { src: 'images/coupe-femme-full.jpg', title: 'Coupe femme', text: 'Carré plongeant à nuque courte, avec mèches.' },
+  { src: 'images/brushing-full.jpg', title: 'Brushing', text: 'Brushing volume sur cheveux bruns.' },
+  { src: 'images/coloration-full.jpg', title: 'Coloration', text: 'Coloration rose fuchsia, mise en forme ondulée.' },
+  { src: 'images/balayage-full.jpg', title: 'Mèches et balayage', text: 'Balayage caramel sur cheveux ondulés.' },
+  { src: 'images/salon.jpg', title: 'Balayage blond cendré', text: 'Carré lisse au salon, devant les miroirs dorés.' }
+];
+const fine = matchMedia('(hover: hover) and (pointer: fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (fine) document.querySelectorAll('.work-img').forEach(el => {
+  el.addEventListener('pointermove', e => {
+    const r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+    el.style.transform = `rotateY(${(x - .5) * 14}deg) rotateX(${(.5 - y) * 12}deg) translateZ(18px)`;
+    el.style.setProperty('--gx', x * 100 + '%'); el.style.setProperty('--gy', y * 100 + '%');
+  });
+  el.addEventListener('pointerleave', () => { el.style.transform = ''; });
+});
+const lb = $('#lb'); let cur = 0;
+function show(i) {
+  cur = (i + PHOTOS.length) % PHOTOS.length;
+  const ph = PHOTOS[cur];
+  $('#lb-img').src = ph.src; $('#lb-img').alt = ph.title + ' – ' + ph.text;
+  $('#lb-title').textContent = ph.title; $('#lb-text').textContent = ph.text;
+  $('#lb-count').textContent = `${cur + 1} / ${PHOTOS.length}`;
+  const f = lb.querySelector('.lb-fig'); f.style.animation = 'none'; f.offsetWidth; f.style.animation = '';
+}
+document.querySelectorAll('[data-lb]').forEach(el => {
+  const open = () => { show(+el.dataset.lb); if (!lb.open) lb.showModal(); };
+  el.addEventListener('click', open);
+  el.addEventListener('keydown', e => { if (el.tagName !== 'BUTTON' && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); open(); } });
+});
+$('#lb-prev').onclick = () => show(cur - 1);
+$('#lb-next').onclick = () => show(cur + 1);
+$('#lb-close').onclick = () => lb.close();
+lb.addEventListener('click', e => { if (e.target === lb) lb.close(); });
+lb.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') show(cur - 1); if (e.key === 'ArrowRight') show(cur + 1); });
+let tx = 0;
+lb.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+lb.addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 50) show(cur + (dx < 0 ? 1 : -1)); });
 
 // Header + menu mobile
 const nav = $('#nav'), burger = $('#burger'), menu = $('#menu');
