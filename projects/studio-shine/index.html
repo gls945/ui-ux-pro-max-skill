@@ -4,10 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Studio Shine Coiffure – Salon de coiffure à Trets</title>
-<meta name="description" content="Studio Shine Coiffure, salon de coiffure à Trets : coupes femmes, hommes et enfants, brushing, coloration et mèches. 255 route de Saint-Maximin, 13530 Trets.">
+<meta name="description" content="Studio Shine Coiffure, salon de coiffure à Trets avec Jade et Fabienne : coupes femmes, hommes et enfants, brushing, coloration et mèches. 255 route de Saint-Maximin, 13530 Trets.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Great+Vibes&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<script>
+/* Intro des ciseaux : une fois par visite, jamais si l'utilisateur réduit les animations */
+(function(){try{var d=document.documentElement;if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&!sessionStorage.getItem('ss-intro')){d.classList.add('intro-on');sessionStorage.setItem('ss-intro','1')}}catch(e){}})();
+</script>
 <style>
 :root{
   --cream:#F7F4EC; --paper:#FFFDF8; --sage-50:#EEF1E8; --sage-100:#DFE5D5; --sage-300:#AEBB9E;
@@ -59,7 +63,7 @@ h3{font-size:24px}
 
 /* hero */
 .hero{min-height:100svh;display:flex;align-items:center;padding:110px 0 60px;position:relative;overflow:hidden}
-.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;width:100%}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;width:100%}
 .hero .script{font-size:clamp(28px,3vw,40px);display:block;margin-bottom:6px}
 .hero h1{font-size:clamp(46px,6.4vw,88px);letter-spacing:-.01em}
 .hero p{font-size:19px;color:var(--muted);margin:22px 0 34px;max-width:46ch}
@@ -73,31 +77,58 @@ h3{font-size:24px}
 .leaf-corner.tl{top:-30px;left:-40px;width:260px;transform:rotate(-12deg)}
 .leaf-corner.br{bottom:-40px;right:-50px;width:300px;transform:rotate(160deg)}
 
-/* 3D medallion */
-.stage{position:relative;aspect-ratio:1;width:min(100%,520px);justify-self:center;perspective:1100px}
-.medal{position:absolute;inset:0;transform-style:preserve-3d;animation:sway 9s ease-in-out infinite}
-.disc{position:absolute;inset:14%;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--paper),var(--sage-50) 70%);
-  box-shadow:inset 0 0 0 1px rgba(184,146,90,.35);display:grid;place-items:center;transform:translateZ(0)}
-.disc .logo{text-align:center;transform:translateZ(40px)}
-.disc .logo b{display:block;font:400 clamp(44px,6vw,74px)/1 var(--script);color:var(--forest)}
-.disc .logo small{display:block;font:600 clamp(13px,1.4vw,17px)/1 var(--serif);letter-spacing:.5em;color:var(--sage-700);margin-top:8px;padding-left:.5em}
-.disc .logo svg{width:44px;height:44px;margin:14px auto 0;color:var(--sage-700)}
-.stage::before{content:"";position:absolute;left:22%;right:22%;bottom:6%;height:9%;border-radius:50%;background:rgba(46,58,41,.28);filter:blur(18px)}
-.orbit{position:absolute;inset:0;transform-style:preserve-3d}
-.orbit.o1{animation:spin 16s linear infinite;transform:rotateX(72deg)}
-.orbit.o2{animation:spin2 22s linear infinite;transform:rotateX(64deg) rotateY(20deg)}
-.ring{position:absolute;inset:4%;border-radius:50%;border:2px solid var(--gold-soft)}
-.o2 .ring{inset:10%;border-width:1.5px;border-color:var(--gold)}
-.leaf3d{position:absolute;left:50%;top:50%;width:64px;height:64px;margin:-32px;transform-style:preserve-3d;color:var(--sage-500)}
-.leaf3d svg{width:100%;height:100%;transform:rotateX(-72deg);filter:drop-shadow(0 6px 6px rgba(46,58,41,.2))}
-.spark{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--gold-soft);opacity:.8}
-@keyframes spin{from{transform:rotateX(72deg) rotateZ(0)}to{transform:rotateX(72deg) rotateZ(360deg)}}
-@keyframes spin2{from{transform:rotateX(64deg) rotateY(20deg) rotateZ(360deg)}to{transform:rotateX(64deg) rotateY(20deg) rotateZ(0)}}
-@keyframes sway{0%,100%{transform:rotateY(-10deg) rotateX(6deg)}50%{transform:rotateY(10deg) rotateX(-4deg)}}
-.paused .medal,.paused .orbit{animation-play-state:paused}
-.pause{position:absolute;right:6%;bottom:4%;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--paper);cursor:pointer;display:grid;place-items:center;color:var(--forest);transition:transform .2s}
+/* hero immersif */
+.hero{background:radial-gradient(55% 75% at 76% 52%,#E2E8D7 0%,rgba(226,232,215,0) 70%),var(--cream)}
+#scene{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
+.hero-text{position:relative;z-index:3}
+.mirror{position:relative;z-index:1;justify-self:end;width:min(100%,470px);aspect-ratio:3/4.1;padding:12px;border-radius:999px 999px 22px 22px;
+  background:linear-gradient(140deg,#F1E1BC 0%,#B8925A 30%,#EBD5A6 52%,#9E7A44 78%,#E6CFA0 100%);box-shadow:0 60px 100px -50px rgba(46,58,41,.6)}
+.mirror-in{position:relative;height:100%;overflow:hidden;border-radius:999px 999px 12px 12px;
+  background:linear-gradient(112deg,rgba(255,255,255,0) 28%,rgba(255,255,255,.38) 36%,rgba(255,255,255,0) 45%),
+             linear-gradient(112deg,rgba(255,255,255,0) 52%,rgba(255,255,255,.2) 56%,rgba(255,255,255,0) 61%),
+             radial-gradient(130% 85% at 50% 105%,#3F4D37 0%,#7E8F6C 45%,#C9D2BC 78%,#EEF1E8 100%)}
+.mirror-in img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.mirror-fallback{position:absolute;left:50%;bottom:10%;width:30%;height:30%;transform:translateX(-50%);color:rgba(255,255,255,.35)}
+.gl .mirror-fallback{display:none}
+.pause{position:absolute;right:var(--gut);bottom:24px;z-index:4;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--paper);cursor:pointer;display:grid;place-items:center;color:var(--forest);transition:transform .2s}
 .pause:hover{transform:translateY(-2px)}
 .pause svg{width:16px;height:16px}
+html:not(.gl) .pause{display:none}
+
+/* intro : les ciseaux coupent le rideau */
+.intro{display:none}
+.intro-on .intro{display:block;position:fixed;inset:0;z-index:100;cursor:pointer}
+.intro .half{position:absolute;left:0;right:0;height:50.2%;background:var(--forest);display:flex;justify-content:center;transition:transform 1.05s cubic-bezier(.75,0,.2,1)}
+.intro .top{top:0;align-items:flex-end;padding-bottom:18px}
+.intro .bottom{bottom:0;align-items:flex-start;padding-top:22px}
+.intro .top b{font:400 clamp(64px,11vw,140px)/1 var(--script);color:#fff}
+.intro .bottom small{font:600 clamp(13px,1.6vw,18px)/1 var(--serif);letter-spacing:.6em;color:var(--gold-soft);padding-left:.6em}
+.intro .cut{position:absolute;left:0;top:50%;height:1.5px;width:0;background:var(--gold-soft);transition:width .95s cubic-bezier(.6,0,.3,1),opacity .3s}
+.intro .snip{position:absolute;top:50%;left:-60px;width:56px;height:56px;margin-top:-28px;color:var(--gold-soft);transform:rotate(90deg);transition:left .95s cubic-bezier(.6,0,.3,1),opacity .3s}
+.intro .snip svg{width:100%;height:100%;animation:snip .24s ease-in-out infinite alternate}
+@keyframes snip{from{transform:scaleX(1)}to{transform:scaleX(.55)}}
+.intro.cutting .cut{width:100%}
+.intro.cutting .snip{left:calc(100% + 10px)}
+.intro.open .top{transform:translateY(-101%)}
+.intro.open .bottom{transform:translateY(101%)}
+.intro.open .cut,.intro.open .snip{opacity:0}
+
+/* équipe */
+.team{background:var(--sage-50)}
+.team-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px)}
+.member{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1fr);gap:28px;align-items:end}
+.portrait{position:relative;aspect-ratio:3/4;overflow:hidden;border-radius:999px 999px 10px 10px;background:var(--sage-300)}
+.portrait::after{content:"";position:absolute;inset:10px;border:1.5px solid rgba(217,190,140,.9);border-radius:999px 999px 6px 6px;pointer-events:none}
+.portrait .fb{position:absolute;inset:0;display:grid;place-items:center}
+.portrait .fb svg{width:36%;height:36%;color:rgba(255,255,255,.7)}
+.portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+.member:hover .portrait img{transform:scale(1.03)}
+.member .script{font-size:clamp(40px,4vw,58px);line-height:1.1;color:var(--forest);display:block;white-space:nowrap}
+.member p{color:var(--muted);margin:14px 0 18px}
+.member .more{font-weight:500;color:var(--forest)}
+.promise{list-style:none;display:flex;flex-wrap:wrap;gap:14px 36px;margin-top:48px;padding-top:28px;border-top:1px solid var(--line)}
+.promise li{display:flex;gap:10px;align-items:center}
+.promise svg{width:20px;height:20px;color:var(--gold);flex:none}
 
 /* venir */
 .visit{background:var(--forest);color:var(--sage-100)}
@@ -145,19 +176,6 @@ h3{font-size:24px}
 .fb.g4{background:linear-gradient(150deg,#6E7F5E,#2E3A29)}
 .fb.g5{background:linear-gradient(130deg,#B7C3A8,#7E8F6C)}
 .fb.g6{background:linear-gradient(170deg,#E3D8BE,#AEBB9E)}
-
-/* Jade */
-.jade{background:var(--sage-50)}
-.jade-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:center}
-.portrait{position:relative;aspect-ratio:4/5;border-radius:var(--r-sm);overflow:hidden;background:var(--sage-300)}
-.portrait::after{content:"";position:absolute;inset:14px;border:1.5px solid rgba(217,190,140,.85);border-radius:4px;pointer-events:none}
-.portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
-.portrait:hover img{transform:scale(1.02)}
-.jade .script{font-size:clamp(54px,7vw,92px);line-height:1;color:var(--forest);display:block;margin-bottom:8px}
-.jade p{color:var(--muted);font-size:18px;margin-top:18px;max-width:52ch}
-.jade ul{list-style:none;margin:28px 0 34px;display:grid;gap:12px}
-.jade li{display:flex;gap:12px;align-items:center}
-.jade li svg{width:20px;height:20px;color:var(--gold);flex:none}
 
 /* contact */
 .contact-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:56px;align-items:start}
@@ -209,11 +227,11 @@ footer a{text-decoration:none}
   .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
   .burger.open span:nth-child(2){opacity:0}
   .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-  .hero .wrap,.visit-grid,.jade-grid,.contact-grid{grid-template-columns:1fr}
+  .hero-grid,.visit-grid,.team-grid,.contact-grid{grid-template-columns:1fr}
   .hero{padding-top:96px}
   .leaf-corner{opacity:.25}
-  .stage{width:min(80%,400px);order:-1;margin-bottom:-10px}
-  .portrait{max-width:440px}
+  .mirror{order:-1;justify-self:center;width:min(66%,300px);aspect-ratio:3/3.7;padding:8px}
+  .team-grid{gap:48px}
   footer .wrap{grid-template-columns:1fr}
   .mbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:40;gap:10px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(247,244,236,.96);backdrop-filter:blur(8px);border-top:1px solid var(--line)}
   .mbar .btn{flex:1;min-height:48px}
@@ -226,6 +244,9 @@ footer a{text-decoration:none}
   form{grid-template-columns:1fr}
   .hero .actions .btn{width:100%}
   .hero .tel{width:100%;justify-content:center}
+  .member{grid-template-columns:1fr}
+  .member .portrait{max-width:300px}
+  .pause{bottom:auto;top:90px}
   .btns .btn{width:100%}
 }
 @media (prefers-reduced-motion:reduce){
@@ -247,6 +268,13 @@ footer a{text-decoration:none}
   <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7z"/></symbol>
 </svg>
 
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="half top"><b>Studio Shine</b></div>
+  <div class="half bottom"><small>COIFFURE</small></div>
+  <div class="cut"></div>
+  <div class="snip"><svg><use href="#i-scissors"/></svg></div>
+</div>
+
 <header class="nav" id="nav">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="Studio Shine Coiffure, accueil"><b>Studio Shine</b><small>COIFFURE</small></a>
@@ -254,7 +282,7 @@ footer a{text-decoration:none}
     <ul class="menu" id="menu">
       <li><a class="link" href="#prestations">Prestations</a></li>
       <li><a class="link" href="#realisations">Réalisations</a></li>
-      <li><a class="link" href="#jade">Jade</a></li>
+      <li><a class="link" href="#equipe">L’équipe</a></li>
       <li><a class="link" href="#venir">Accès</a></li>
       <li><a class="btn btn-primary" href="#contact">Prendre rendez-vous</a></li>
     </ul>
@@ -262,39 +290,34 @@ footer a{text-decoration:none}
 </header>
 
 <main id="top">
-  <!-- HERO -->
-  <section class="hero">
-    <svg class="leaf-corner tl" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-leaf"/></svg>
-    <svg class="leaf-corner br" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-leaf"/></svg>
-    <div class="wrap">
-      <div>
+  <!-- HERO : miroir de salon + ciseaux 3D -->
+  <section class="hero" id="hero">
+    <canvas id="scene" aria-hidden="true"></canvas>
+    <div class="wrap hero-grid">
+      <div class="hero-text">
         <span class="script">Studio Shine</span>
         <h1>Salon de coiffure à Trets</h1>
-        <p>Coupes femmes, hommes et enfants, brushing, coloration et mèches, au 255 route de Saint-Maximin.</p>
+        <p>Jade et Fabienne vous accueillent pour les coupes femmes, hommes et enfants, le brushing, la coloration et les mèches.</p>
         <div class="actions">
           <a class="btn btn-primary" href="#contact">Prendre rendez-vous</a>
           <a class="tel link" href="tel:+33745043629"><svg aria-hidden="true"><use href="#i-phone"/></svg>07 45 04 36 29</a>
         </div>
         <div class="facts">
+          <div><strong>2 coiffeuses</strong>Jade et Fabienne</div>
           <div><strong>Parking privé</strong>devant le salon</div>
           <div><strong>Mardi au samedi</strong>sur rendez-vous</div>
-          <div><strong>Toute la famille</strong>femmes, hommes, enfants</div>
         </div>
       </div>
-
-      <div class="stage" id="stage">
-        <div class="medal" aria-hidden="true">
-          <div class="orbit o2"><div class="ring"></div></div>
-          <div class="disc">
-            <div class="logo"><b>Studio Shine</b><small>COIFFURE</small><svg><use href="#i-scissors"/></svg></div>
-          </div>
-          <div class="orbit o1" id="orbit"><div class="ring"></div></div>
+      <div class="mirror">
+        <div class="mirror-in">
+          <svg class="mirror-fallback" aria-hidden="true"><use href="#i-scissors"/></svg>
+          <!-- Grande photo du salon : déposer images/salon.jpg (format vertical) -->
+          <img src="images/salon.jpg" alt="L'intérieur du salon Studio Shine à Trets" fetchpriority="high">
         </div>
-        <button class="pause" id="pause" aria-label="Mettre l'animation en pause"><svg><use href="#i-pause"/></svg></button>
       </div>
     </div>
+    <button class="pause" id="pause" aria-label="Mettre l'animation en pause"><svg><use href="#i-pause"/></svg></button>
   </section>
-
   <!-- ACCÈS -->
   <section class="visit" id="venir">
     <div class="wrap visit-grid">
@@ -307,7 +330,7 @@ footer a{text-decoration:none}
           <a class="btn btn-ghost" href="tel:+33745043629"><svg aria-hidden="true"><use href="#i-phone"/></svg>Appeler le salon</a>
         </div>
         <ul class="hours" id="hours">
-          <!-- Horaires provisoires : à confirmer par Jade -->
+          <!-- Horaires provisoires : à confirmer par le salon -->
           <li data-d="1" class="off"><span>Lundi</span><span>Fermé</span></li>
           <li data-d="2"><span>Mardi</span><span>9h00 – 18h30</span></li>
           <li data-d="3"><span>Mercredi</span><span>9h00 – 18h30</span></li>
@@ -351,7 +374,7 @@ footer a{text-decoration:none}
     <div class="wrap">
       <div class="head">
         <h2>Les prestations du salon</h2>
-        <p class="lead">Coupe, couleur ou coiffage : Jade prend le temps d’un diagnostic avant chaque prestation, pour un résultat adapté à vos cheveux.</p>
+        <p class="lead">Coupe, couleur ou coiffage : Jade et Fabienne prennent le temps d’un diagnostic avant chaque prestation, pour un résultat adapté à vos cheveux.</p>
       </div>
       <div class="services">
         <article class="card"><div class="ico"><svg><use href="#i-scissors"/></svg></div><h3>Coupe femme</h3><p>Shampoing, coupe et coiffage, des cheveux courts aux longueurs.</p></article>
@@ -372,7 +395,7 @@ footer a{text-decoration:none}
   <section id="realisations" style="padding-top:0">
     <div class="wrap">
       <div class="head">
-        <h2>Les réalisations de Jade</h2>
+        <h2>Les réalisations du salon</h2>
         <p class="lead">Coupes, couleurs et coiffages réalisés au salon. Retrouvez les dernières sur la page Facebook Studio Shine Coiffure.</p>
       </div>
       <div class="gallery" id="gallery">
@@ -389,33 +412,50 @@ footer a{text-decoration:none}
     </div>
   </section>
 
-  <!-- JADE -->
-  <section class="jade" id="jade">
-    <div class="wrap jade-grid">
-      <div class="portrait">
-        <div class="fb g5" style="position:absolute;inset:0;display:grid;place-items:center"><svg style="width:30%;color:rgba(255,255,255,.75)"><use href="#i-scissors"/></svg></div>
-        <img src="images/jade.jpg" alt="Jade Toin, coiffeuse du salon Studio Shine" loading="lazy">
+  <!-- ÉQUIPE -->
+  <section class="team" id="equipe">
+    <div class="wrap">
+      <div class="head">
+        <h2>Vos coiffeuses</h2>
+        <p class="lead">Deux coiffeuses au salon, pour trouver plus facilement un créneau. Vous pouvez demander l’une ou l’autre au moment de réserver.</p>
       </div>
-      <div>
-        <h2>Votre coiffeuse</h2>
-        <span class="script">Jade Toin</span>
-        <p>Jade vous accueille au Studio Shine, son salon à Trets. Elle coiffe femmes, hommes et enfants et vous conseille sur la coupe et la couleur qui vous correspondent.</p>
-        <ul>
-          <li><svg><use href="#i-check"/></svg>Un rendez-vous, une seule coiffeuse du début à la fin</li>
-          <li><svg><use href="#i-check"/></svg>Un diagnostic avant chaque couleur</li>
-          <li><svg><use href="#i-check"/></svg>Parking privé devant le salon</li>
-        </ul>
-        <a class="btn btn-primary" href="#contact">Prendre rendez-vous</a>
+      <div class="team-grid">
+        <article class="member">
+          <div class="portrait">
+            <div class="fb g5"><svg><use href="#i-scissors"/></svg></div>
+            <img src="images/jade.jpg" alt="Jade Toin, coiffeuse au salon Studio Shine" loading="lazy">
+          </div>
+          <div>
+            <span class="script">Jade Toin</span>
+            <p>Jade vous accueille au Studio Shine et vous conseille sur la coupe et la couleur qui vous correspondent.</p>
+            <a class="link more" href="#contact" data-coiffeuse="Jade">Réserver avec Jade</a>
+          </div>
+        </article>
+        <article class="member">
+          <div class="portrait">
+            <div class="fb g1"><svg><use href="#i-leaf"/></svg></div>
+            <img src="images/fabienne.jpg" alt="Fabienne, coiffeuse au salon Studio Shine" loading="lazy">
+          </div>
+          <div>
+            <span class="script">Fabienne</span>
+            <p>Fabienne coiffe femmes, hommes et enfants, et réalise vos brushings, colorations et mèches.</p>
+            <a class="link more" href="#contact" data-coiffeuse="Fabienne">Réserver avec Fabienne</a>
+          </div>
+        </article>
       </div>
+      <ul class="promise">
+        <li><svg><use href="#i-check"/></svg>Un diagnostic avant chaque couleur</li>
+        <li><svg><use href="#i-check"/></svg>La même coiffeuse du shampoing au coiffage</li>
+        <li><svg><use href="#i-check"/></svg>Parking privé devant le salon</li>
+      </ul>
     </div>
   </section>
-
   <!-- CONTACT -->
   <section id="contact">
     <div class="wrap contact-grid">
       <div>
         <h2>Prendre rendez-vous</h2>
-        <p class="lead">Remplissez le formulaire, Jade vous recontacte pour fixer l’horaire. Pour un rendez-vous rapide, appelez directement le salon.</p>
+        <p class="lead">Remplissez le formulaire, le salon vous recontacte pour fixer l’horaire. Pour un rendez-vous rapide, appelez directement le salon.</p>
         <div class="channels" id="channels">
           <a class="ch" href="tel:+33745043629"><svg style="color:var(--sage-700)"><use href="#i-phone"/></svg><div><span>Téléphone</span><strong>07 45 04 36 29</strong></div></a>
           <a class="ch" href="https://www.facebook.com/search/top?q=Studio%20Shine%20Coiffure" target="_blank" rel="noopener">
@@ -428,7 +468,11 @@ footer a{text-decoration:none}
       <form id="rdv" novalidate>
         <div class="f"><label for="nom">Nom et prénom</label><input id="nom" name="nom" autocomplete="name" required></div>
         <div class="f"><label for="tel">Téléphone</label><input id="tel" name="tel" type="tel" autocomplete="tel" inputmode="tel" required pattern="[0-9 +().-]{10,}"></div>
-        <div class="f full"><label for="email">Email <i>(facultatif)</i></label><input id="email" name="email" type="email" autocomplete="email"></div>
+        <div class="f"><label for="email">Email <i>(facultatif)</i></label><input id="email" name="email" type="email" autocomplete="email"></div>
+        <div class="f"><label for="coiffeuse">Coiffeuse</label>
+          <select id="coiffeuse" name="coiffeuse">
+            <option>Peu importe</option><option>Jade</option><option>Fabienne</option>
+          </select></div>
         <div class="f"><label for="presta">Prestation</label>
           <select id="presta" name="presta" required>
             <option value="">Choisir…</option>
@@ -441,7 +485,7 @@ footer a{text-decoration:none}
         <button class="btn btn-primary" type="submit">Envoyer ma demande</button>
         <div class="sent" id="sent" role="status" aria-live="polite">
           <strong id="sent-title">Votre demande est prête.</strong>
-          <p id="sent-text">Envoyez-la au salon par SMS, ou appelez directement Jade.</p>
+          <p id="sent-text">Envoyez-la au salon par SMS, ou appelez directement le salon.</p>
           <div class="btns"><a class="btn btn-primary" id="sms" href="sms:+33745043629">Envoyer par SMS</a><a class="btn btn-ghost" href="tel:+33745043629">Appeler le salon</a></div>
         </div>
       </form>
@@ -451,7 +495,7 @@ footer a{text-decoration:none}
 
 <footer>
   <div class="wrap">
-    <div><a class="brand" href="#top"><b>Studio Shine</b><small>COIFFURE</small></a><p style="margin-top:14px">Salon de coiffure de Jade Toin à Trets.</p></div>
+    <div><a class="brand" href="#top"><b>Studio Shine</b><small>COIFFURE</small></a><p style="margin-top:14px">Jade et Fabienne vous accueillent à Trets.</p></div>
     <div><h3>Adresse</h3><p>255, route de Saint-Maximin<br>13530 Trets<br><a class="link" href="tel:+33745043629">07 45 04 36 29</a></p></div>
     <div><h3>Suivre le salon</h3><p id="social"><a class="link" href="https://www.facebook.com/search/top?q=Studio%20Shine%20Coiffure" target="_blank" rel="noopener">Facebook : Studio Shine Coiffure</a></p></div>
     <p class="copy">© <span id="y"></span> Studio Shine Coiffure · Trets</p>
@@ -491,37 +535,23 @@ if (CONTACT.email) {
 }
 
 // Photos : on n'affiche le cadre décoratif que si la photo n'existe pas encore
-document.querySelectorAll('.ph img, .portrait img').forEach(img => {
+document.querySelectorAll('.ph img, .portrait img, .mirror-in img').forEach(img => {
   const ok = () => img.closest('.ph')?.classList.add('has-img');
   const ko = () => img.remove();
   if (img.complete) (img.naturalWidth ? ok() : ko()); else { img.addEventListener('load', ok); img.addEventListener('error', ko); }
 });
 
-// Feuilles en orbite (3D)
-const orbit = $('#orbit');
-for (let i = 0; i < 6; i++) {
-  const a = i * 60, r = 46;
-  const x = 50 + r * Math.cos(a * Math.PI / 180), y = 50 + r * Math.sin(a * Math.PI / 180);
-  const el = document.createElement('div');
-  el.className = 'leaf3d';
-  el.style.left = x + '%'; el.style.top = y + '%';
-  el.style.transform = `rotateZ(${a + 90}deg) scale(${i % 2 ? .75 : 1})`;
-  el.innerHTML = '<svg><use href="#i-leaf"/></svg>';
-  orbit.appendChild(el);
-}
-for (let i = 0; i < 8; i++) {
-  const s = document.createElement('i'); s.className = 'spark';
-  const a = Math.random() * 360, r = 40 + Math.random() * 10;
-  s.style.left = (50 + r * Math.cos(a)) + '%'; s.style.top = (50 + r * Math.sin(a)) + '%';
-  s.style.transform = `scale(${.4 + Math.random() * .8})`;
-  orbit.appendChild(s);
-}
-const stage = $('#stage'), pause = $('#pause');
-pause.addEventListener('click', () => {
-  const p = stage.classList.toggle('paused');
-  pause.innerHTML = `<svg><use href="#i-${p ? 'play' : 'pause'}"/></svg>`;
-  pause.setAttribute('aria-label', p ? "Relancer l'animation" : "Mettre l'animation en pause");
-});
+// Intro : les ciseaux coupent le rideau
+const intro = $('#intro');
+if (document.documentElement.classList.contains('intro-on')) {
+  const openIntro = () => { intro.classList.add('cutting', 'open'); setTimeout(() => { intro.remove(); document.documentElement.classList.remove('intro-on'); }, 1100); };
+  setTimeout(() => intro.classList.add('cutting'), 450);
+  const tOpen = setTimeout(openIntro, 1450);
+  intro.addEventListener('click', () => { clearTimeout(tOpen); openIntro(); }, { once: true });
+} else intro.remove();
+
+// « Réserver avec Jade / Fabienne » pré-remplit le formulaire
+document.querySelectorAll('[data-coiffeuse]').forEach(a => a.addEventListener('click', () => { $('#coiffeuse').value = a.dataset.coiffeuse; }));
 
 // Header + menu mobile
 const nav = $('#nav'), burger = $('#burger'), menu = $('#menu');
@@ -547,14 +577,14 @@ $('#rdv').addEventListener('submit', async e => {
   if (!f.checkValidity()) { f.reportValidity(); return; }
   const d = Object.fromEntries(new FormData(f));
   const dateTxt = d.date ? new Date(d.date + 'T12:00').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' }) : 'à convenir';
-  const body = `Bonjour Jade, demande de rendez-vous :\n${d.presta} – ${dateTxt}\n${d.nom} – ${d.tel}${d.email ? ' – ' + d.email : ''}${d.msg ? '\n' + d.msg : ''}`;
+  const body = `Bonjour, demande de rendez-vous :\n${d.presta} – ${dateTxt} – avec : ${d.coiffeuse}\n${d.nom} – ${d.tel}${d.email ? ' – ' + d.email : ''}${d.msg ? '\n' + d.msg : ''}`;
   const sent = $('#sent');
   if (CONTACT.formEndpoint) {
     try {
       const r = await fetch(CONTACT.formEndpoint, { method: 'POST', headers: { Accept: 'application/json' }, body: new FormData(f) });
       if (!r.ok) throw 0;
       $('#sent-title').textContent = 'Merci, votre demande est envoyée.';
-      $('#sent-text').textContent = 'Jade vous recontacte rapidement pour confirmer l’horaire.';
+      $('#sent-text').textContent = 'Le salon vous recontacte rapidement pour confirmer l’horaire.';
       sent.querySelector('#sms').style.display = 'none';
       sent.classList.add('show'); f.reset(); return;
     } catch { /* repli SMS ci-dessous */ }
@@ -567,5 +597,7 @@ $('#rdv').addEventListener('submit', async e => {
   sent.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 });
 </script>
+<script src="vendor/three.min.js"></script>
+<script src="scene.js"></script>
 </body>
 </html>
