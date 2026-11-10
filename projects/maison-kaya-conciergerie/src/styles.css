@@ -318,3 +318,7 @@ main a:focus-visible, header a:focus-visible, footer a:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   .mk-progress, .mk-veil { display: none; }
 }
+
+/* Captures d'avis Google */
+.review-capture { overflow: hidden; border-radius: 1.5rem; background: #202124; border: 1px solid color-mix(in oklch, var(--ink) 15%, transparent); transition: transform .4s cubic-bezier(.2,.75,.2,1); }
+@media (hover: hover) { .review-capture:hover { transform: translateY(-4px); } }

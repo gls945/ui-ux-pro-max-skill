@@ -85,7 +85,7 @@ export function initMotion(root: ParentNode = document): Cleanup {
 
   /* 2. Photos : rideau puis parallaxe */
   const photos = [...main.querySelectorAll<HTMLElement>(".interior-photo, img")].filter((el) => {
-    if (el.tagName === "IMG" && el.closest(".interior-photo, .hero-logo, .delegation-sculpture")) return false;
+    if (el.tagName === "IMG" && el.closest(".interior-photo, .hero-logo, .delegation-sculpture, .review-capture")) return false;
     if (el.closest(".home-hero")) return false;
     const r = el.getBoundingClientRect();
     return r.width > 160 && r.height > 120;

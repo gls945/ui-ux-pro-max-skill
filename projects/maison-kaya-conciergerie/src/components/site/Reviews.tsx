@@ -1,8 +1,14 @@
+import avisAna from "@/assets/avis-ana.jpg";
+import avisFabio from "@/assets/avis-fabio.jpg";
+import avisOlivier from "@/assets/avis-olivier.jpg";
+import avisEzekiel from "@/assets/avis-ezekiel.jpg";
+
+/** Captures d'avis Google authentiques (fournies par Maison Kaya). */
 const REVIEWS = [
-  { name: "Ana Catarina", initials: "AC", text: "Excellent service ! Équipe sérieuse, disponible et très efficace. Une conciergerie de confiance que je recommande vivement !" },
-  { name: "Fabio Devine", initials: "FD", text: "Très satisfait des services de Maison Kaya ! Une équipe sérieuse, réactive et à l’écoute. Mention spéciale pour le ménage : le logement était impeccable…", excerpt: true },
-  { name: "Olivier Fleurbaey", initials: "OF", text: "Nous avons passé un agréable séjour, la conciergerie était top, je recommande vivement." },
-  { name: "Ezékiel Pavillon", initials: "EP", text: "Je recommande cette conciergerie sans hésitation !" },
+  { src: avisAna, width: 1150, height: 618, alt: "Avis Google d'Ana Catarina, 5 sur 5 : « Excellent service ! Équipe sérieuse, disponible et très efficace. Une conciergerie de confiance que je recommande vivement ! »" },
+  { src: avisFabio, width: 1150, height: 624, alt: "Avis Google de Fabio Devine, 5 sur 5 : « Très satisfait des services de Maison Kaya ! Une équipe sérieuse, réactive et à l'écoute. Mention spéciale pour le ménage : le logement était impeccable… »" },
+  { src: avisOlivier, width: 1150, height: 548, alt: "Avis Google d'Olivier Fleurbaey, 5 sur 5 : « Nous avons passé un agréable séjour, la conciergerie était top, je recommande vivement »" },
+  { src: avisEzekiel, width: 1150, height: 500, alt: "Avis Google d'Ezékiel Pavillon, 5 sur 5 : « Je recommande cette conciergerie sans hésitation ! »" },
 ];
 
 export function Reviews() {
@@ -15,16 +21,10 @@ export function Reviews() {
         </div>
         <a href="https://share.google/5V2kdbB0wrk7EvLVL" target="_blank" rel="noreferrer" className="btn-pill shrink-0">Voir les avis sur Google</a>
       </div>
-      <div className="mt-14 grid gap-x-16 md:grid-cols-2">
+      <div className="mt-14 grid items-start gap-6 md:grid-cols-2">
         {REVIEWS.map((r) => (
-          <figure key={r.name} className="m-0 border-b border-border py-10">
-            <figcaption className="flex items-center gap-5">
-              <span className="grid h-14 w-14 shrink-0 place-items-center rounded-full bg-secondary font-display text-lg text-primary">{r.initials}</span>
-              <span className="min-w-0 flex-1 truncate">{r.name}</span>
-              <span className="shrink-0 tracking-widest text-primary" aria-label="5 étoiles sur 5">★★★★★</span>
-            </figcaption>
-            <blockquote className="mt-8 font-display text-2xl leading-snug md:text-3xl">{r.name === "Ezékiel Pavillon" ? `« ${r.text}»` : `« ${r.text} »`}</blockquote>
-            {r.excerpt && <p className="mt-6 text-sm text-muted-foreground">Extrait de l’avis Google.</p>}
+          <figure key={r.src} className="review-capture m-0">
+            <img src={r.src} alt={r.alt} width={r.width} height={r.height} loading="lazy" className="block h-auto w-full" />
           </figure>
         ))}
       </div>
