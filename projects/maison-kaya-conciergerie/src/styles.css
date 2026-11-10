@@ -268,7 +268,9 @@ main a:focus-visible, header a:focus-visible, footer a:focus-visible {
    donc le site reste lisible sans JavaScript ou avec « réduire les animations ». */
 
 /* Titres mot à mot */
-.mk-motion .mk-split .mk-w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.12em; margin-bottom: -0.12em; }
+/* Le masque déborde un peu de chaque mot (marges négatives) pour ne pas rogner
+   les jambages ni les lettres italiques qui dépassent à gauche (p, q, g…). */
+.mk-motion .mk-split .mk-w { display: inline-block; overflow: hidden; vertical-align: top; padding: 0 0.12em 0.28em; margin: 0 -0.12em -0.28em; }
 .mk-motion .mk-split .mk-wi { display: inline-block; transform: translateY(110%) rotate(4deg); transform-origin: 0 100%; transition: transform 1s cubic-bezier(.2,.75,.2,1); transition-delay: calc(var(--i) * 55ms); }
 .mk-motion .mk-split.mk-in .mk-wi { transform: none; }
 

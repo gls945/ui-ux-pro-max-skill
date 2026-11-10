@@ -121,7 +121,7 @@ function Index() {
         <div className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/65 to-ink/40" />
         <div className="absolute inset-0 mx-auto flex max-w-7xl flex-col justify-center px-6 text-ink-foreground">
           <p className="eyebrow text-ink-foreground/70">Secteur d'intervention</p>
-          <h2 className="display-lg mt-4 max-w-2xl">Les bords de Marne, <em className="text-sand">{`\naux porte de\u00a0Paris.`}</em></h2>
+          <h2 className="display-lg mt-4 max-w-2xl">Les bords de Marne, <em className="text-sand">{`\naux portes de\u00a0Paris.`}</em></h2>
           <p className="mt-6 max-w-lg text-ink-foreground/80">{COMMUNES.join(" · ")}</p>
           <Link to="/secteur" className="mt-8 self-start rounded-full bg-ink-foreground px-6 py-3 text-ink transition hover:bg-sand">Découvrir le secteur</Link>
         </div>
