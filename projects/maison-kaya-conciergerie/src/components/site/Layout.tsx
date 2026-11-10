@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X, MessageCircle, Instagram } from "lucide-react";
 import { whatsappLink, PHONE_DISPLAY, INSTAGRAM_URL, CALENDLY_URL } from "@/lib/site";
 import { InteriorPhoto } from "@/components/site/InteriorPhoto";
@@ -14,6 +14,12 @@ const NAV = [
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
@@ -33,17 +39,20 @@ export function Header() {
             Prendre rendez-vous
           </a>
         </div>
-        <button className="menu-toggle lg:hidden" aria-label="Menu" onClick={() => setOpen(!open)}>
+        <button type="button" className="menu-toggle lg:hidden" aria-label={open ? "Fermer le menu" : "Ouvrir le menu"} aria-expanded={open} aria-controls="site-menu" onClick={() => setOpen(!open)}>
           {open ? <X /> : <Menu />}
         </button>
       </div>
       {open && (
-        <div className="mx-4 mt-2 rounded-3xl border border-border bg-background p-6 lg:hidden">
+        // Le bouton reste visible sur grand écran : le panneau doit l'être aussi (aligné à droite).
+        <div id="site-menu" className="mx-4 mt-2 rounded-3xl border border-border bg-background p-6 md:mx-auto md:max-w-7xl lg:flex lg:justify-end lg:border-0 lg:bg-transparent lg:p-0">
+          <div className="lg:w-80 lg:rounded-3xl lg:border lg:border-border lg:bg-background lg:p-6">
           <div className="flex flex-col gap-4 font-display text-2xl">
             {NAV.map((n) => (
               <Link key={n.to} to={n.to} onClick={() => setOpen(false)}>{n.label}</Link>
             ))}
             <a href={CALENDLY_URL} target="_blank" rel="noreferrer" onClick={() => setOpen(false)} className="text-primary">Prendre rendez-vous</a>
+          </div>
           </div>
         </div>
       )}
