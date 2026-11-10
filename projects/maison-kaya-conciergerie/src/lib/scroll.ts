@@ -147,6 +147,7 @@ export function initScroll(): () => void {
     const active = clamp(Math.floor(p * n + 0.0001), 0, n - 1);
     jDots.forEach((d, i) => { d.dataset["on"] = i === active ? "1" : i < active ? "done" : "0"; });
     journey!.style.setProperty("--jp", p.toFixed(3));
+    journey!.dataset["tone"] = p > 0.235 ? "light" : "dark";
     if (jGlow) put(jGlow, "transform", `translate3d(${(p * 40 - 10).toFixed(1)}%, ${(Math.sin(p * 6.28) * 8).toFixed(1)}%, 0)`);
   }
 
@@ -203,6 +204,7 @@ export function initScroll(): () => void {
       let dark = false;
       for (const z of darkZones) {
         const r = z.getBoundingClientRect();
+        if (z.dataset["tone"] === "light") continue;
         if (r.top <= 44 && r.bottom >= 44) { dark = true; break; }
       }
       header.classList.toggle("over-dark", dark);

@@ -292,3 +292,29 @@ main a:focus-visible, header a:focus-visible, header button:focus-visible, foote
   .mk-progress { display: none; }
   .j-hint i { animation: none; }
 }
+
+/* ───────── Chapitres sur fonds beiges (pas de photo) ───────── */
+.j-beige { color: color-mix(in oklch, var(--primary) 28%, transparent); }
+.j-sable { background: radial-gradient(90% 80% at 80% 30%, var(--delegation), var(--sand) 160%); }
+.j-creme { background: radial-gradient(90% 80% at 75% 70%, var(--card), var(--delegation) 130%); }
+.j-taupe { background: radial-gradient(90% 80% at 80% 40%, color-mix(in oklch, var(--sand) 75%, white), color-mix(in oklch, var(--primary) 35%, var(--sand)) 170%); }
+.j-beige svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.j-big { position: absolute; right: 6%; bottom: -6%; font-family: var(--font-display); font-style: italic; font-size: clamp(14rem, 38vw, 40rem); line-height: 1; color: color-mix(in oklch, var(--primary) 14%, transparent); user-select: none; }
+.j-chapter.is-beige { color: var(--foreground); }
+.j-chapter.is-beige .j-num { color: var(--primary); }
+.j-chapter.is-beige .j-text { color: var(--muted-foreground); }
+.mk-pin .j-copy:not(.is-hero) { color: var(--foreground); }
+.mk-pin .j-copy:not(.is-hero) .j-num { color: var(--primary); }
+.mk-pin .j-copy:not(.is-hero) .j-text { color: var(--muted-foreground); }
+.mk-pin .j-scrim { transition: opacity .6s ease; }
+.mk-pin .journey[data-tone="light"] .j-scrim, .mk-pin .journey[data-tone="light"] .j-glow { opacity: 0; }
+.mk-pin .journey[data-tone="light"] .j-persist { color: var(--foreground); }
+.mk-pin .journey[data-tone="light"] .j-persist .eyebrow { color: var(--muted-foreground); }
+.mk-pin .journey[data-tone="light"] .j-persist em { color: var(--primary); }
+.mk-pin .journey[data-tone="light"] .j-count, .mk-pin .journey[data-tone="light"] .j-hint { color: var(--muted-foreground); }
+.journey[data-tone="light"] .j-dot { background: color-mix(in oklch, var(--foreground) 30%, transparent); }
+.journey[data-tone="light"] .j-dot[data-on="1"], .journey[data-tone="light"] .j-dot[data-on="done"] { background: var(--primary); }
+.j-chapter.is-beige .j-shade { display: none; }
+.mk-pin .journey { background: var(--sand); }
+.logo-panel { display: grid; place-items: center; aspect-ratio: 4 / 5; background: radial-gradient(90% 80% at 50% 40%, var(--card), var(--sand) 190%); }
+.logo-panel img { width: 62%; height: auto; object-fit: contain; }

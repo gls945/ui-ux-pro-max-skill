@@ -1,8 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import hero from "@/assets/hero-salon.jpg";
-import marneSoir from "@/assets/marne.jpg";
-import linge from "@/assets/linge.jpg";
-import accueil from "@/assets/accueil.jpg";
 import marne from "@/assets/marne-rives-nettes.jpg";
 import { COMMUNES, CALENDLY_URL, COMMISSION_TERMS } from "@/lib/site";
 import { Reviews } from "@/components/site/Reviews";
@@ -25,9 +22,9 @@ export const Route = createFileRoute("/")({
 });
 
 const CHAPTERS = [
-  { img: marneSoir, alt: "Les bords de Marne au coucher du soleil, péniches amarrées devant une guinguette", pos: "50% 55%", n: "01", t: "Une présence locale", d: "Implantés dans le Val-de-Marne, nous connaissons votre secteur et coordonnons les besoins de votre logement sur place." },
-  { img: linge, alt: "Serviettes préparées avec soin sur un lit", pos: "50% 58%", n: "02", t: "Un suivi attentif", d: "Échanges avec les voyageurs, vérification après chaque départ et signalement des imprévus : votre logement reste suivi." },
-  { img: accueil, alt: "Accueil des voyageurs : remise des clés à la porte du logement", pos: "50% 28%", n: "03", t: "Une relation transparente", d: "Vous êtes tenu informé de l’activité. Les frais sont annoncés et les prestations complémentaires sont définies avec vous." },
+  { tone: "sable", n: "01", t: "Une présence locale", d: "Implantés dans le Val-de-Marne, nous connaissons votre secteur et coordonnons les besoins de votre logement sur place." },
+  { tone: "creme", n: "02", t: "Un suivi attentif", d: "Échanges avec les voyageurs, vérification après chaque départ et signalement des imprévus : votre logement reste suivi." },
+  { tone: "taupe", n: "03", t: "Une relation transparente", d: "Vous êtes tenu informé de l’activité. Les frais sont annoncés et les prestations complémentaires sont définies avec vous." },
 ];
 
 function Index() {
@@ -66,9 +63,11 @@ function Index() {
           </div>
 
           {CHAPTERS.map((c) => (
-            <div className="j-chapter" key={c.n}>
-              <div className="j-layer"><img src={c.img} alt={c.alt} loading="lazy" decoding="async" style={{ objectPosition: c.pos }} /></div>
-              <div className="j-shade" />
+            <div className="j-chapter is-beige" key={c.n}>
+              <div className={`j-layer j-beige j-${c.tone}`} aria-hidden="true">
+                <svg viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice"><g fill="none" stroke="currentColor" strokeWidth="1.2"><circle cx="600" cy="400" r="150" /><circle cx="600" cy="400" r="230" /><circle cx="600" cy="400" r="310" /><circle cx="600" cy="400" r="390" /></g></svg>
+                <span className="j-big">{c.n}</span>
+              </div>
               <div className="j-copy">
                 <span className="j-num">{c.n} / 03</span>
                 <h3 className="j-title">{c.t}</h3>

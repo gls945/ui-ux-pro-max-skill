@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero } from "@/components/site/Layout";
-import accueil from "@/assets/accueil.jpg";
+import logo from "@/assets/logo-mk-encre.png";
 import hero from "@/assets/hero-salon.jpg";
 import { COMMISSION_TERMS } from "@/lib/site";
 import { Split } from "@/components/site/Split";
@@ -40,7 +40,7 @@ export const Route = createFileRoute("/accompagnement")({
         </div>
       </section>
       <section className="mx-auto grid max-w-7xl items-center gap-14 px-6 pb-28 md:grid-cols-2">
-        <div className="frame photo-reveal" data-no-reveal><img src={accueil} alt="Accueil des voyageurs" width={1200} height={1504} loading="lazy" /></div>
+        <div className="frame photo-reveal logo-panel" data-no-reveal><img src={logo} alt="Logo Maison Kaya Conciergerie" width={900} height={900} loading="lazy" /></div>
         <div>
           <p className="eyebrow">La commission</p>
           <Split as="h2" className="display-lg mt-5"><span className="whitespace-nowrap">20 %</span> des revenus locatifs nets, <em className="text-primary">en toute transparence.</em></Split>
