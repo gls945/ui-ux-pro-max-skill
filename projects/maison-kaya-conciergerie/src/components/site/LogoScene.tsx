@@ -12,12 +12,13 @@ function useLogoGeometry() {
     const data = new SVGLoader().parse(svg);
     const shapes = data.paths.flatMap((path) => SVGLoader.createShapes(path));
     const geo = new ExtrudeGeometry(shapes, {
-      depth: 34,
+      depth: 26,
       bevelEnabled: true,
-      bevelThickness: 6,
-      bevelSize: 2.2,
-      bevelSegments: 4,
-      curveSegments: 18,
+      // Biseau fin : un biseau large épaissit les petites lettres de la couronne et les rend floues.
+      bevelThickness: 2.5,
+      bevelSize: 0.6,
+      bevelSegments: 2,
+      curveSegments: 24,
     });
     // Le SVG a l'axe Y vers le bas : on retourne, puis on centre.
     geo.scale(1, -1, 1);
@@ -44,16 +45,18 @@ function Logo({ reduced, onReady }: { reduced: boolean; onReady: () => void }) {
     time.current += Math.min(delta, 0.05);
     const t = time.current;
     // Léger balancement + le logo suit doucement le pointeur.
-    const ty = Math.sin(t * 0.5) * 0.28 + state.pointer.x * 0.35;
-    const tx = Math.sin(t * 0.37) * 0.08 - state.pointer.y * 0.2;
+    const ty = Math.sin(t * 0.5) * 0.2 + state.pointer.x * 0.25;
+    const tx = Math.sin(t * 0.37) * 0.06 - state.pointer.y * 0.14;
     group.current.rotation.y += (ty - group.current.rotation.y) * 0.06;
     group.current.rotation.x += (tx - group.current.rotation.x) * 0.06;
     group.current.position.y = Math.sin(t * 0.8) * 0.06;
   });
   return (
     <group ref={group}>
-      <mesh geometry={geometry} castShadow>
-        <meshStandardMaterial color="#f4efe5" metalness={0.55} roughness={0.28} envMapIntensity={1.1} />
+      {/* Face avant mate et claire (lisible), côtés satinés plus sombres (relief net). */}
+      <mesh geometry={geometry}>
+        <meshStandardMaterial attach="material-0" color="#fbf8f1" metalness={0.15} roughness={0.55} envMapIntensity={0.9} />
+        <meshStandardMaterial attach="material-1" color="#b9ad9b" metalness={0.7} roughness={0.3} envMapIntensity={1.2} />
       </mesh>
     </group>
   );
@@ -76,7 +79,7 @@ export default function LogoScene({ onUnavailable }: { onUnavailable: () => void
   if (!checked) return null;
   return (
     <div className="h-full w-full" data-scene-ready={ready || undefined}>
-      <Canvas camera={{ position: [0, 0, 5.4], fov: 38 }} dpr={[1, 1.75]} frameloop={reduced ? "demand" : "always"} gl={{ alpha: true, antialias: true }}>
+      <Canvas camera={{ position: [0, 0, 5.4], fov: 38 }} dpr={[1, 2]} frameloop={reduced ? "demand" : "always"} gl={{ alpha: true, antialias: true }}>
         <ambientLight intensity={0.6} />
         <directionalLight position={[-3, 4, 5]} intensity={2.4} />
         <directionalLight position={[4, -2, 3]} intensity={0.8} color="#d8c6ad" />
