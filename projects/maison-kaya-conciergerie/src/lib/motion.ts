@@ -112,6 +112,7 @@ export function initMotion(root: ParentNode = document): Cleanup {
         const down = y > lastY && y > 160;
         header.classList.toggle("mk-hide", down);
         header.classList.toggle("mk-scrolled", y > 40);
+        header.classList.toggle("mk-over-hero", !!hero && y < (hero.offsetHeight || 0) - 90);
       }
       lastY = y;
       for (const el of photos) {
@@ -134,7 +135,7 @@ export function initMotion(root: ParentNode = document): Cleanup {
   onScroll();
   addEventListener("scroll", onScroll, { passive: true });
   addEventListener("resize", onScroll);
-  cleanups.push(() => { removeEventListener("scroll", onScroll); removeEventListener("resize", onScroll); cancelAnimationFrame(raf); });
+  cleanups.push(() => { removeEventListener("scroll", onScroll); removeEventListener("resize", onScroll); cancelAnimationFrame(raf); header?.classList.remove("mk-over-hero"); });
 
   /* 4. Compteurs */
   main.querySelectorAll<HTMLElement>("[data-count]").forEach((el) => {

@@ -210,12 +210,14 @@ main a:focus-visible, header a:focus-visible, footer a:focus-visible {
   border: 0;
   backdrop-filter: none;
 }
-.header-logo,
-.header-bar nav a {
-  text-shadow:
-    0 0 3px var(--background), 0 0 7px var(--background),
-    0 0 13px var(--background), 0 0 26px var(--background);
-}
+/* Pas de halo derrière le logo et les liens (il formait une bande floue sur la photo).
+   L'en-tête laisse passer les clics : seuls ses liens et boutons sont cliquables. */
+header.fixed { pointer-events: none; }
+header.fixed a, header.fixed button, header.fixed #site-menu { pointer-events: auto; }
+/* Au-dessus de la photo d'accueil, logo et liens passent en ivoire pour rester lisibles. */
+header.fixed.mk-over-hero .header-logo,
+header.fixed.mk-over-hero .header-bar nav a { color: var(--ink-foreground); }
+header.fixed.mk-over-hero .header-logo em { color: var(--sand); }
 .menu-toggle {
   display: inline-flex;
   align-items: center;
@@ -312,8 +314,10 @@ main a:focus-visible, header a:focus-visible, footer a:focus-visible {
 /* Boutons aimantés : on anime la propriété translate (le hover garde transform) */
 .mk-motion .btn-pill, .mk-motion a.rounded-full, .mk-motion button.rounded-full, .mk-motion .menu-toggle { transition: translate .45s cubic-bezier(.2,.75,.2,1), transform .3s ease, background-color .3s ease, color .3s ease, opacity .3s ease; }
 .btn-pill, a.rounded-full { position: relative; overflow: hidden; isolation: isolate; }
-.btn-pill::after, a.rounded-full::after { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: linear-gradient(110deg, transparent 30%, color-mix(in oklch, white 28%, transparent) 50%, transparent 70%); transform: translateX(-120%); transition: transform .8s cubic-bezier(.2,.75,.2,1); }
-@media (hover: hover) { .btn-pill:hover::after, a.rounded-full:hover::after { transform: translateX(120%); } }
+/* Reflet au survol : il reste dans le bouton (on fait glisser le dégradé, pas le calque),
+   donc il ne déborde jamais et ne capte aucun clic à côté du bouton. */
+.btn-pill::after, a.rounded-full::after { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none; background: linear-gradient(110deg, transparent 40%, color-mix(in oklch, white 28%, transparent) 50%, transparent 60%) no-repeat; background-size: 300% 100%; background-position: 100% 0; transition: background-position .8s cubic-bezier(.2,.75,.2,1); }
+@media (hover: hover) { .btn-pill:hover::after, a.rounded-full:hover::after { background-position: 0% 0; } }
 
 /* Liste des prestations : la ligne glisse et un filet se dessine */
 .home-services-section li { position: relative; transition: padding-left .5s cubic-bezier(.2,.75,.2,1), color .3s; }
