@@ -4,7 +4,7 @@
  *  - titres révélés mot à mot (masque + montée)
  *  - textes, listes, avis et boutons qui apparaissent en cascade
  *  - photos dévoilées par un rideau, puis légère parallaxe au défilement
- *  - boutons « aimantés » et curseur personnalisé (souris uniquement)
+ *  - boutons « aimantés » (souris uniquement, curseur du système conservé)
  *  - barre de progression de lecture, compteurs animés ([data-count])
  *  - en-tête qui se replie au défilement vers le bas
  * Rien n'est caché si le script ne tourne pas ; « réduire les animations » désactive tout.
@@ -156,47 +156,26 @@ export function initMotion(root: ParentNode = document): Cleanup {
     cleanups.push(() => cio.disconnect());
   });
 
-  /* 5. Boutons aimantés + curseur (souris uniquement) */
+  /* 5. Boutons aimantés (souris uniquement) : seul le bouton survolé bouge, une fois par image. */
   if (finePointer()) {
-    const magnets = [...document.querySelectorAll<HTMLElement>(".btn-pill, a.rounded-full, button.rounded-full, .menu-toggle")];
+    let active: HTMLElement | null = null;
+    let frame = 0;
+    let last: PointerEvent | null = null;
+    const apply = () => {
+      frame = 0;
+      if (!active || !last) return;
+      const r = active.getBoundingClientRect();
+      active.style.translate = `${(last.clientX - (r.left + r.width / 2)) * 0.22}px ${(last.clientY - (r.top + r.height / 2)) * 0.3}px`;
+    };
     const onMove = (e: PointerEvent) => {
-      for (const m of magnets) {
-        const r = m.getBoundingClientRect();
-        const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-        const dx = e.clientX - cx, dy = e.clientY - cy;
-        const near = Math.abs(dx) < r.width / 2 + 40 && Math.abs(dy) < r.height / 2 + 40;
-        m.style.translate = near ? `${dx * 0.22}px ${dy * 0.3}px` : "";
-      }
+      const m = (e.target as Element | null)?.closest?.<HTMLElement>(".btn-pill, a.rounded-full, button.rounded-full, .menu-toggle") ?? null;
+      if (m !== active) { if (active) active.style.translate = ""; active = m; }
+      if (!active) return;
+      last = e;
+      if (!frame) frame = requestAnimationFrame(apply);
     };
     addEventListener("pointermove", onMove, { passive: true });
-    cleanups.push(() => { removeEventListener("pointermove", onMove); magnets.forEach((m) => (m.style.translate = "")); });
-
-    let cursor = document.querySelector<HTMLElement>(".mk-cursor");
-    if (!cursor) {
-      cursor = document.createElement("div");
-      cursor.className = "mk-cursor";
-      cursor.innerHTML = "<span></span>";
-      document.body.appendChild(cursor);
-    }
-    const c = cursor;
-    let x = innerWidth / 2, y = innerHeight / 2, tx = x, ty = y, loop = 0;
-    const follow = () => {
-      x += (tx - x) * 0.2; y += (ty - y) * 0.2;
-      c.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-      loop = requestAnimationFrame(follow);
-    };
-    follow();
-    const onCursor = (e: PointerEvent) => {
-      tx = e.clientX; ty = e.clientY;
-      const t = e.target as Element | null;
-      c.classList.add("is-on");
-      c.classList.toggle("is-link", !!t?.closest("a, button, [role=button], input, select, textarea, label"));
-      c.classList.toggle("is-photo", !!t?.closest(".mk-photo, .interior-photo"));
-    };
-    const onLeave = () => c.classList.remove("is-on");
-    addEventListener("pointermove", onCursor, { passive: true });
-    document.addEventListener("pointerleave", onLeave);
-    cleanups.push(() => { cancelAnimationFrame(loop); removeEventListener("pointermove", onCursor); document.removeEventListener("pointerleave", onLeave); });
+    cleanups.push(() => { removeEventListener("pointermove", onMove); cancelAnimationFrame(frame); if (active) active.style.translate = ""; });
   }
 
   return () => cleanups.forEach((fn) => fn());

@@ -294,14 +294,6 @@ main a:focus-visible, header a:focus-visible, footer a:focus-visible {
 .mk-motion header.fixed { transition: transform .6s cubic-bezier(.2,.75,.2,1); }
 .mk-motion header.fixed.mk-hide { transform: translateY(-120%); }
 
-/* Curseur personnalisé */
-.mk-cursor { position: fixed; left: 0; top: 0; z-index: 120; pointer-events: none; opacity: 0; transition: opacity .3s; }
-.mk-cursor.is-on { opacity: 1; }
-.mk-cursor span { position: absolute; left: -7px; top: -7px; width: 14px; height: 14px; border-radius: 50%; background: var(--primary); mix-blend-mode: multiply; transition: transform .35s cubic-bezier(.2,.75,.2,1), background .3s, border-color .3s; }
-.mk-cursor.is-link span { transform: scale(3.2); background: color-mix(in oklch, var(--primary) 22%, transparent); border: 1px solid var(--primary); }
-.mk-cursor.is-photo span { transform: scale(5.5); background: color-mix(in oklch, var(--ink-foreground) 25%, transparent); border: 1px solid var(--ink-foreground); mix-blend-mode: normal; backdrop-filter: none; }
-@media (hover: hover) and (pointer: fine) { .mk-motion, .mk-motion a, .mk-motion button { cursor: none; } .mk-motion input, .mk-motion textarea, .mk-motion select { cursor: text; } }
-
 /* Boutons aimantés : on anime la propriété translate (le hover garde transform) */
 .mk-motion .btn-pill, .mk-motion a.rounded-full, .mk-motion button.rounded-full, .mk-motion .menu-toggle { transition: translate .45s cubic-bezier(.2,.75,.2,1), transform .3s ease, background-color .3s ease, color .3s ease, opacity .3s ease; }
 .btn-pill, a.rounded-full { position: relative; overflow: hidden; isolation: isolate; }
@@ -324,5 +316,5 @@ main a:focus-visible, header a:focus-visible, footer a:focus-visible {
 @keyframes mk-veil-text { 0% { opacity: 1; transform: none; } 40% { opacity: 1; } 100% { opacity: 0; transform: translateY(-40px); } }
 
 @media (prefers-reduced-motion: reduce) {
-  .mk-progress, .mk-cursor, .mk-veil { display: none; }
+  .mk-progress, .mk-veil { display: none; }
 }
