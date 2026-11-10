@@ -167,12 +167,17 @@ main a:focus-visible, header a:focus-visible, footer a:focus-visible {
 .home-hero-copy { position: relative; z-index: 1; width: 100%; max-width: 960px; }
 .home-hero-copy h1 { font-size: 4.5rem; }
 .home-interior .interior-photo-image { animation: interior-drift 16s ease-in-out infinite alternate; }
+/* Logo Maison Kaya en 3D à côté du texte d'accueil */
+.home-hero-layout { gap: 48px; }
+.home-hero-logo { position: relative; z-index: 1; flex: 0 0 auto; width: min(38vw, 500px); aspect-ratio: 1; }
+.hero-logo-still { display: block; width: 78%; height: auto; margin: 11%; }
 @keyframes interior-drift { from { transform: scale(1.03) rotateY(-1deg); } to { transform: scale(1.09) rotateY(1deg); } }
 @media (max-width: 1023px) {
   .delegation-layout { padding: 64px 32px; }
   .delegation-copy { width: 55%; }
   .delegation-sculpture { width: 40%; height: 420px; }
   .home-hero-copy h1 { font-size: 3rem; }
+  .home-hero-logo { width: min(34vw, 340px); }
 }
 @media (max-width: 767px) {
   .delegation-layout { min-height: auto; padding: 32px 24px 56px; flex-direction: column; gap: 0; }
@@ -181,6 +186,8 @@ main a:focus-visible, header a:focus-visible, footer a:focus-visible {
   .home-hero-layout { padding-top: 144px; padding-bottom: 48px; align-items: flex-end; }
   .home-hero-copy { width: 100%; }
   .home-hero-copy h1 { font-size: 2.5rem; }
+  .home-hero-layout { flex-direction: column-reverse; justify-content: flex-end; align-items: flex-start; gap: 8px; padding-top: 112px; }
+  .home-hero-logo { width: 190px; margin-left: -18px; }
 }
 /* The bar itself is fully transparent: no fill, no border, no blur, so page
    content shows through everywhere. Only the three menu dashes keep a solid

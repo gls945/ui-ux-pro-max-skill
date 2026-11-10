@@ -6,6 +6,7 @@ import { COMMUNES, CALENDLY_URL, COMMISSION_TERMS } from "@/lib/site";
 import { Reviews } from "@/components/site/Reviews";
 import { InteriorPhoto } from "@/components/site/InteriorPhoto";
 import { DelegationSculpture } from "@/components/site/DelegationSculpture";
+import { HeroLogo } from "@/components/site/HeroLogo";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -43,6 +44,7 @@ function Index() {
             </div>
           </div>
           </div>
+          <HeroLogo className="home-hero-logo" />
         </div>
       </section>
 
