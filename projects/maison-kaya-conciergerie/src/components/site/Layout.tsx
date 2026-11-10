@@ -29,9 +29,9 @@ export function Header() {
           ))}
         </nav>
         <div className="hidden lg:block">
-          <Link to="/estimation" className="rounded-full bg-ink px-5 py-2.5 text-sm text-ink-foreground transition hover:bg-primary">
-            Estimer mes revenus
-          </Link>
+          <a href={CALENDLY_URL} target="_blank" rel="noreferrer" className="rounded-full bg-ink px-5 py-2.5 text-sm text-ink-foreground transition hover:bg-primary">
+            Prendre rendez-vous
+          </a>
         </div>
         <button className="menu-toggle lg:hidden" aria-label="Menu" onClick={() => setOpen(!open)}>
           {open ? <X /> : <Menu />}
@@ -43,7 +43,7 @@ export function Header() {
             {NAV.map((n) => (
               <Link key={n.to} to={n.to} onClick={() => setOpen(false)}>{n.label}</Link>
             ))}
-            <Link to="/estimation" onClick={() => setOpen(false)} className="text-primary">Estimer mes revenus</Link>
+            <a href={CALENDLY_URL} target="_blank" rel="noreferrer" onClick={() => setOpen(false)} className="text-primary">Prendre rendez-vous</a>
           </div>
         </div>
       )}
