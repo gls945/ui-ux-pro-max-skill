@@ -308,16 +308,6 @@ main a:focus-visible, header a:focus-visible, footer a:focus-visible {
 .btn-pill::after, a.rounded-full::after { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: linear-gradient(110deg, transparent 30%, color-mix(in oklch, white 28%, transparent) 50%, transparent 70%); transform: translateX(-120%); transition: transform .8s cubic-bezier(.2,.75,.2,1); }
 @media (hover: hover) { .btn-pill:hover::after, a.rounded-full:hover::after { transform: translateX(120%); } }
 
-/* Bandeau défilant des communes */
-.mk-marquee { overflow: hidden; background: var(--ink); color: var(--ink-foreground); padding: 22px 0; border-block: 1px solid color-mix(in oklch, var(--ink-foreground) 12%, transparent); }
-.mk-marquee-track { display: flex; width: max-content; animation: mk-marquee 38s linear infinite; }
-.mk-marquee:hover .mk-marquee-track { animation-play-state: paused; }
-.mk-marquee-group { display: flex; align-items: center; gap: 48px; padding-right: 48px; }
-.mk-marquee-item { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.6rem); white-space: nowrap; }
-.mk-marquee-item:nth-child(even) { font-style: italic; color: var(--sand); }
-.mk-marquee-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--sand); flex: none; }
-@keyframes mk-marquee { to { transform: translateX(-50%); } }
-
 /* Liste des prestations : la ligne glisse et un filet se dessine */
 .home-services-section li { position: relative; transition: padding-left .5s cubic-bezier(.2,.75,.2,1), color .3s; }
 .home-services-section li::before { content: ""; position: absolute; left: 0; top: 50%; width: 0; height: 1px; background: var(--primary); transition: width .5s cubic-bezier(.2,.75,.2,1); }
@@ -334,6 +324,5 @@ main a:focus-visible, header a:focus-visible, footer a:focus-visible {
 @keyframes mk-veil-text { 0% { opacity: 1; transform: none; } 40% { opacity: 1; } 100% { opacity: 0; transform: translateY(-40px); } }
 
 @media (prefers-reduced-motion: reduce) {
-  .mk-marquee-track { animation: none; flex-wrap: wrap; }
   .mk-progress, .mk-cursor, .mk-veil { display: none; }
 }

@@ -7,7 +7,6 @@ import { Reviews } from "@/components/site/Reviews";
 import { InteriorPhoto } from "@/components/site/InteriorPhoto";
 import { DelegationSculpture } from "@/components/site/DelegationSculpture";
 import { HeroLogo } from "@/components/site/HeroLogo";
-import { Marquee } from "@/components/site/Marquee";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -48,8 +47,6 @@ function Index() {
           <HeroLogo className="home-hero-logo" />
         </div>
       </section>
-
-      <Marquee items={["Conciergerie · Val-de-Marne", ...COMMUNES]} label="Communes desservies" />
 
       <section className="home-trust-section">
       <div className="mx-auto max-w-7xl px-6 py-28 md:py-40">
