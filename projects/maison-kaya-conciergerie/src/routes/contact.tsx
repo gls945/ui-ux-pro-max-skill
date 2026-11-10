@@ -40,9 +40,9 @@ function Contact() {
             <p className="eyebrow text-ink-foreground/60">Rendez-vous</p>
             <h3 className="mt-4 font-display text-3xl">Entretien personnalisé</h3>
             <p className="mt-6 text-ink-foreground/70">Étude de votre projet locatif.</p>
-            <a href={CALENDLY_URL} target="_blank" rel="noreferrer" className="mt-8 inline-block rounded-full bg-primary px-6 py-3 text-primary-foreground">Choisir un créneau</a>
+            <a href={CALENDLY_URL} target="_blank" rel="noreferrer" className="pill pill-primary mt-8">Choisir un créneau</a>
           </div>
-          <a href={whatsappLink()} target="_blank" rel="noreferrer" className="block rounded-[2rem] bg-olive p-10 text-ink-foreground transition hover:opacity-90">
+          <a href={whatsappLink()} target="_blank" rel="noreferrer" className="block rounded-[2rem] bg-olive p-10 text-ink-foreground transition-opacity hover:opacity-90">
             <p className="eyebrow text-ink-foreground/70">WhatsApp</p>
             <p className="mt-4 font-display text-3xl">{PHONE_DISPLAY}</p>
             <p className="mt-2 text-ink-foreground/80">Une réponse rapide, en direct.</p>

@@ -11,19 +11,21 @@ const REVIEWS = [
   { src: avisEzekiel, width: 1150, height: 500, alt: "Avis Google d'Ezékiel Pavillon, 5 sur 5 : « Je recommande cette conciergerie sans hésitation ! »" },
 ];
 
+import { Split } from "@/components/site/Split";
+
 export function Reviews() {
   return (
     <section className="mx-auto max-w-7xl px-6 pt-16 pb-20 md:py-40">
       <div className="flex flex-col items-start gap-8 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="eyebrow">Avis Google</p>
-          <h2 className="display-lg mt-5 max-w-2xl">Ce que disent <em className="text-primary">nos clients.</em></h2>
+          <Split as="h2" className="display-lg mt-5 max-w-2xl">Ce que disent <em className="text-primary">nos clients.</em></Split>
         </div>
         <a href="https://share.google/5V2kdbB0wrk7EvLVL" target="_blank" rel="noreferrer" className="btn-pill shrink-0">Voir les avis sur Google</a>
       </div>
       <div className="mt-14 grid items-start gap-6 md:grid-cols-2">
-        {REVIEWS.map((r) => (
-          <figure key={r.src} className="review-capture m-0">
+        {REVIEWS.map((r, i) => (
+          <figure key={r.src} className={`review-capture m-0 ${i % 2 ? "md:mt-14" : ""}`}>
             <img src={r.src} alt={r.alt} width={r.width} height={r.height} loading="lazy" className="block h-auto w-full" />
           </figure>
         ))}

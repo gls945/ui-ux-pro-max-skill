@@ -17,12 +17,12 @@ export const Route = createFileRoute("/secteur")({
   component: () => (
     <>
       <PageHero eyebrow="Secteur d'intervention" title={<>Val-de-Marne, <em className="text-primary">aux portes de Paris.</em></>}
-        intro="Nous intervenons dans sept communes de l'Est parisien, à quelques minutes de la capitale — un atout précieux pour attirer les voyageurs." image={marne} />
+        intro="Nous intervenons dans sept communes de l'Est parisien, à quelques minutes de la capitale — un atout précieux pour attirer les voyageurs." image={marne} imageAlt="Les quais de la Marne, avec cygnes et péniches" />
       <section className="mx-auto max-w-7xl px-6 py-28">
         <ul>
           {COMMUNES.map((c) => (
-            <li key={c} className="group flex items-baseline justify-between border-t border-border py-6 last:border-b">
-              <span className="font-display text-4xl transition group-hover:translate-x-3 group-hover:text-primary md:text-6xl">{c}</span>
+            <li key={c} className="commune-row">
+              <span>{c}</span>
               <span className="text-sm text-muted-foreground">94</span>
             </li>
           ))}

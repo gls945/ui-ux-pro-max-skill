@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, Lightformer } from "@react-three/drei";
 import { Color, Group, Shape, Path, ExtrudeGeometry } from "three";
+import { sceneState } from "@/lib/scroll";
 
 function Key({ color, position, rotation }: { color: string; position: [number, number, number]; rotation: [number, number, number] }) {
   const geometry = useMemo(() => {
@@ -29,7 +30,7 @@ function Sculpture({ colors, reduced, onReady }: { colors: [string, string, stri
     if (!ready.current) { ready.current = true; onReady(); }
     if (!group.current || reduced) return;
     time.current += Math.min(delta, 0.05);
-    group.current.rotation.y = Math.sin(time.current * 0.45) * 0.45 + state.pointer.x * 0.2;
+    group.current.rotation.y = Math.sin(time.current * 0.45) * 0.35 + state.pointer.x * 0.2 + (sceneState.delegation - 0.5) * Math.PI * 1.1;
     group.current.rotation.x = Math.sin(time.current * 0.3) * 0.12;
     group.current.position.y = Math.sin(time.current * 0.65) * 0.12;
   });

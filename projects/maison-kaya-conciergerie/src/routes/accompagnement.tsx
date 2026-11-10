@@ -3,7 +3,7 @@ import { PageHero } from "@/components/site/Layout";
 import accueil from "@/assets/accueil.jpg";
 import hero from "@/assets/hero-salon.jpg";
 import { COMMISSION_TERMS } from "@/lib/site";
-import { InteriorPhoto } from "@/components/site/InteriorPhoto";
+import { Split } from "@/components/site/Split";
 
 const STEPS = [
   { t: "On se rencontre", d: "Un premier échange pour comprendre votre logement, vos attentes et votre calendrier." },
@@ -28,24 +28,28 @@ export const Route = createFileRoute("/accompagnement")({
     <>
       <PageHero eyebrow="Pour les propriétaires" title={<>Une collaboration <em className="text-primary">simple et claire.</em></>} image={hero} />
       <section className="mx-auto max-w-5xl px-6 py-28">
-        {STEPS.map((s) => (
-          <div key={s.t} className="grid gap-4 border-t border-border py-12 md:grid-cols-12">
-            <h2 className="font-display text-4xl md:col-span-5 md:text-5xl">{s.t}</h2>
-            <p className="text-lg text-muted-foreground md:col-span-7 md:pt-3">{s.d}</p>
-          </div>
-        ))}
+        <div className="timeline">
+          <svg className="timeline-svg" viewBox="0 0 2 100" preserveAspectRatio="none" aria-hidden="true"><path className="draw-line" d="M1 0 V100" data-draw /></svg>
+          {STEPS.map((s, i) => (
+            <div key={s.t} className="step-row">
+              <span className="step-num">{String(i + 1).padStart(2, "0")}</span>
+              <Split as="h2" className="font-display text-4xl md:text-5xl">{s.t}</Split>
+              <p className="text-lg text-muted-foreground md:pt-3">{s.d}</p>
+            </div>
+          ))}
+        </div>
       </section>
       <section className="mx-auto grid max-w-7xl items-center gap-14 px-6 pb-28 md:grid-cols-2">
-        <InteriorPhoto src={accueil} alt="Accueil des voyageurs" className="rounded-[2rem]" imageClassName="w-full" />
+        <div className="frame photo-reveal" data-no-reveal><img src={accueil} alt="Accueil des voyageurs" width={1200} height={1504} loading="lazy" /></div>
         <div>
           <p className="eyebrow">La commission</p>
-          <h2 className="display-lg mt-5"><span className="whitespace-nowrap">20 %</span> des revenus locatifs nets, <em className="text-primary">en toute transparence.</em></h2>
+          <Split as="h2" className="display-lg mt-5"><span className="whitespace-nowrap">20 %</span> des revenus locatifs nets, <em className="text-primary">en toute transparence.</em></Split>
           <p className="mt-8 text-lg text-muted-foreground">
             Notre rémunération est une commission unique de {COMMISSION_TERMS.rate} % sur les {COMMISSION_TERMS.basis}. Pas de réservation, pas de commission. {COMMISSION_TERMS.separateFees.join(", ")} sont facturés séparément. Les frais distincts sont précisés dès le départ et les prestations complémentaires font l’objet d’un {COMMISSION_TERMS.pricing}.
           </p>
           <div className="mt-10 flex flex-wrap gap-3">
-            <Link to="/services" className="rounded-full border border-foreground px-6 py-3">Voir le détail</Link>
-            <Link to="/estimation" className="rounded-full bg-primary px-6 py-3 text-primary-foreground">Estimer mes revenus</Link>
+            <Link to="/services" className="pill pill-ghost">Voir le détail</Link>
+            <Link to="/estimation" className="pill pill-primary">Estimer mes revenus</Link>
           </div>
         </div>
       </section>

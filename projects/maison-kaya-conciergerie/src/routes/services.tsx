@@ -18,14 +18,14 @@ export const Route = createFileRoute("/services")({
   component: () => (
     <>
       <PageHero eyebrow="Nos services" title={<>Une seule commission. <em className="text-primary whitespace-nowrap">20 %.</em></>}
-        intro="Pas de forfait caché, pas de commission additionnelle. Voici précisément ce que comprend notre accompagnement." image={linge} />
+        intro="Pas de forfait caché, pas de commission additionnelle. Voici précisément ce que comprend notre accompagnement." image={linge} imageAlt="Serviettes préparées avec soin" />
       <section className="mx-auto max-w-7xl px-6 py-28">
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-4">
-            <p className="font-display text-7xl leading-none text-primary whitespace-nowrap">{COMMISSION_TERMS.rate} %</p>
+            <div className="md:sticky md:top-32"><p className="font-display text-7xl leading-none text-primary whitespace-nowrap"><span data-count={COMMISSION_TERMS.rate}>{COMMISSION_TERMS.rate}</span> %</p>
             <h2 className="mt-4 font-display text-3xl">Compris dans la commission</h2>
             <p className="mt-6 text-muted-foreground">Notre commission est calculée sur les {COMMISSION_TERMS.basis}.</p>
-          </div>
+          </div></div>
           <ul className="md:col-span-8 divide-y divide-border border-y border-border">
             {INCLUDED.map((s) => (
               <li key={s} className="flex items-start gap-4 py-5 text-lg"><Check className="mt-1 h-5 w-5 shrink-0 text-primary" />{s}</li>
@@ -55,7 +55,7 @@ export const Route = createFileRoute("/services")({
       </section>
       <section className="mx-auto max-w-7xl px-6 py-28 text-center">
         <h2 className="display-lg">Une question sur ce qui est inclus ?</h2>
-        <Link to="/contact" className="mt-10 inline-block rounded-full bg-ink px-7 py-4 text-ink-foreground hover:bg-primary">Nous écrire</Link>
+        <Link to="/contact" className="pill pill-ink mt-10">Nous écrire</Link>
       </section>
     </>
   ),
