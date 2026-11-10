@@ -131,7 +131,20 @@ main a, header nav a, footer a {
   transition: transform 300ms ease, color 300ms ease, background-color 300ms ease;
 }
 @media (hover: hover) {
-  main a:hover, header nav a:hover, footer a:hover { transform: translateY(-3px); }
+  main a:hover { transform: translateY(-3px); }
+}
+/* Menu et pied de page : pas de déplacement au survol (un lien qui bouge sous la souris
+   perd le survol et le clic une fois sur deux) ; un soulignement se dessine à la place. */
+header nav a, footer a:not(.rounded-full) {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0 1px;
+  padding-block: 4px;
+  transition: background-size 300ms ease, color 300ms ease;
+}
+@media (hover: hover) {
+  header nav a:hover, footer a:not(.rounded-full):hover { background-size: 100% 1px; }
 }
 main a:focus-visible, header a:focus-visible, footer a:focus-visible {
   outline: 2px solid var(--ring);
