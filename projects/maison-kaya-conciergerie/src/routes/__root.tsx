@@ -14,6 +14,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Header, Footer, WhatsAppFab } from "@/components/site/Layout";
 import { SiteEntrance } from "@/components/site/SiteEntrance";
+import { MotionLayer } from "@/components/site/MotionLayer";
 
 function NotFoundComponent() {
   return (
@@ -132,6 +133,7 @@ function RootComponent() {
       </main>
       <Footer />
       <WhatsAppFab />
+      <MotionLayer />
     </QueryClientProvider>
   );
 }

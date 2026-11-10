@@ -7,6 +7,7 @@ import { Reviews } from "@/components/site/Reviews";
 import { InteriorPhoto } from "@/components/site/InteriorPhoto";
 import { DelegationSculpture } from "@/components/site/DelegationSculpture";
 import { HeroLogo } from "@/components/site/HeroLogo";
+import { Marquee } from "@/components/site/Marquee";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -48,6 +49,8 @@ function Index() {
         </div>
       </section>
 
+      <Marquee items={["Conciergerie · Val-de-Marne", ...COMMUNES]} label="Communes desservies" />
+
       <section className="home-trust-section">
       <div className="mx-auto max-w-7xl px-6 py-28 md:py-40">
         <div className="grid gap-16 md:grid-cols-12">
@@ -71,7 +74,7 @@ function Index() {
               </div>
             </div>
             <p className="mt-10 max-w-2xl text-muted-foreground">
-              Une commission unique de <span className="whitespace-nowrap font-semibold text-foreground">{COMMISSION_TERMS.rate} %</span> sur les {COMMISSION_TERMS.basis}. {COMMISSION_TERMS.separateFees.join(", ")} sont facturés séparément, sur {COMMISSION_TERMS.pricing}.
+              Une commission unique de <span className="whitespace-nowrap font-semibold text-foreground"><span data-count={COMMISSION_TERMS.rate}>{COMMISSION_TERMS.rate}</span> %</span> sur les {COMMISSION_TERMS.basis}. {COMMISSION_TERMS.separateFees.join(", ")} sont facturés séparément, sur {COMMISSION_TERMS.pricing}.
             </p>
             <Link to="/services" className="btn-pill mt-10">
               Ce qui est inclus

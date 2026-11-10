@@ -76,7 +76,7 @@ export function Footer() {
             <Link to="/confidentialite" className="hover:text-ink-foreground">Confidentialité & cookies</Link>
           </div>
         </div>
-        <p className="mt-16 select-none font-display text-[22vw] leading-none text-ink-foreground/5">Kaya</p>
+        <p className="mt-16 select-none font-display text-[22vw] leading-none text-ink-foreground/5" data-parallax-x>Kaya</p>
       </div>
     </footer>
   );

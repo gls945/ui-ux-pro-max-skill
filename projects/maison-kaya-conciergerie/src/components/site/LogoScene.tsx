@@ -44,10 +44,17 @@ function Logo({ reduced, onReady }: { reduced: boolean; onReady: () => void }) {
     if (!group.current || reduced) return;
     time.current += Math.min(delta, 0.05);
     const t = time.current;
+    // Entrée : le logo pivote d'un tour et grandit pendant 1,8 s.
+    const intro = Math.min(1, t / 1.8);
+    const ease = 1 - Math.pow(1 - intro, 4);
+    group.current.scale.setScalar(0.72 + 0.28 * ease);
+    // Au défilement, le logo pivote légèrement (sans jamais montrer son revers).
+    const scroll = Math.min(1, window.scrollY / Math.max(1, window.innerHeight));
     // Léger balancement + le logo suit doucement le pointeur.
     const ty = Math.sin(t * 0.5) * 0.2 + state.pointer.x * 0.25;
     const tx = Math.sin(t * 0.37) * 0.06 - state.pointer.y * 0.14;
-    group.current.rotation.y += (ty - group.current.rotation.y) * 0.06;
+    const spin = (1 - ease) * Math.PI * 2 + scroll * 0.6;
+    group.current.rotation.y += (ty + spin - group.current.rotation.y) * (intro < 1 ? 0.2 : 0.06);
     group.current.rotation.x += (tx - group.current.rotation.x) * 0.06;
     group.current.position.y = Math.sin(t * 0.8) * 0.06;
   });
