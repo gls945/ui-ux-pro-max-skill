@@ -12,7 +12,8 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { Header, Footer, WhatsAppFab } from "@/components/site/Layout";
+import { Header, Footer, WhatsAppFab, SkipLink } from "@/components/site/Layout";
+import { SITE_NAME, PHONE_TEL, EMAIL, ADDRESS, COMMUNES, INSTAGRAM_URL } from "@/lib/site";
 import { MotionLayer } from "@/components/site/MotionLayer";
 
 function NotFoundComponent() {
@@ -83,8 +84,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Maison Kaya Conciergerie" },
-      { name: "description", content: "Conciergerie pour propriétaires en location courte durée dans le Val-de-Marne." },
+      { title: SITE_NAME },
+      { name: "description", content: "Conciergerie Airbnb et location courte durée dans le Val-de-Marne (94) : accompagnement des propriétaires à Champigny, Saint-Maur, Nogent, Le Perreux, Joinville, Villiers et Bry-sur-Marne." },
+      { property: "og:site_name", content: SITE_NAME },
+      { property: "og:locale", content: "fr_FR" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -107,14 +110,32 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 // Pose les réglages d'animation avant le premier affichage (pas de flash). Si le script du site
 // ne démarre pas, tout redevient visible après 5 s.
-const BOOT = `(function(){try{var d=document.documentElement,r=matchMedia("(prefers-reduced-motion: reduce)").matches;if(r)return;d.classList.add("mk-motion");if(matchMedia("(min-width: 768px)").matches)d.classList.add("mk-pin");setTimeout(function(){if(!window.__mkReady){d.classList.remove("mk-motion","mk-pin");d.classList.add("mk-failsafe")}},5000)}catch(e){}})();`;
+const BOOT = `(function(){try{var d=document.documentElement,r=matchMedia("(prefers-reduced-motion: reduce)").matches;if(r)return;d.classList.add("mk-motion","mk-pin");if(matchMedia("(min-width: 768px)").matches)d.classList.add("mk-pin-d");setTimeout(function(){if(!window.__mkReady){d.classList.remove("mk-motion","mk-pin","mk-pin-d");d.classList.add("mk-failsafe")}},5000)}catch(e){}})();`;
+
+// Données structurées (entreprise locale) pour le référencement.
+const LOCAL_BUSINESS = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: SITE_NAME,
+  description: "Conciergerie pour propriétaires de logements en location courte durée dans le Val-de-Marne.",
+  telephone: PHONE_TEL,
+  email: EMAIL,
+  address: { "@type": "PostalAddress", streetAddress: ADDRESS.street, postalCode: ADDRESS.zip, addressLocality: ADDRESS.city, addressCountry: "FR" },
+  areaServed: COMMUNES.map((name) => ({ "@type": "City", name })),
+  sameAs: [INSTAGRAM_URL],
+};
+
+/** Aperçu statique (sans serveur) : pas d'enveloppe <html> rendue par React, sinon la saisie dans les formulaires bloque. */
+const STATIC_PREVIEW = import.meta.env["VITE_STATIC_PREVIEW"] === "1";
 
 function RootShell({ children }: { children: ReactNode }) {
+  if (STATIC_PREVIEW) return <>{children}</>;
   return (
     <html lang="fr" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: BOOT }} />
         <HeadContent />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(LOCAL_BUSINESS) }} />
       </head>
       <body>
         {children}
@@ -130,9 +151,10 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <div className="mk-progress" aria-hidden="true" />
+      <SkipLink />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Header />
-      <main>
+      <main id="contenu" tabIndex={-1}>
         <Outlet />
       </main>
       <Footer />

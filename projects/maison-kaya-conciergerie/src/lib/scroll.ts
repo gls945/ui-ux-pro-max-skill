@@ -1,10 +1,11 @@
 /**
  * Moteur de défilement Maison Kaya (sans dépendance, sans curseur personnalisé).
- *  - [data-scene="journey"]    : parcours « caméra » épinglé (accueil)
- *  - [data-scene="delegation"] : scène des clés 3D épinglée
+ *  - [data-scene="journey"]    : parcours épinglé (accueil), sur tous les écrans
+ *  - [data-scene="delegation"] : scène des clés 3D épinglée (écrans larges)
  *  - apparitions (mots, textes, photos), parallaxe [data-speed], ouverture [data-expand]
  *  - tracés SVG qui se dessinent [data-draw], compteurs [data-count]
  *  - en-tête : thème clair/sombre selon la section survolée, jamais déplacé au survol
+ *  - bouton « retour en haut »
  * Tout est écrit une seule fois par image (rAF) et seulement si la valeur change.
  * Sans JavaScript, ou avec « réduire les animations », la page reste complète et lisible.
  */
@@ -15,12 +16,11 @@ const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const smooth = (t: number) => { const x = clamp(t); return x * x * (3 - 2 * x); };
 const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/** Les chapitres du parcours : une photo par chapitre, la caméra avance à travers. */
+/** Le parcours : la photo d'accueil, puis les trois valeurs. */
 const JOURNEY_CHAPTERS = 4;
 
-export function pinnedMode() {
-  return !reduced() && window.matchMedia("(min-width: 768px)").matches;
-}
+export function pinnedMode() { return !reduced(); }
+export function pinnedDelegation() { return !reduced() && window.matchMedia("(min-width: 768px)").matches; }
 
 export function initScroll(): () => void {
   if (typeof window === "undefined") return () => {};
@@ -28,7 +28,9 @@ export function initScroll(): () => void {
   const cleanups: Array<() => void> = [];
   const isReduced = reduced();
   const pinned = pinnedMode();
+  const pinnedD = pinnedDelegation();
   html.classList.toggle("mk-pin", pinned);
+  html.classList.toggle("mk-pin-d", pinnedD);
   html.classList.toggle("mk-motion", !isReduced);
   (window as unknown as { __mkReady?: boolean }).__mkReady = true;
 
@@ -42,24 +44,24 @@ export function initScroll(): () => void {
         (e.target as HTMLElement).classList.add("mk-in");
         io.unobserve(e.target);
       }
-    }, { rootMargin: "0px 0px -6% 0px", threshold: 0.1 });
+    }, { rootMargin: "0px 0px -4% 0px", threshold: 0.08 });
     cleanups.push(() => io.disconnect());
 
     document.querySelectorAll<HTMLElement>("[data-split], .photo-reveal").forEach((el) => io.observe(el));
 
     const groups = new Map<Element, number>();
-    main.querySelectorAll<HTMLElement>("p, li, figure, h3, .btn-pill, a.pill, form, iframe, [data-rise]").forEach((el) => {
+    main.querySelectorAll<HTMLElement>("p, li, figure, h3, .btn-pill, a.pill, form, iframe, details, [data-rise]").forEach((el) => {
       if (el.closest("[data-split], [data-no-reveal], .journey, .delegation-stage, header, .site-menu")) return;
       if (el.closest("form") && el.tagName !== "FORM") return;
+      if (el.closest("details") && el.tagName !== "DETAILS") return;
       const parent = el.parentElement ?? el;
       const n = groups.get(parent) ?? 0;
       groups.set(parent, n + 1);
       el.classList.add("mk-rise");
-      el.style.setProperty("--d", `${Math.min(n, 6) * 70}ms`);
+      el.style.setProperty("--d", `${Math.min(n, 6) * 60}ms`);
       io.observe(el);
     });
 
-    /* compteurs */
     main.querySelectorAll<HTMLElement>("[data-count]").forEach((el) => {
       const target = Number(el.dataset["count"]);
       if (!Number.isFinite(target)) return;
@@ -83,6 +85,7 @@ export function initScroll(): () => void {
   /* ───────── 2. Éléments pilotés par le défilement ───────── */
   const header = document.querySelector<HTMLElement>("header.site-header");
   const bar = document.querySelector<HTMLElement>(".mk-progress");
+  const toTop = document.querySelector<HTMLElement>(".to-top");
   const darkZones = [...document.querySelectorAll<HTMLElement>("[data-dark]")];
   const speeds = isReduced ? [] : [...main.querySelectorAll<HTMLElement>("[data-speed]")];
   const expands = isReduced ? [] : [...main.querySelectorAll<HTMLElement>("[data-expand]")];
@@ -95,10 +98,10 @@ export function initScroll(): () => void {
   const jDots = journey ? [...journey.querySelectorAll<HTMLElement>(".j-dot")] : [];
   const jGlow = journey?.querySelector<HTMLElement>(".j-glow") ?? null;
   const jPersist = journey?.querySelector<HTMLElement>(".j-persist") ?? null;
-  const deleg = pinned ? document.querySelector<HTMLElement>('[data-scene="delegation"]') : null;
+  const deleg = pinnedD ? document.querySelector<HTMLElement>('[data-scene="delegation"]') : null;
   const dItems = deleg ? [...deleg.querySelectorAll<HTMLElement>(".d-item")] : [];
 
-    const written = new WeakMap<HTMLElement, Record<string, string>>();
+  const written = new WeakMap<HTMLElement, Record<string, string>>();
   const put = (el: HTMLElement | null, prop: "opacity" | "transform" | "visibility" | "translate" | "clipPath", value: string) => {
     if (!el) return;
     let memo = written.get(el);
@@ -108,7 +111,7 @@ export function initScroll(): () => void {
     (el.style as unknown as Record<string, string>)[prop] = value;
   };
 
-  let jp = 0; let jt = 0; // progression affichée / cible du parcours
+  let jp = 0; let jt = 0;
   let dp = 0; let dt = 0;
   let raf = 0; let lastY = -1;
 
@@ -122,32 +125,33 @@ export function initScroll(): () => void {
     const seg = 1 / n;
     jLayers.forEach((layer, i) => {
       const start = i * seg;
-      const u = clamp((p - (start - 0.05)) / (seg + 0.05 + (i === n - 1 ? 0 : 0.0)));
-      const scale = 0.95 + 0.3 * u;
-      const appear = i === 0 ? 1 : smooth((p - (start - 0.045)) / 0.07);
-      const covered = i < n - 1 && p > (i + 1) * seg + 0.03;
+      const u = clamp((p - (start - 0.04)) / (seg + 0.04));
+      const scale = 0.96 + 0.26 * u;
+      const appear = i === 0 ? 1 : smooth((p - (start - 0.035)) / 0.05);
+      const covered = i < n - 1 && p > (i + 1) * seg + 0.02;
       put(layer, "opacity", appear.toFixed(3));
       put(layer, "transform", `scale(${scale.toFixed(4)})`);
       put(layer, "visibility", covered ? "hidden" : "visible");
     });
     jCopies.forEach((copy, i) => {
       const start = i * seg;
-      const inT = i === 0 ? 1 : smooth((p - (start + 0.025)) / 0.05);
-      const outT = i === n - 1 ? 0 : smooth((p - ((i + 1) * seg - 0.045)) / 0.04);
+      // Le texte arrive tôt dans le chapitre et reste longtemps lisible.
+      const inT = i === 0 ? 1 : smooth((p - (start + 0.004)) / 0.03);
+      const outT = i === n - 1 ? 0 : smooth((p - ((i + 1) * seg - 0.03)) / 0.028);
       const o = inT * (1 - outT);
-      const y = (1 - inT) * 46 - outT * 46;
+      const y = (1 - inT) * 40 - outT * 40;
       put(copy, "opacity", o.toFixed(3));
       put(copy, "transform", `translate3d(0,${y.toFixed(1)}px,0)`);
       put(copy, "visibility", o < 0.01 ? "hidden" : "visible");
     });
-    const pin = smooth((p - (seg + 0.03)) / 0.05);
+    const pin = smooth((p - (seg + 0.01)) / 0.035);
     put(jPersist, "opacity", pin.toFixed(3));
-    put(jPersist, "transform", `translate3d(0,${((1 - pin) * 30).toFixed(1)}px,0)`);
+    put(jPersist, "transform", `translate3d(0,${((1 - pin) * 24).toFixed(1)}px,0)`);
     put(jPersist, "visibility", pin < 0.01 ? "hidden" : "visible");
     const active = clamp(Math.floor(p * n + 0.0001), 0, n - 1);
     jDots.forEach((d, i) => { d.dataset["on"] = i === active ? "1" : i < active ? "done" : "0"; });
     journey!.style.setProperty("--jp", p.toFixed(3));
-    journey!.dataset["tone"] = p > 0.235 ? "light" : "dark";
+    journey!.dataset["tone"] = p > seg + 0.005 ? "light" : "dark";
     if (jGlow) put(jGlow, "transform", `translate3d(${(p * 40 - 10).toFixed(1)}%, ${(Math.sin(p * 6.28) * 8).toFixed(1)}%, 0)`);
   }
 
@@ -165,10 +169,11 @@ export function initScroll(): () => void {
     let busy = false;
 
     if (bar) bar.style.transform = `scaleX(${clamp(y / Math.max(1, html.scrollHeight - vh)).toFixed(4)})`;
+    if (toTop) toTop.classList.toggle("is-on", y > vh * 1.2);
 
     if (journey) {
       jt = sceneProgress(journey);
-      jp += (jt - jp) * 0.14;
+      jp += (jt - jp) * 0.18;
       if (Math.abs(jt - jp) < 0.0006) jp = jt; else busy = true;
       paintJourney(jp);
     }
@@ -203,8 +208,8 @@ export function initScroll(): () => void {
     if (header) {
       let dark = false;
       for (const z of darkZones) {
-        const r = z.getBoundingClientRect();
         if (z.dataset["tone"] === "light") continue;
+        const r = z.getBoundingClientRect();
         if (r.top <= 44 && r.bottom >= 44) { dark = true; break; }
       }
       header.classList.toggle("over-dark", dark);
@@ -217,7 +222,6 @@ export function initScroll(): () => void {
   const request = () => { if (!raf) raf = requestAnimationFrame(frame); };
   const onScroll = () => { if (window.scrollY !== lastY || !raf) request(); };
   frame();
-  // La hauteur change quand les images chargent : on recalcule.
   const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(request) : null;
   ro?.observe(main);
   addEventListener("scroll", onScroll, { passive: true });

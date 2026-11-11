@@ -3,6 +3,7 @@ import { z } from "zod";
 import { ArrowLeft, Check } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { COMMUNES } from "@/lib/site";
+import { Link } from "@tanstack/react-router";
 
 type Field =
   | { name: string; label: string; type: "choice"; options: string[] }
@@ -11,8 +12,8 @@ type Field =
 export type Step = { title: string; fields: Field[] };
 
 const contactSchema = z.object({
-  full_name: z.string().trim().min(1, "Votre nom est requis").max(120),
-  email: z.string().trim().email("E-mail invalide").max(200),
+  full_name: z.string().trim().min(1, "Merci d'indiquer votre nom et votre prénom.").max(120),
+  email: z.string().trim().email("L'adresse e-mail n'est pas valide (exemple : prenom@exemple.fr).").max(200),
   phone: z.string().trim().max(40).optional(),
 });
 
@@ -22,6 +23,9 @@ export function StepForm({ kind, steps }: { kind: "contact" | "estimation"; step
   const [error, setError] = useState<string | null>(null);
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState(false);
+  const [consent, setConsent] = useState(false);
+  const [confirm, setConfirm] = useState(false);
+  const [website, setWebsite] = useState(""); // champ piège anti-robots, laissé vide par un humain
   const step = steps[i]!;
   const last = i === steps.length - 1;
   const set = (k: string, v: string) => setData((d) => ({ ...d, [k]: v }));
@@ -30,16 +34,19 @@ export function StepForm({ kind, steps }: { kind: "contact" | "estimation"; step
 
   async function submit() {
     setError(null);
+    if (website) { setDone(true); return; }
+    if (!consent) { setError("Merci de cocher la case de consentement pour que nous puissions vous répondre."); return; }
     const parsed = contactSchema.safeParse({ full_name: data["full_name"], email: data["email"], phone: data["phone"] || undefined });
     if (!parsed.success) { setError(parsed.error.issues[0]?.message ?? "Champs invalides"); return; }
     setSending(true);
     const { full_name, email, phone, city, housing_type, message, ...rest } = data;
+    setConfirm(false);
     const { error } = await supabase.from("owner_requests").insert({
       kind, full_name: parsed.data.full_name, email: parsed.data.email, phone: parsed.data.phone ?? null,
       city: city ?? null, housing_type: housing_type ?? null, message: message?.slice(0, 3000) ?? null, details: rest,
     });
     setSending(false);
-    if (error) { setError("L'envoi a échoué, merci de réessayer ou de nous écrire sur WhatsApp."); return; }
+    if (error) { setError("Votre demande n'a pas pu être envoyée. Vérifiez votre connexion et réessayez, ou écrivez-nous sur WhatsApp au 07 63 90 14 69."); return; }
     setDone(true);
   }
 
@@ -47,7 +54,7 @@ export function StepForm({ kind, steps }: { kind: "contact" | "estimation"; step
     return (
       <div className="rounded-[2rem] bg-secondary p-10 md:p-16">
         <Check className="h-10 w-10 text-primary" />
-        <h3 className="mt-6 font-display text-4xl">Merci, c'est bien reçu.</h3>
+        <h3 className="mt-6 font-display text-4xl">Merci, votre demande est bien envoyée.</h3>
         <p className="mt-4 max-w-lg text-muted-foreground">
           {kind === "estimation"
             ? "Nous étudions votre logement et revenons vers vous avec une première estimation, indicative et sans engagement."
@@ -66,7 +73,7 @@ export function StepForm({ kind, steps }: { kind: "contact" | "estimation"; step
       <div key={i} className="mt-8 space-y-8 animate-rise">
         {step.fields.map((f) => (
           <div key={f.name}>
-            <label className="mb-3 block text-sm text-muted-foreground">{f.label}</label>
+            <label htmlFor={`${kind}-${f.name}`} className="mb-3 block text-sm text-muted-foreground">{f.label}</label>
             {f.type === "choice" ? (
               <div className="flex flex-wrap gap-2">
                 {f.options.map((o) => (
@@ -77,26 +84,45 @@ export function StepForm({ kind, steps }: { kind: "contact" | "estimation"; step
                 ))}
               </div>
             ) : f.type === "textarea" ? (
-              <textarea rows={4} maxLength={3000} value={data[f.name] ?? ""} onChange={(e) => set(f.name, e.target.value)} placeholder={f.placeholder}
+              <textarea id={`${kind}-${f.name}`} rows={4} maxLength={3000} value={data[f.name] ?? ""} onChange={(e) => set(f.name, e.target.value)} placeholder={f.placeholder}
                 className="w-full rounded-2xl border border-input bg-background p-4 outline-none focus:border-primary" />
             ) : (
-              <input type={f.type} value={data[f.name] ?? ""} onChange={(e) => set(f.name, e.target.value)} placeholder={f.placeholder} maxLength={200}
+              <input id={`${kind}-${f.name}`} type={f.type} value={data[f.name] ?? ""} onChange={(e) => set(f.name, e.target.value)} placeholder={f.placeholder} maxLength={200}
                 className="w-full border-b border-input bg-transparent py-3 text-lg outline-none focus:border-primary" />
             )}
           </div>
         ))}
       </div>
-      {error && <p className="mt-6 text-sm text-destructive">{error}</p>}
+      {last && (
+        <div className="mt-8 space-y-4">
+          <label className="consent">
+            <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
+            <span>J'accepte que mes informations soient utilisées pour répondre à ma demande. <Link to="/confidentialite" className="link-line">En savoir plus</Link>.</span>
+          </label>
+          <label className="hp" aria-hidden="true"><span>Site web</span><input type="text" tabIndex={-1} autoComplete="off" value={website} onChange={(e) => setWebsite(e.target.value)} /></label>
+        </div>
+      )}
+      {error && <p className="mt-6 text-sm text-destructive" role="alert">{error}</p>}
+      {confirm && (
+        <div className="confirm-box" role="dialog" aria-label="Confirmer l'envoi">
+          <p className="font-display text-2xl">Envoyer votre demande ?</p>
+          <p className="mt-2 text-sm text-muted-foreground">Nous répondrons à {data["email"]}{data["phone"] ? ` ou au ${data["phone"]}` : ""}.</p>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <button type="button" onClick={submit} disabled={sending} className="pill pill-primary">{sending ? "Envoi…" : "Oui, envoyer"}</button>
+            <button type="button" onClick={() => setConfirm(false)} className="pill pill-ghost">Modifier</button>
+          </div>
+        </div>
+      )}
       <div className="mt-12 flex items-center justify-between">
         <button type="button" onClick={() => setI(i - 1)} disabled={i === 0} className="flex items-center gap-2 text-sm text-muted-foreground disabled:opacity-0">
           <ArrowLeft className="h-4 w-4" /> Retour
         </button>
         {last ? (
-          <button type="button" onClick={submit} disabled={!canNext || sending} className="rounded-full bg-primary px-7 py-3.5 text-primary-foreground transition disabled:opacity-40">
-            {sending ? "Envoi…" : "Envoyer ma demande"}
+          <button type="button" onClick={() => { setError(null); if (!consent) { setError("Merci de cocher la case de consentement pour que nous puissions vous répondre."); return; } const parsed = contactSchema.safeParse({ full_name: data["full_name"], email: data["email"], phone: data["phone"] || undefined }); if (!parsed.success) { setError(parsed.error.issues[0]?.message ?? "Champs invalides"); return; } setConfirm(true); }} disabled={!canNext || sending || confirm} className="pill pill-primary disabled:opacity-40">
+            Envoyer ma demande
           </button>
         ) : (
-          <button type="button" onClick={() => setI(i + 1)} disabled={!canNext} className="flex items-center gap-2 rounded-full bg-ink px-7 py-3.5 text-ink-foreground transition disabled:opacity-40">
+          <button type="button" onClick={() => setI(i + 1)} disabled={!canNext} className="pill pill-ink disabled:opacity-40">
             Continuer
           </button>
         )}

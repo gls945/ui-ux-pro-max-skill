@@ -7,7 +7,6 @@ shutil.copytree(f'{src}/assets', f'{out}/assets')
 css_path = glob.glob(f'{src}/assets/styles-*.css')[0]
 css = open(css_path).read()
 js = os.path.basename(glob.glob(f'{src}/assets/index-*.js')[0])
-os.remove(f'{out}/assets/' + os.path.basename(css_path))
 page = f'''<title>Maison Kaya Conciergerie</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Confiez votre location courte durée à Maison Kaya : du temps retrouvé, un logement suivi avec soin et un accompagnement local dans le Val-de-Marne.">

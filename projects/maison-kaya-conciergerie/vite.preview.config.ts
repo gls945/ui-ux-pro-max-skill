@@ -8,7 +8,9 @@ export default defineConfig({
   root: "preview",
   base: "./",
   plugins: [react(), tailwindcss()],
+  define: { "import.meta.env.VITE_STATIC_PREVIEW": JSON.stringify("1") },
   resolve: {
+    dedupe: ["react", "react-dom", "@tanstack/react-router", "@tanstack/react-query"],
     alias: [
       { find: "@/integrations/supabase/client", replacement: path.resolve(__dirname, "preview/supabase-stub.ts") },
       { find: /^@\//, replacement: path.resolve(__dirname, "src") + "/" },

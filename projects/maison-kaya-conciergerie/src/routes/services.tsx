@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Check } from "lucide-react";
 import { PageHero } from "@/components/site/Layout";
-import { INCLUDED, EXTRAS, COMMISSION_TERMS } from "@/lib/site";
+import { Split } from "@/components/site/Split";
+import { SERVICES, COMMISSION_TERMS } from "@/lib/site";
 import linge from "@/assets/linge.jpg";
 
 export const Route = createFileRoute("/services")({
@@ -9,53 +10,48 @@ export const Route = createFileRoute("/services")({
     meta: [
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { title: "Nos services — Maison Kaya Conciergerie" },
-      { name: "description", content: "Tout ce qui est inclus dans la commission unique de 20 %, et les prestations facturées à part, clairement." },
-      { property: "og:title", content: "Services & commission de 20 % — Maison Kaya" },
-      { property: "og:description", content: "Ce qui est compris dans la commission, ce qui ne l'est pas." },
+      { title: "Nos services de conciergerie location courte durée (94) | Maison Kaya" },
+      { name: "description", content: "Accompagnement des voyageurs, coordination du ménage et du linge, annonces, décoration, maintenance : les prestations de Maison Kaya Conciergerie dans le Val-de-Marne." },
+      { property: "og:title", content: "Nos services — Maison Kaya Conciergerie" },
+      { property: "og:description", content: "Les prestations proposées aux propriétaires de logements en location courte durée." },
     ],
   }),
   component: () => (
     <>
-      <PageHero eyebrow="Nos services" title={<>Une seule commission. <em className="text-primary whitespace-nowrap">20 %.</em></>}
-        intro="Pas de forfait caché, pas de commission additionnelle. Voici précisément ce que comprend notre accompagnement." image={linge} imageAlt="Serviettes préparées avec soin" />
-      <section className="mx-auto max-w-7xl px-6 py-28">
-        <div className="grid gap-12 md:grid-cols-12">
-          <div className="md:col-span-4">
-            <div className="md:sticky md:top-32"><p className="font-display text-7xl leading-none text-primary whitespace-nowrap"><span data-count={COMMISSION_TERMS.rate}>{COMMISSION_TERMS.rate}</span> %</p>
-            <h2 className="mt-4 font-display text-3xl">Compris dans la commission</h2>
-            <p className="mt-6 text-muted-foreground">Notre commission est calculée sur les {COMMISSION_TERMS.basis}.</p>
-          </div></div>
-          <ul className="md:col-span-8 divide-y divide-border border-y border-border">
-            {INCLUDED.map((s) => (
-              <li key={s} className="flex items-start gap-4 py-5 text-lg"><Check className="mt-1 h-5 w-5 shrink-0 text-primary" />{s}</li>
-            ))}
-          </ul>
+      <PageHero eyebrow="Nos services" title={<>Des prestations claires, <em className="text-primary">un seul interlocuteur.</em></>}
+        intro="Voici précisément ce que comprend notre accompagnement. Chaque prestation est définie avec vous, selon votre logement et vos attentes." image={linge} imageAlt="Serviettes préparées avec soin sur un lit" />
+      <section className="mx-auto max-w-7xl px-6 py-20 md:py-28">
+        <div className="flex flex-col gap-16 md:gap-24">
+          {SERVICES.map((s, i) => (
+            <article key={s.slug} id={s.slug} className="grid scroll-mt-32 gap-8 border-t border-border pt-12 md:grid-cols-12">
+              <div className="md:col-span-5">
+                <Split as="h2" className="font-display text-3xl md:text-4xl">{s.t}</Split>
+                <p className="mt-4 text-lg text-muted-foreground">{s.short}</p>
+              </div>
+              <ul className={`md:col-span-7 ${i % 2 ? "md:pl-8" : "md:pl-16"}`}>
+                {s.items.map((it) => (
+                  <li key={it} className="flex items-start gap-4 border-b border-border py-4 text-lg"><Check className="mt-1 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />{it}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
         </div>
       </section>
       <section className="bg-secondary">
-        <div className="mx-auto grid max-w-7xl gap-12 px-6 py-28 md:grid-cols-12">
-          <div className="md:col-span-4">
-            <h2 className="font-display text-3xl">Des attentions en plus, pour votre logement.</h2>
-            <p className="mt-4 text-lg italic text-muted-foreground">Selon vos besoins, sur devis.</p>
+        <div className="mx-auto grid max-w-7xl gap-10 px-6 py-20 md:grid-cols-12 md:py-28">
+          <div className="md:col-span-5">
+            <p className="eyebrow">Commission</p>
+            <Split as="h2" className="display-lg mt-5">Une commission unique de <em className="text-primary whitespace-nowrap">{COMMISSION_TERMS.rate} %.</em></Split>
           </div>
-          <ul className="md:col-span-8 grid gap-x-10 sm:grid-cols-2">
-            {EXTRAS.map((s) => (
-              <li key={s.title} className="border-b border-border py-5">
-                <h3 className="font-display text-2xl">{s.title}</h3>
-                <p className="mt-3 text-muted-foreground">{s.description}</p>
-              </li>
-            ))}
-          </ul>
-          <div className="md:col-span-8 md:col-start-5">
-            <p className="text-muted-foreground">Prestations complémentaires payantes.<br />Achats et interventions externes précisés au devis.</p>
-            <a href="https://www.instagram.com/kaya.conciergerie/" target="_blank" rel="noreferrer" className="btn-pill mt-6">Parlons de votre projet en message privé</a>
+          <div className="md:col-span-7 md:pt-10">
+            <p className="text-lg">La commission est calculée sur les {COMMISSION_TERMS.basis}, selon les conditions définies dans le contrat signé avec chaque propriétaire.</p>
+            <p className="mt-4 text-muted-foreground">{COMMISSION_TERMS.separateFees.join(", ").toLowerCase().replace(/^./, (c) => c.toUpperCase())} sont facturés séparément. Les éventuels achats, travaux et prestations supplémentaires font l'objet d'une validation préalable de votre part et d'une facturation distincte, sur {COMMISSION_TERMS.pricing}.</p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link to="/accompagnement" className="pill pill-ink">Pour les propriétaires</Link>
+              <Link to="/contact" className="pill pill-ghost">Nous écrire</Link>
+            </div>
           </div>
         </div>
-      </section>
-      <section className="mx-auto max-w-7xl px-6 py-28 text-center">
-        <h2 className="display-lg">Une question sur ce qui est inclus ?</h2>
-        <Link to="/contact" className="pill pill-ink mt-10">Nous écrire</Link>
       </section>
     </>
   ),

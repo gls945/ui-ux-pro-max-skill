@@ -7,17 +7,17 @@ export const Route = createFileRoute("/estimation")({
     meta: [
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { title: "Estimer mes revenus locatifs — Maison Kaya" },
-      { name: "description", content: "Obtenez une estimation personnalisée du potentiel de votre logement en location courte durée dans le Val-de-Marne." },
-      { property: "og:title", content: "Estimer mes revenus — Maison Kaya" },
-      { property: "og:description", content: "Quelques questions sur votre logement, une estimation personnalisée en retour." },
+      { title: "Estimation de votre logement en location courte durée | Maison Kaya" },
+      { name: "description", content: "Décrivez votre logement du Val-de-Marne en quelques questions. Maison Kaya revient vers vous avec une estimation indicative, sans engagement." },
+      { property: "og:title", content: "Estimer mon logement — Maison Kaya Conciergerie" },
+      { property: "og:description", content: "Quelques questions sur votre logement, une estimation indicative en retour." },
     ],
   }),
   component: () => (
     <>
       <PageHero eyebrow="Estimation" title={<>Ce que votre logement <em className="text-primary">pourrait rapporter.</em></>}
-        intro="Quelques questions, deux minutes. Nous revenons vers vous avec une estimation personnalisée — indicative, et non une garantie de revenus." />
-      <section className="mx-auto max-w-3xl px-6 py-20">
+        intro="Quelques questions, deux minutes. Nous revenons vers vous avec une estimation personnalisée, indicative, qui ne constitue pas une garantie de revenus." />
+      <section className="mx-auto max-w-3xl px-6 py-16 md:py-20">
         <StepForm kind="estimation" steps={[
           { title: "Votre logement", fields: [
             { name: "housing_type", label: "Type de logement", type: "choice", options: HOUSING },
