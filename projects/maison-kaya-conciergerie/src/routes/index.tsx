@@ -93,21 +93,25 @@ function Index() {
 
       {/* ───── Nos services ───── */}
       <section className="home-services-section">
-        <div className="mx-auto max-w-7xl px-6 py-20 md:py-32">
-          <p className="eyebrow">Nos services</p>
-          <Split as="h2" className="display-lg mt-5 max-w-3xl">Tout ce qu'il faut, <em className="text-primary">rien de superflu.</em></Split>
-          <ul className="service-grid mt-12">
+        <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-12 md:py-28">
+          <div className="md:col-span-4">
+            <div className="md:sticky md:top-28">
+              <p className="eyebrow">Nos services</p>
+              <Split as="h2" className="display-lg mt-5">Tout ce qu'il faut, <em className="text-primary">rien de superflu.</em></Split>
+              <p className="mt-6 max-w-sm text-muted-foreground">Chaque prestation est définie avec vous, selon votre logement et vos attentes.</p>
+              <Link to="/contact" className="btn-pill mt-8">Nous contacter</Link>
+            </div>
+          </div>
+          <ul className="service-index md:col-span-8">
             {SERVICES.map((s) => (
-              <li key={s.slug} className="service-card">
-                <h3 className="font-display text-2xl">{s.t}</h3>
-                <p className="mt-3 text-muted-foreground">{s.short}</p>
-                <Link to="/services" hash={s.slug} className="link-line mt-5 inline-block text-sm text-primary">En savoir plus</Link>
+              <li key={s.slug} className="service-row">
+                <Link to="/services" hash={s.slug} className="service-link">
+                  <span className="service-title">{s.t}</span>
+                  <span className="service-desc">{s.short}</span>
+                  <span className="service-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 12h15M13 6l6 6-6 6" /></svg></span>
+                </Link>
               </li>
             ))}
-            <li className="service-card service-card-cta">
-              <p className="font-display text-2xl">Une question sur une prestation ?</p>
-              <Link to="/contact" className="pill pill-light mt-5 self-start">Nous contacter</Link>
-            </li>
           </ul>
         </div>
       </section>
