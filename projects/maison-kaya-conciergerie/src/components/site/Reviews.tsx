@@ -15,7 +15,7 @@ import { Split } from "@/components/site/Split";
 
 export function Reviews() {
   return (
-    <section className="mx-auto max-w-7xl px-6 pt-16 pb-20 md:py-40">
+    <section className="mx-auto max-w-7xl px-6 pt-10 pb-20 md:pt-16 md:pb-32">
       <div className="flex flex-col items-start gap-8 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="eyebrow">Avis Google</p>

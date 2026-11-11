@@ -279,6 +279,7 @@ main a:focus-visible, header a:focus-visible, header button:focus-visible, foote
 .page-hero-media img { display: block; width: 100%; height: 52vh; object-fit: cover; }
 @media (min-width: 768px) { .page-hero-media img { height: 68vh; } }
 .step-row { display: grid; gap: .6rem; border-top: 1px solid var(--border); padding: 2rem 0; }
+.steps .step-row:last-child { padding-bottom: .5rem; }
 @media (min-width: 768px) { .step-row { grid-template-columns: 5fr 7fr; gap: 2rem; padding: 3.5rem 0; align-items: start; } }
 .steps { list-style: none; margin: 0; padding: 0; }
 .timeline { position: relative; }

@@ -134,7 +134,7 @@ function Index() {
       </section>
 
       {/* ───── Comment ça fonctionne ───── */}
-      <section className="section">
+      <section className="section !pb-4 md:!pb-8">
         <div className="grid gap-10 md:grid-cols-12">
           <div className="md:col-span-4">
             <p className="eyebrow">Comment ça fonctionne ?</p>
