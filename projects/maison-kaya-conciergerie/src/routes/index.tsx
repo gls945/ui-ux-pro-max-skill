@@ -107,7 +107,6 @@ function Index() {
               <li key={s.slug} className="service-row">
                 <Link to="/services" hash={s.slug} className="service-link">
                   <span className="service-title">{s.t}</span>
-                  <span className="service-desc">{s.short}</span>
                   <span className="service-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 12h15M13 6l6 6-6 6" /></svg></span>
                 </Link>
               </li>
