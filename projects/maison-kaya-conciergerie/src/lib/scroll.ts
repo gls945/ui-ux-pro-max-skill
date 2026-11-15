@@ -209,7 +209,9 @@ export function initScroll(): () => void {
       let dark = false;
       for (const z of darkZones) {
         if (z.dataset["tone"] === "light") continue;
-        const r = z.getBoundingClientRect();
+        // Parcours non épinglé (téléphone) : seule la photo d'accueil est sombre.
+        const probe = !pinned && z.dataset["scene"] === "journey" ? (z.querySelector<HTMLElement>(".j-chapter") ?? z) : z;
+        const r = probe.getBoundingClientRect();
         if (r.top <= 44 && r.bottom >= 44) { dark = true; break; }
       }
       header.classList.toggle("over-dark", dark);

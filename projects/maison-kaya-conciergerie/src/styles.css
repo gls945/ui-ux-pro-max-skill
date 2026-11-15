@@ -7,7 +7,7 @@
 @theme inline {
   --font-display: "Libre Caslon Text", Georgia, serif;
   --font-sans: "Manrope", system-ui, sans-serif;
-  --font-logo: "Montserrat", "Manrope", system-ui, sans-serif;
+  --font-logo: "Bodoni Moda", "Libre Caslon Text", Georgia, serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -141,9 +141,11 @@ main a:focus-visible, header a:focus-visible, header button:focus-visible, foote
 .wordmark-mark .wm-ivoire { opacity: 0; }
 .over-dark .wordmark-mark .wm-ivoire { opacity: 1; }
 .over-dark .wordmark-mark .wm-encre { opacity: 0; }
-.wordmark-text { font-family: var(--font-logo); font-weight: 300; font-size: .95rem; letter-spacing: .3em; text-transform: uppercase; line-height: 1; white-space: nowrap; }
-.wordmark-text em { font-style: normal; font-weight: 400; }
-footer .wordmark-text { font-size: 1.05rem; }
+.wordmark-text { font-family: var(--font-logo); font-weight: 400; font-size: 1.45rem; letter-spacing: .02em; line-height: 1; white-space: nowrap; font-optical-sizing: auto; }
+.wordmark-text em { font-style: italic; font-weight: 400; color: var(--primary); }
+.over-dark .wordmark-text em { color: var(--sand); }
+footer .wordmark-text { font-size: 1.7rem; }
+footer .wordmark-text em { color: var(--sand); }
 .site-header nav { display: none; gap: 1.35rem; font-size: .86rem; }
 .site-header nav a { white-space: nowrap; }
 .site-header nav a { opacity: .75; }
@@ -159,7 +161,7 @@ footer .wordmark-text { font-size: 1.05rem; }
 .header-actions { display: flex; align-items: center; gap: .5rem; }
 .menu-toggle { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 9999px; background: var(--background); color: var(--foreground); border: 1px solid var(--border); cursor: pointer; }
 .site-menu { margin: 8px 16px 0; border-radius: 1.75rem; border: 1px solid var(--border); background: var(--background); color: var(--foreground); padding: 1.5rem; box-shadow: 0 30px 60px -30px color-mix(in oklch, var(--ink) 50%, transparent); max-width: 26rem; margin-left: auto; }
-@media (max-width: 480px) { .header-cta { padding: .65rem .85rem; font-size: .76rem; } .site-header .header-bar { padding-left: 14px; padding-right: 10px; } .wordmark-text { font-size: .72rem; letter-spacing: .22em; } .wordmark-mark { width: 1.8rem; height: 1.8rem; } .wordmark { gap: .4rem; } }
+@media (max-width: 480px) { .header-cta { padding: .65rem .85rem; font-size: .76rem; } .site-header .header-bar { padding-left: 14px; padding-right: 10px; } .wordmark-text { font-size: 1.15rem; } .wordmark-mark { width: 1.8rem; height: 1.8rem; } .wordmark { gap: .4rem; } }
 .mk-progress { position: fixed; left: 0; top: 0; z-index: 90; height: 2px; width: 100%; background: var(--primary); transform: scaleX(0); transform-origin: 0 50%; pointer-events: none; }
 
 /* ───────── Révélations ───────── */

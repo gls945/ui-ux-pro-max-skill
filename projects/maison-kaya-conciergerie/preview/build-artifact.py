@@ -12,7 +12,7 @@ page = f'''<title>Maison Kaya Conciergerie</title>
 <meta name="description" content="Confiez votre location courte durée à Maison Kaya : du temps retrouvé, un logement suivi avec soin et un accompagnement local dans le Val-de-Marne.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Manrope:wght@400;500;600&family=Montserrat:wght@300;400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Manrope:wght@400;500;600&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&display=swap">
 <style>{css}
 html,body{{background:var(--background);color:var(--foreground)}}
 </style>
