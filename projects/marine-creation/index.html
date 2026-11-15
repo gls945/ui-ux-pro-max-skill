@@ -7,7 +7,7 @@
 <title>Marine Création</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Figtree:wght@400;500;600&family=Sacramento&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Figtree:wght@400;500;600&family=Sacramento&family=Great+Vibes&display=swap">
 <style>
 /* Layout: atelier page — wire portrait beside the tagline, her photos as the collections, a live "write your word in wire" preview, then ordering and contact. */
 :root{
@@ -183,8 +183,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
         </div>
       </div>
       <figure class="hero-figure">
-        <canvas id="hero" aria-label="Fiole en verre en 3D contenant une sculpture en fil de fer : profil de femme en fil cuivre rosé, chignon en rose spirale rose poudré, marguerite blanche, tulipe jaune, feuilles vertes et papillon lilas ; sous la fiole, le mot Marine Création écrit en fil"></canvas>
-        <figcaption>« Rêverie en fiole », fil d’aluminium coloré, verre et liège · bougez la souris pour la faire pivoter</figcaption>
+        <canvas id="hero" aria-label="Fiole en verre en 3D contenant un visage de femme d’un seul fil de fer noir torsadé, œil fermé aux cils en boucles, chevelure en vagues finissant en spirale ; sous la fiole, le mot Marine Création écrit en fil"></canvas>
+        <figcaption>« Songe en fiole », fil de fer torsadé, verre et liège · bougez la souris pour la faire pivoter</figcaption>
       </figure>
     </div>
   </section>
@@ -471,9 +471,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   // ---- turns a script word into wire centre-lines (Zhang-Suen thinning + tracing) ----
   function traceWord(text, firstPart){
     const W = 1500, H = 320, c = document.createElement('canvas'); c.width = W; c.height = H;
-    const g = c.getContext('2d'); g.font = '170px Sacramento, cursive'; g.textBaseline = 'middle';
+    const g = c.getContext('2d'); g.font = '150px "Great Vibes", cursive'; g.textBaseline = 'middle';
     const tw = g.measureText(text).width, x0 = (W - tw) / 2, split = x0 + g.measureText(firstPart).width;
-    g.lineWidth = 5; g.lineJoin = 'round'; g.fillText(text, x0, H/2); g.strokeText(text, x0, H/2);
+    g.lineWidth = 3; g.lineJoin = 'round'; g.fillText(text, x0, H/2); g.strokeText(text, x0, H/2);
     const d = g.getImageData(0, 0, W, H).data, im = new Uint8Array(W*H);
     for (let i = 0; i < W*H; i++) im[i] = d[i*4+3] > 110 ? 1 : 0;
     const off = [-W, -W+1, 1, W+1, W, W-1, -1, -W-1]; // p2..p9 clockwise from north
@@ -547,7 +547,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
     sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); sun.shadow.radius = 6; sun.shadow.bias = -0.0005;
     Object.assign(sun.shadow.camera, {left:-4, right:4, top:4, bottom:-4, near:.5, far:20});
     scene.add(sun);
-    const wall = new T.Mesh(new T.PlaneGeometry(14, 14), new T.ShadowMaterial({opacity:.22}));
+    const wall = new T.Mesh(new T.PlaneGeometry(14, 14), new T.ShadowMaterial({opacity:.14}));
     wall.position.z = -2.2; wall.receiveShadow = true; scene.add(wall);
 
     // ---- the drawing, in the same 400×400 space as the 2D pieces ----
@@ -559,32 +559,22 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
     const rot = (x, y, a) => [x*Math.cos(a) - y*Math.sin(a), x*Math.sin(a) + y*Math.cos(a)];
     const leaf = (bx, by, L, W, a) => poly(t => { const u = t*Math.PI*2, x = L*(1-Math.cos(u))/2, y = W*Math.sin(u)*(1-Math.cos(u))/2, [rx, ry] = rot(x, y, a); return [bx+rx, by+ry]; }, 60);
 
-    // face, in rose-gold wire, ending in little curls like Marine's pieces
-    ART.face.filter(p => p.c === 'copper').forEach(p => fromPath(p.d, 'copper', .05, .021));
-    // sleek hair in black wire
-    ART.face.filter(p => p.c === 'ink' && !p.d.startsWith('M 120 104') && !p.d.startsWith('M 172 216')).forEach(p => fromPath(p.d, 'ink', -.05, .021));
-    fromPath('M 172 216 L 172 238 C 162 238 160 256 172 258 C 184 256 182 238 172 238', 'yellow', .08, .02);
-    // the bun becomes a pink wire rose
-    fromPath('M 120 104 C 128 96 140 104 134 116 C 126 128 104 122 102 106 C 100 86 124 76 140 86 C 156 98 152 126 132 134 C 112 142 90 130 88 108 C 86 86 104 68 124 68 C 146 68 162 86 160 108 C 160 124 152 136 146 142', 'pink', .12, .03, 'rose');
-    add(leaf(92, 132, 46, 18, 2.4), 'green', .02, .024, 'rose');
-    add(leaf(150, 72, 40, 15, -.75), 'green', .02, .024, 'rose');
-    // white daisy: one continuous wire, five petals (rose curve r = cos 5θ)
-    add(poly(t => { const th = t*Math.PI, r = 30*Math.cos(5*th); return [196 + r*Math.cos(th), 50 + r*Math.sin(th)]; }, 220), 'white', .2, .024, 'daisy');
-    add(poly(t => { const a = t*Math.PI*4, r = 2 + 5*t; return [196 + r*Math.cos(a), 50 + r*Math.sin(a)]; }, 50), 'yellow', .24, .022, 'daisy');
-    fromPath('M 186 70 C 180 84 168 92 160 96', 'green', .1, .022, 'daisy');
-    // yellow tulip behind the nape, stem tied into the hair
-    fromPath('M 52 214 L 64 236 L 76 216 L 88 236 L 100 214 C 106 248 92 264 76 264 C 60 264 46 248 52 214', 'yellow', .1, .028, 'tulip');
-    fromPath('M 76 264 C 80 292 106 304 134 296 C 146 292 150 280 140 276 C 132 274 130 284 138 286', 'green', .06, .024, 'tulip');
-    add(leaf(96, 296, 38, 14, -2.2), 'green', .04, .022, 'tulip');
-    // lilac butterfly in front of the face
-    const bf = (cx, cy, A, B) => poly(t => { const u = t*Math.PI*2; return [cx + A*Math.sin(u), cy + B*Math.sin(u)*Math.cos(u)*2]; }, 120);
-    add(bf(332, 96, 26, 20), 'lilac', .5, .022, 'fly');
-    add(bf(332, 118, 17, 12), 'lilac', .5, .022, 'fly');
-    fromPath('M 332 90 L 332 126', 'ink', .52, .02, 'fly');
-    fromPath('M 332 90 C 328 78 322 72 316 74 C 312 76 314 82 318 80', 'ink', .52, .016, 'fly');
-    fromPath('M 332 90 C 336 78 342 72 348 74 C 352 76 350 82 346 80', 'ink', .52, .016, 'fly');
-
-    const fontReady = document.fonts ? document.fonts.load('170px Sacramento').catch(() => {}) : Promise.resolve();
+    // one-line face in twisted black wire, after Marine's own piece (coordinates traced from the photo, 773×1300 px)
+    const PH = .39, PX = 59, PY = -38;
+    const ph = d => { let k = 0; return d.replace(/-?\d+(\.\d+)?/g, n => (k++ % 2 === 0 ? PX + n*PH : PY + n*PH).toFixed(1)); };
+    const W = (d, z = 0) => fromPath(ph(d), 'ink', z, .024, 'face');
+    W('M 452 78 C 446 52 466 40 464 70 C 462 95 440 110 425 125 C 360 180 260 240 205 325 C 150 405 150 485 210 580 C 255 645 235 705 178 765', .02);
+    W('M 452 78 C 438 110 385 150 350 205 C 315 255 232 335 230 420 C 228 470 300 462 272 502 C 245 540 182 562 145 620 C 110 680 122 742 178 765', -.03);
+    W('M 178 765 C 112 798 98 852 168 890 C 238 928 258 990 202 1030 C 152 1062 82 1032 96 996 C 110 962 170 1000 200 1062 C 230 1122 232 1180 202 1210 C 182 1226 158 1212 168 1200 C 178 1192 196 1200 190 1212', .04);
+    W('M 178 765 C 250 792 340 838 410 855 C 500 802 598 652 608 400 C 612 320 632 232 600 220 C 520 210 440 232 426 292 C 416 335 420 420 455 520', .06);
+    W('M 455 520 C 440 536 420 546 400 546 C 372 546 360 534 380 530 C 410 524 440 545 460 550 C 482 553 492 538 472 532 C 452 528 432 545 426 562 C 420 582 432 592 446 600', .08);
+    W('M 446 600 C 420 602 380 610 352 620 C 322 630 302 652 332 648 C 382 640 452 630 500 625 C 532 622 526 642 500 638 C 452 633 382 650 362 666 C 342 682 382 690 422 692 C 462 696 466 706 440 716 C 410 731 402 762 430 800 C 446 822 432 842 410 855', .1);
+    W('M 410 855 C 382 905 370 1005 386 1215', .02);
+    W('M 465 355 C 520 358 580 362 635 368 C 646 370 642 382 630 376', .1);
+    [482, 520, 556, 592].forEach((x, i) => W(`M ${x} ${358 + i} C ${x-6} 384 ${x+12} 390 ${x+9} ${360 + i}`, .12));
+    // little wire ligatures where the strands cross
+    const knots = [[210, 580], [178, 765], [410, 855]];
+    const fontReady = document.fonts ? document.fonts.load('150px "Great Vibes"').catch(() => {}) : Promise.resolve();
     fontReady.then(() => {
     // "Marine Création" written in wire: the script text is thinned to its centre line, then traced into wires
     const WY = -2.78, WW = 3.4;
@@ -599,8 +589,15 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
         });
     } catch (e) {}
 
+    function mergeTubes(a, b){
+      const g = new T.BufferGeometry(), na = a.attributes.position.count;
+      ['position', 'normal'].forEach(k => { const x = a.attributes[k].array, y = b.attributes[k].array, z = new Float32Array(x.length + y.length); z.set(x); z.set(y, x.length); g.setAttribute(k, new T.BufferAttribute(z, 3)); });
+      const ia = a.index.array, ib = b.index.array, idx = new Uint32Array(ia.length + ib.length);
+      for (let k = 0, q = 0; k < ia.length; k += 6){ for (let j = 0; j < 6; j++) idx[q++] = ia[k+j]; for (let j = 0; j < 6; j++) idx[q++] = ib[k+j] + na; }
+      g.setIndex(new T.BufferAttribute(idx, 1)); return g;
+    }
     const root = new T.Group(); root.position.x = .02; scene.add(root);
-    const art = new T.Group(); art.scale.setScalar(.74); art.position.set(.04, -.02, 0); root.add(art);
+    const art = new T.Group(); art.scale.setScalar(.88); art.position.set(.02, .02, 0); root.add(art);
     const groups = {};
     const meshes = pieces.map((pc, i) => {
       const g = groups[pc.group] || (groups[pc.group] = new T.Group());
@@ -611,7 +608,17 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
                                    : new T.Vector3((x-200)/100, -(y-210)/100, pc.z + .035*Math.sin(k*.21 + i)));
       if (v.length < 2) return null;
       const curve = new T.CatmullRomCurve3(v, false, 'centripetal');
-      const seg = Math.min(600, v.length*4), geo = new T.TubeGeometry(curve, seg, pc.r, 10, false);
+      let geo;
+      if (pc.group === 'face'){
+        // two thin strands twisted around the path, like annealed wire
+        const L = curve.getLength(), n = Math.min(2400, Math.ceil(L*260)), fr = curve.computeFrenetFrames(n, false), turns = L*34;
+        const strand = ph0 => { const pts = []; for (let k = 0; k <= n; k++){ const t = k/n, a = t*turns*Math.PI*2 + ph0, p = curve.getPointAt(t);
+          pts.push(p.add(fr.normals[k].clone().multiplyScalar(Math.cos(a)*pc.r*.5)).add(fr.binormals[k].clone().multiplyScalar(Math.sin(a)*pc.r*.5))); } return new T.CatmullRomCurve3(pts); };
+        const g1 = new T.TubeGeometry(strand(0), n, pc.r*.55, 6, false), g2 = new T.TubeGeometry(strand(Math.PI), n, pc.r*.55, 6, false);
+        geo = mergeTubes(g1, g2);
+      } else {
+        const seg = Math.min(600, v.length*4); geo = new T.TubeGeometry(curve, seg, pc.r, 10, false);
+      }
       const c = new T.Color(COL[pc.col]).convertSRGBToLinear();
       const mat = new T.MeshStandardMaterial({color:c, metalness: pc.col === 'ink' ? .55 : .75, roughness: pc.col === 'white' ? .32 : .26, envMapIntensity:1.2});
       const m = new T.Mesh(geo, mat); m.castShadow = !pc.abs;
@@ -626,6 +633,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
     // groups pivot around their own centre for the little motions
     const pivot = (name, x, y) => { const g = groups[name]; if (!g) return; const p = new T.Vector3((x-200)/100, -(y-210)/100, 0); g.children.forEach(ch => ch.position.sub(p)); g.position.copy(p); };
     pivot('fly', 332, 106); pivot('daisy', 196, 50); pivot('rose', 124, 106); pivot('tulip', 76, 240);
+    const knotMat = new T.MeshStandardMaterial({color:new T.Color(COL.ink).convertSRGBToLinear(), metalness:.6, roughness:.3});
+    const knotMeshes = [];
+    (typeof knots !== 'undefined' ? knots : []).forEach(([x, y]) => {
+      const X = (PX + x*PH - 200)/100, Y = -(PY + y*PH - 210)/100;
+      for (let k = -1; k <= 1; k++){ const r = new T.Mesh(new T.TorusGeometry(.04, .009, 6, 20), knotMat); r.position.set(X + k*.018, Y + k*.012, .05); r.rotation.y = Math.PI/2; r.rotation.x = .6; r.castShadow = true; r.visible = false; art.add(r); knotMeshes.push(r); }
+    });
 
     // ---- the glass vial and its cork ----
     const prof = [[0,-2.15],[.6,-2.12],[1.1,-2.03],[1.4,-1.86],[1.53,-1.6],[1.56,-1.3],[1.56,1.15],[1.51,1.52],[1.28,1.88],[.88,2.14],[.62,2.3],[.56,2.45],[.56,2.74],[.64,2.8],[.64,2.88],[.56,2.92]].map(([x,y]) => new T.Vector2(x, y));
@@ -656,6 +669,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
         x.m.geometry.setDrawRange(0, Math.floor(n/6)*6);
         x.m.visible = n > 0; x.capB.visible = n >= x.count;
       });
+      knotMeshes.forEach(k => k.visible = p > .55);
     };
     applyProg(prog);
 
