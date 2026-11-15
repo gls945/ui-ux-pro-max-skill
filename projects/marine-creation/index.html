@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Figtree:wght@400;500;600&family=Sacramento&family=Pinyon+Script&display=swap">
 <style>
-/* Layout: atelier page — wire bouquet in a vial beside the tagline, her photos as the collections, a live "write your word in wire" preview, then ordering and contact. */
+/* Layout: atelier page — wire word in a vial beside the tagline, her photos as the collections, a live "write your word in wire" preview, then ordering and contact. */
 :root{
   --bg:#F2ECE3;          /* plâtre clair, comme le fond des photos */
   --surface:#FBF7F1;
@@ -59,9 +59,9 @@ nav a:hover{border-bottom-color:var(--copper)}
 .btn.primary{background:var(--fg);color:var(--bg)}
 .btn:hover{transform:translateY(-1px)}
 .hero-figure{margin:0;min-width:0;background:var(--panel);border-radius:4px;padding:8px}
-.hero-figure canvas{width:100%;aspect-ratio:4/5;display:block;touch-action:pan-y}
+.hero-figure canvas{width:100%;aspect-ratio:4/3;display:block;touch-action:pan-y}
 .stage{position:relative}
-.vial-name{position:absolute;left:0;right:0;top:89.5%;transform:translateY(-50%);margin:0;text-align:center;font-family:"Pinyon Script","Snell Roundhand",cursive;font-size:clamp(2rem,4.6vw,3.5rem);line-height:1.3;letter-spacing:.01em;
+.vial-name{position:absolute;left:0;right:0;top:80%;transform:translateY(-50%);margin:0;text-align:center;font-family:"Pinyon Script","Snell Roundhand",cursive;font-size:clamp(2rem,4.6vw,3.5rem);line-height:1.3;letter-spacing:.01em;
   background:linear-gradient(100deg,#8E4C2E 0%,var(--copper) 30%,#D99A76 48%,var(--copper) 62%,#7A3F24 100%);-webkit-background-clip:text;background-clip:text;color:transparent;pointer-events:none}
 .hero-figure figcaption{font-size:.85rem;color:var(--muted);padding:6px 10px 4px}
 
@@ -187,10 +187,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
       </div>
       <figure class="hero-figure">
         <div class="stage">
-        <canvas id="hero" aria-label="Fiole en verre en 3D contenant un bouquet en fil de fer coloré : rose spirale rose poudré, marguerite blanche, tulipe jaune, tiges et feuilles vertes liées d’un fil cuivre, papillon lilas ; sous la fiole, le nom Marine Création"></canvas>
+        <canvas id="hero" aria-label="Fiole tube en verre couchée, en 3D, contenant le mot rêve écrit en fil de fer vert, avec ses boucles ; sous la fiole, le nom Marine Création"></canvas>
         <p class="vial-name" aria-hidden="true">Marine Création</p>
         </div>
-        <figcaption>« Bouquet en fiole », fil d’aluminium coloré, verre et liège · bougez la souris pour la faire pivoter</figcaption>
+        <figcaption>« Rêve en fiole », fil d’aluminium vert, verre et liège · bougez la souris pour la faire pivoter</figcaption>
       </figure>
     </div>
   </section>
@@ -457,7 +457,16 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
     return {draw, animate};
   }
 
+  const REVE = {"w":1000,"h":183,"e":[[[89,70],[91,65],[94,64],[96,61],[99,60],[102,58],[104,56],[107,55],[110,55],[112,53],[115,53],[118,52],[121,52],[124,53],[127,53],[130,54],[133,56],[136,57],[139,60],[141,62],[143,65],[145,67],[146,70],[147,73],[147,76],[148,78],[147,83]],[[89,70],[85,71],[82,72],[79,72]],[[89,70],[92,73],[96,75],[99,76],[102,78]],[[79,72],[76,69],[73,67],[70,66],[67,64],[64,64],[60,63],[57,62],[54,61],[51,61],[48,60],[45,59],[42,59],[39,58],[36,58],[33,57],[30,57],[28,57],[25,57],[22,56],[19,56],[16,57],[13,57],[11,59],[8,60],[5,62],[4,64],[2,66],[0,69],[0,72],[0,75],[1,78],[1,81],[3,83],[5,86],[7,88],[10,91],[13,93],[16,94],[19,96],[22,98],[25,98],[29,99],[31,99],[34,100],[37,100],[40,100],[43,99],[46,99],[48,98],[51,97],[54,96],[57,95],[59,93],[62,91],[64,89],[67,87],[69,85],[72,83],[74,80],[76,78],[78,75],[79,72]],[[102,78],[106,78],[109,77],[112,77],[115,77],[118,77],[121,78],[124,79],[127,79],[130,80],[133,80],[136,81],[139,81],[142,82],[144,82],[147,83]],[[102,78],[101,83],[100,86],[100,89],[100,92],[100,95],[101,97],[102,100],[104,103],[106,105],[108,108],[110,109],[113,111],[116,112],[119,113],[122,112],[125,112],[128,111],[130,110],[133,109],[136,107],[138,104],[140,101],[142,99],[144,96],[144,93],[145,90],[145,87],[147,83]],[[147,83],[151,84],[154,84],[157,84],[160,83],[163,83],[166,83],[169,83],[171,82],[174,83],[177,83],[180,83],[183,83],[186,83],[189,83],[192,83],[195,84],[198,84],[200,83],[203,83],[206,83],[209,82],[212,82],[215,81],[217,80],[220,79],[222,77],[225,76],[228,74]],[[441,28],[440,24],[439,21],[438,18],[437,16],[435,13],[434,10],[431,8],[428,6],[426,4],[423,2],[419,1],[416,0],[414,1],[411,1],[409,3],[407,5],[406,8],[406,11],[407,13],[408,16],[411,18],[413,21],[416,23],[419,25],[422,26],[425,28],[428,28],[431,29],[434,28],[437,29],[441,28]],[[444,31],[448,31],[451,31],[454,31],[457,30],[460,31],[463,31],[466,30],[469,30],[471,30],[474,30],[477,29],[480,29],[483,29],[486,28],[489,29],[491,28],[494,28],[497,28],[500,29],[503,30],[506,32],[508,34],[510,37],[512,39],[512,42],[513,45],[513,48],[512,51],[512,54],[511,57],[508,60],[507,63],[504,66],[502,69],[500,71],[498,74],[496,77],[493,80],[491,83],[490,86],[487,90],[486,93],[484,96],[483,99],[481,102],[480,105],[480,108],[479,111],[480,114],[480,117],[480,120],[481,123],[483,125],[485,128],[487,130],[489,133],[492,134],[494,137],[497,138],[500,138],[504,139],[506,139],[509,140],[512,140],[515,140],[518,139],[521,139],[524,138],[526,138],[529,137],[532,137],[534,135]],[[444,31],[443,36],[444,39],[444,42],[444,45],[444,47],[444,50],[444,53],[444,56],[444,59],[444,62],[444,65],[443,68],[443,71],[442,74],[441,77],[440,80],[439,83],[438,86],[437,89],[436,92],[434,96],[432,98],[430,101],[428,103],[425,105],[423,107],[420,108],[418,110],[415,111],[412,112],[409,113],[407,113],[404,113],[401,114],[398,114],[395,114],[392,115],[390,114],[387,114],[384,114],[381,114],[378,113],[375,113],[372,113],[369,113],[366,113],[363,112],[360,111],[357,111],[354,110],[351,110],[348,109],[345,109],[342,108],[339,107],[336,106],[333,105],[330,104],[327,104],[324,103],[321,102],[317,100],[314,99],[311,99],[308,98],[305,96],[302,95],[300,93]],[[228,74],[231,71],[234,72],[237,71],[240,71],[243,71],[246,70],[248,70]],[[228,74],[231,77],[232,80],[234,82],[236,85],[237,88],[238,90],[239,93],[240,96],[242,98],[244,101],[247,103],[250,105],[253,107],[256,109],[259,110],[262,111],[265,112],[268,112],[271,111],[274,112],[277,111],[279,110],[282,109],[285,107],[287,106],[290,104],[292,102],[293,99],[294,96],[295,95]],[[248,70],[251,66],[253,66],[256,64],[259,62],[261,62],[264,61],[267,60],[270,60],[272,59],[275,59],[278,59],[281,59],[284,60],[287,61],[290,61],[293,63],[295,65],[298,68],[300,70],[301,73],[302,76],[302,79],[302,82],[302,84],[302,87],[301,90],[300,93]],[[248,70],[250,74],[253,76],[256,78],[259,80],[262,82],[266,84],[269,85],[272,87],[275,88],[278,89],[281,90],[284,91],[288,92],[291,93],[295,95]],[[736,77],[738,72],[737,69],[737,66],[736,64],[735,61],[733,59],[730,56],[728,54],[725,54],[722,54],[720,55],[718,56],[717,59],[717,62],[718,64],[719,67],[721,69],[724,72],[727,74],[730,75],[733,76],[736,77]],[[737,84],[735,88],[735,91],[734,95],[733,98],[732,101],[730,104],[729,107],[728,110],[726,113],[725,117],[723,120],[721,123],[719,126],[717,130],[715,133],[713,136],[710,138],[708,141],[705,143],[703,144],[700,146],[697,147],[695,148],[692,149],[689,149],[686,150],[684,151],[681,150],[678,150],[675,149],[672,147],[670,145],[669,143],[668,140],[667,137],[667,134],[668,131],[668,128],[669,125],[669,122],[670,119],[670,116],[671,113],[673,110],[674,107],[675,104],[675,101],[676,98],[676,95],[677,92],[678,89],[678,86],[678,83],[679,80],[679,77],[679,74],[678,71],[678,69],[677,66],[675,63],[673,61],[671,58],[669,57],[666,56],[663,55],[660,55],[657,56],[655,57],[652,58],[649,60],[647,62],[644,64],[642,67],[640,70],[638,73],[637,77],[635,80],[634,83],[633,86],[631,89],[630,92],[629,95],[628,98],[627,102],[626,105],[625,108],[624,111],[623,114],[621,117],[621,120],[618,123],[617,126],[614,129],[612,131],[610,134],[607,136],[604,137],[602,139],[599,140],[596,141],[594,142],[591,143],[588,143],[585,143],[582,143],[580,143],[577,144],[574,144],[571,144],[568,144],[565,144],[562,144],[559,144],[556,143],[553,143],[550,142],[547,141],[545,139],[542,138],[541,136]],[[737,84],[742,85],[745,86],[748,87],[751,88],[754,89],[757,91],[761,92],[764,94],[767,95],[770,97],[773,98],[776,99]],[[534,135],[533,131],[532,128],[531,125],[531,122],[530,120],[530,117],[530,114],[529,111],[529,108],[529,105],[530,102],[530,99],[530,97],[531,93],[531,91],[532,88],[533,84],[534,81],[534,78],[536,75],[537,72],[539,69],[541,66],[543,63],[545,60],[548,57],[550,55],[552,52],[555,51],[558,49],[560,48],[563,47],[566,47],[569,47],[572,49],[575,49],[578,52],[580,54],[582,57],[583,59],[585,62],[585,65],[586,67],[586,70],[586,73],[586,76],[585,79],[584,82],[583,85],[582,89],[580,92],[579,95],[577,98],[574,102],[572,105],[570,108],[567,111],[565,114],[563,116],[560,118],[558,121],[555,123],[553,125],[550,127],[548,129],[545,131],[543,133],[541,136]],[[776,99],[778,95],[779,91],[781,88],[782,85],[785,82],[787,79],[789,77],[792,74],[794,71],[796,69],[799,67],[801,65],[804,63],[807,62],[809,60],[812,59],[815,58],[817,57],[820,57],[823,56],[826,56],[829,56],[832,57],[835,58],[838,58],[841,61],[844,62],[846,65],[848,67],[850,70],[851,72],[853,75],[853,78],[854,81],[854,83],[854,86],[853,89],[852,92],[851,96],[849,98],[847,101],[844,103],[842,104],[839,105],[836,106],[834,107],[831,108],[828,108],[825,109],[822,108],[819,108],[816,108],[814,108],[810,107],[808,107],[804,106],[802,106],[798,105],[795,104],[792,103],[789,103],[786,102],[783,101],[780,100],[776,99]],[[776,99],[773,104],[773,107],[771,110],[770,113],[770,116],[769,120],[768,123],[767,126],[766,129],[766,132],[765,135],[765,138],[764,141],[764,144],[763,147],[763,150],[763,153],[763,155],[764,158],[764,161],[765,164],[766,166],[768,169],[770,171],[773,174],[775,175],[778,177],[782,179],[785,179],[788,180],[791,180],[794,181],[797,181],[800,182],[803,182],[806,183],[809,183],[811,183],[814,182],[817,182],[820,182],[823,181],[826,181],[828,180],[831,180],[834,179],[836,177],[839,176],[842,175],[844,174],[847,172],[850,170],[852,168],[855,167],[857,165],[860,163],[862,161],[865,159],[867,158],[870,156],[872,153],[875,151],[877,149],[880,147],[882,145],[885,143],[887,141],[890,139],[892,137],[895,136],[897,134],[900,133],[903,131],[905,130],[908,128],[910,127],[913,125],[916,124],[919,124],[921,122],[924,122],[927,121],[929,120],[932,120],[935,119],[938,119],[941,119],[944,119],[946,118],[949,118],[952,119],[955,118],[958,118],[961,118],[964,118],[966,117],[969,117],[972,118],[975,118],[978,119],[982,121]],[[982,121],[986,121],[989,121],[992,120],[995,121],[998,121],[1000,122]],[[982,121],[980,126],[977,127],[974,129],[972,130],[969,131],[966,131],[963,132],[961,132],[958,133],[955,133],[952,134],[949,134],[947,134],[944,134],[941,135],[938,135],[935,136],[933,136],[930,137],[927,137],[924,138],[921,138],[919,140],[916,141],[913,142],[911,144],[909,147],[907,149],[904,152],[904,155],[903,158],[903,161],[904,163],[905,166],[907,169],[910,170],[912,171],[915,172],[918,173],[921,173],[924,173],[926,172],[929,172],[932,171],[935,170],[938,169],[940,168],[943,167],[945,165],[948,164],[951,163],[953,161],[956,160],[958,158],[961,157],[964,155],[966,153],[969,152],[971,150],[974,149],[977,147],[979,146],[982,144],[984,143],[987,141],[990,140],[992,137],[994,135],[995,133],[997,129],[999,126],[1000,122]]]};
   const hero = Piece(document.getElementById('hero'), 'bouquet');
+  // flat fallback when WebGL is not available: the same word drawn as wire
+  function drawReve2D(cv){
+    const dpr = Math.min(2, window.devicePixelRatio || 1), cw = cv.clientWidth, ch = cv.clientHeight; if (!cw) return;
+    cv.width = Math.round(cw*dpr); cv.height = Math.round(ch*dpr);
+    const g = cv.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, cw, ch);
+    const k = cw*.8/REVE.w, ox = cw*.1, oy = (ch - REVE.h*k)/2;
+    REVE.e.forEach(e => wire(g, e.map(([x, y]) => [ox + x*k, oy + y*k]), '#2E8B57', Math.max(2.5, cw/120)));
+  }
   const minis = [];
 
   // ---- turns a script word into wire centre-lines (Zhang-Suen thinning + tracing) ----
@@ -526,7 +535,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
     renderer.shadowMap.enabled = true; renderer.shadowMap.type = T.PCFSoftShadowMap;
 
     const scene = new T.Scene();
-    const camera = new T.PerspectiveCamera(30, 1, .1, 50); camera.position.set(0, -.05, 13);
+    const camera = new T.PerspectiveCamera(30, 1, .1, 50); camera.position.set(0, -.42, 7.6);
 
     // studio reflections so the coloured aluminium shines
     const pm = new T.PMREMGenerator(renderer), env = new T.Scene();
@@ -544,7 +553,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
     
 
     // ---- the drawing, in the same 400×400 space as the 2D pieces ----
-    const COL = {copper:0xC77B5A, ink:0x1B1716, pink:0xE7A2B0, white:0xF2F1F5, yellow:0xE8C443, green:0x1E7A55, lilac:0xB48AD8};
+    const COL = {copper:0xC77B5A, ink:0x1B1716, pink:0xE7A2B0, white:0xF2F1F5, yellow:0xE8C443, green:0x2A8A5C, lilac:0xB48AD8};
     const pieces = [];   // {pts, col, z, r, group}
     const add = (pts, col, z = 0, r = .022, group = 'main') => pieces.push({pts, col, z, r, group});
     const fromPath = (d, col, z, r, group) => parse(d).forEach(p => add(p, col, z, r, group));
@@ -552,30 +561,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
     const rot = (x, y, a) => [x*Math.cos(a) - y*Math.sin(a), x*Math.sin(a) + y*Math.cos(a)];
     const leaf = (bx, by, L, W, a) => poly(t => { const u = t*Math.PI*2, x = L*(1-Math.cos(u))/2, y = W*Math.sin(u)*(1-Math.cos(u))/2, [rx, ry] = rot(x, y, a); return [bx+rx, by+ry]; }, 60);
 
-    // a bouquet in coloured wire, in the spirit of Marine's flowered words
-    // stems, tied together with a copper wire, each ending in a small curl
-    fromPath('M 200 158 C 194 230 214 300 204 404 C 202 418 192 420 194 412', 'green', 0, .024, 'main');
-    fromPath('M 118 222 C 128 290 178 350 198 404 C 202 416 212 418 210 410', 'green', -.06, .024, 'main');
-    fromPath('M 290 214 C 282 290 232 352 210 404 C 206 414 216 420 220 412', 'green', .06, .024, 'main');
-    add(leaf(206, 318, 62, 22, -.55), 'green', .04, .022, 'main');
-    add(leaf(184, 340, 56, 20, Math.PI + .45), 'green', -.02, .022, 'main');
-    add(leaf(262, 284, 46, 16, -.95), 'green', .08, .022, 'main');
-    add(leaf(150, 280, 42, 15, Math.PI + .9), 'green', -.08, .022, 'main');
-    add(poly(t => { const a = t*Math.PI*8, y = 384 + t*16; return [204 + 20*Math.cos(a), y + 5*Math.sin(a)]; }, 220).concat(poly(t => { const a = t*Math.PI*1.7; return [224 + 14*Math.cos(a+Math.PI) + 14, 400 + 14*Math.sin(a+Math.PI)*(1 - t*.3)]; }, 40)), 'copper', .14, .02, 'main');
-    // pink rose: a coiled spiral with an open outer petal
-    add(poly(t => { const a = t*Math.PI*6.4, r = 3 + 33*t, w = 1 + .08*Math.sin(a*2.5); return [200 + r*w*Math.cos(a), 122 + r*w*.92*Math.sin(a)]; }, 360), 'pink', .14, .03, 'rose');
-    // white daisy: one continuous wire, five petals (rose curve r = cos 5θ), yellow heart
-    add(poly(t => { const th = t*Math.PI, r = 34*Math.cos(5*th); return [118 + r*Math.cos(th), 188 + r*Math.sin(th)]; }, 240), 'white', .2, .024, 'daisy');
-    add(poly(t => { const a = t*Math.PI*4, r = 2 + 6*t; return [118 + r*Math.cos(a), 188 + r*Math.sin(a)]; }, 60), 'yellow', .24, .022, 'daisy');
-    // yellow tulip
-    fromPath('M 264 156 L 277 182 L 290 160 L 303 182 L 316 156 C 324 196 308 214 290 214 C 272 214 256 196 264 156', 'yellow', .1, .028, 'tulip');
-    // lilac butterfly
-    const bf = (cx, cy, A, B) => poly(t => { const u = t*Math.PI*2; return [cx + A*Math.sin(u), cy + B*Math.sin(u)*Math.cos(u)*2]; }, 120);
-    add(bf(318, 92, 26, 20), 'lilac', .5, .022, 'fly');
-    add(bf(318, 114, 17, 12), 'lilac', .5, .022, 'fly');
-    fromPath('M 318 86 L 318 122', 'ink', .52, .02, 'fly');
-    fromPath('M 318 86 C 314 74 308 68 302 70 C 298 72 300 78 304 76', 'ink', .52, .016, 'fly');
-    fromPath('M 318 86 C 322 74 328 68 334 70 C 338 72 336 78 332 76', 'ink', .52, .016, 'fly');
+    // the word « rêve », traced from a photo of Marine's own green wire piece
+    { const kx = 290 / REVE.w, ox = 200 - 145, oy = 210 - REVE.h*kx/2;
+      REVE.e.forEach((e, n) => add(e.map(([x, y]) => [ox + x*kx, oy + y*kx]), 'green', .04*Math.sin(n*1.3), .03, 'word')); }
     const fontReady = document.fonts ? document.fonts.load('150px "Great Vibes"').catch(() => {}) : Promise.resolve();
     fontReady.then(() => {
     function mergeTubes(a, b){
@@ -585,8 +573,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
       for (let k = 0, q = 0; k < ia.length; k += 6){ for (let j = 0; j < 6; j++) idx[q++] = ia[k+j]; for (let j = 0; j < 6; j++) idx[q++] = ib[k+j] + na; }
       g.setIndex(new T.BufferAttribute(idx, 1)); return g;
     }
-    const root = new T.Group(); root.position.x = .02; scene.add(root);
-    const art = new T.Group(); art.scale.setScalar(1.0); art.position.set(.02, .12, 0); root.add(art);
+    const root = new T.Group(); root.position.x = .18; scene.add(root);
+    const art = new T.Group(); art.scale.setScalar(1.0); art.position.set(.07, 0, 0); root.add(art);
     const groups = {};
     const meshes = pieces.map((pc, i) => {
       const g = groups[pc.group] || (groups[pc.group] = new T.Group());
@@ -629,24 +617,24 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
       for (let k = -1; k <= 1; k++){ const r = new T.Mesh(new T.TorusGeometry(.04, .009, 6, 20), knotMat); r.position.set(X + k*.018, Y + k*.012, .05); r.rotation.y = Math.PI/2; r.rotation.x = .6; r.castShadow = true; r.visible = false; art.add(r); knotMeshes.push(r); }
     });
 
-    // ---- the glass vial and its cork ----
-    const prof = [[0,-2.15],[.6,-2.12],[1.1,-2.03],[1.4,-1.86],[1.53,-1.6],[1.56,-1.3],[1.56,1.15],[1.51,1.52],[1.28,1.88],[.88,2.14],[.62,2.3],[.56,2.45],[.56,2.74],[.64,2.8],[.64,2.88],[.56,2.92]].map(([x,y]) => new T.Vector2(x, y));
-    const glass = new T.Mesh(new T.LatheGeometry(prof, 72), new T.MeshPhysicalMaterial({color:0xffffff, metalness:0, roughness:.04, transparent:true, opacity:.07, envMapIntensity:1.5, clearcoat:1, clearcoatRoughness:.05, side:T.DoubleSide, depthWrite:false}));
-    glass.renderOrder = 2; root.add(glass);
-    // painted highlight streaks on the glass
-    const streak = (x, y0, y1, w, o) => { const m = new T.Mesh(new T.PlaneGeometry(w, y1-y0), new T.MeshBasicMaterial({color:0xffffff, transparent:true, opacity:o, depthWrite:false})); m.position.set(x, (y0+y1)/2, 1.5); m.renderOrder = 3; root.add(m); };
-    streak(-1.12, -1.3, 1.1, .07, .22); streak(-.98, -1.0, .6, .025, .3); streak(1.18, -1.5, -.4, .04, .12);
+    // ---- a slim glass tube lying on its side, cork on the left, like Marine's "maman" vial ----
+    const vg = new T.Group(); vg.rotation.z = Math.PI/2; root.add(vg);
+    const prof = [[0,-1.95],[.3,-1.93],[.47,-1.85],[.56,-1.7],[.58,-1.5],[.58,1.6],[.63,1.65],[.63,1.74],[.58,1.76]].map(([x,y]) => new T.Vector2(x, y));
+    const glass = new T.Mesh(new T.LatheGeometry(prof, 72), new T.MeshPhysicalMaterial({color:0xffffff, metalness:0, roughness:.04, transparent:true, opacity:.1, envMapIntensity:1.6, clearcoat:1, clearcoatRoughness:.05, side:T.DoubleSide, depthWrite:false}));
+    glass.renderOrder = 2; vg.add(glass);
+    const streak = (x, y0, y1, w, o) => { const m = new T.Mesh(new T.PlaneGeometry(w, y1-y0), new T.MeshBasicMaterial({color:0xffffff, transparent:true, opacity:o, depthWrite:false})); m.position.set(x, (y0+y1)/2, .6); m.renderOrder = 3; vg.add(m); };
+    streak(-.38, -1.4, 1.25, .06, .32); streak(-.3, -1.0, .7, .02, .38); streak(.42, -1.5, -.2, .04, .12);
     const cc = document.createElement('canvas'); cc.width = cc.height = 256; const cx2 = cc.getContext('2d');
     cx2.fillStyle = '#B98A5B'; cx2.fillRect(0, 0, 256, 256);
     for (let k = 0; k < 1400; k++){ cx2.fillStyle = Math.random() < .55 ? 'rgba(90,55,25,.45)' : 'rgba(230,200,160,.35)'; cx2.beginPath(); cx2.arc(Math.random()*256, Math.random()*256, Math.random()*3+.5, 0, 7); cx2.fill(); }
     const corkTex = new T.CanvasTexture(cc); corkTex.encoding = T.sRGBEncoding;
-    const cork = new T.Mesh(new T.CylinderGeometry(.62, .5, .66, 48), new T.MeshStandardMaterial({map:corkTex, roughness:.92, metalness:0}));
-    cork.position.y = 2.86; root.add(cork);
-    // a rose-gold wire wound twice around the neck, ending in a curl
-    const wind = []; for (let k = 0; k <= 160; k++){ const a = k/160*Math.PI*4 + Math.PI/2, y = 2.36 + k/160*.16; wind.push(new T.Vector3(.585*Math.cos(a), y, .585*Math.sin(a))); }
-    for (let k = 1; k <= 30; k++){ const a = k/30*Math.PI*1.6, r = .16*(1 - k/40); wind.push(new T.Vector3(.585 + .14 + r*Math.cos(a+Math.PI) , 2.52 - .2 + r*Math.sin(a+Math.PI) - k*.004, .02)); }
+    const cork = new T.Mesh(new T.CylinderGeometry(.64, .53, .62, 48), new T.MeshStandardMaterial({map:corkTex, roughness:.92, metalness:0}));
+    cork.position.y = 1.98; vg.add(cork);
+    // a copper wire wound twice around the tube near the cork, ending in a curl
+    const wind = []; for (let k = 0; k <= 160; k++){ const a = k/160*Math.PI*4 + Math.PI/2, y = 1.28 + k/160*.16; wind.push(new T.Vector3(.605*Math.cos(a), y, .605*Math.sin(a))); }
+    for (let k = 1; k <= 30; k++){ const a = k/30*Math.PI*1.6, r = .16*(1 - k/40); wind.push(new T.Vector3(.605 + .14 + r*Math.cos(a+Math.PI), 1.44 - .2 + r*Math.sin(a+Math.PI) - k*.004, .02)); }
     const windMat = new T.MeshStandardMaterial({color:new T.Color(COL.copper).convertSRGBToLinear(), metalness:.75, roughness:.26});
-    const windM = new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(wind), 300, .02, 8), windMat); windM.castShadow = true; root.add(windM);
+    vg.add(new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(wind), 300, .02, 8), windMat));
 
     // draw-in: each wire grows one after another
     const totalLen = meshes.reduce((s, x) => s + x.count, 0);
@@ -664,8 +652,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 
     function size(){
       const w = canvas.clientWidth || 400;
-      renderer.setSize(w, Math.round(w*1.25), false);
-      camera.aspect = .8; camera.updateProjectionMatrix();
+      renderer.setSize(w, Math.round(w*.75), false);
+      camera.aspect = 4/3; camera.updateProjectionMatrix();
     }
     size();
     addEventListener('resize', size);
@@ -762,12 +750,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
     document.getElementById('f-msg').value = `Mot : « ${studio.word} » — fil ${studio.color[0].toLowerCase()} — ${studio.fmt === 'fiole' ? 'en fiole' : 'à accrocher'}.`;
   });
 
-  const redrawAll = () => { if (!has3d) hero.draw(); minis.forEach(m => m.draw()); drawWord(); };
+  const redrawAll = () => { if (!has3d) drawReve2D(document.getElementById('hero')); minis.forEach(m => m.draw()); drawWord(); };
   const ready = document.fonts ? document.fonts.load('80px Sacramento').catch(() => {}) : Promise.resolve();
   minis.forEach(m => m.draw()); drawWord();
   let has3d = false;
   try { has3d = start3D(document.getElementById('hero')); } catch (e) { has3d = false; }
-  if (!has3d){ document.getElementById('hero').style.aspectRatio = '1'; hero.animate(2600); }
+  if (!has3d) drawReve2D(document.getElementById('hero'));
   ready.then(drawWord);
 
   let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(redrawAll, 120); });
