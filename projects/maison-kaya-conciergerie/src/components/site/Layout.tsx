@@ -4,14 +4,26 @@ import { Menu, X, MessageCircle, ArrowUp, Instagram } from "lucide-react";
 import { whatsappLink, PHONE_DISPLAY, PHONE_TEL, EMAIL, ADDRESS_DISPLAY, INSTAGRAM_URL, CALENDLY_URL, SLOGAN, COMMUNES } from "@/lib/site";
 import { Split } from "@/components/site/Split";
 import logoIvoire from "@/assets/logo-mk-ivoire.png";
+import logoEncre from "@/assets/logo-mk-encre.png";
 
 const NAV = [
   { to: "/services", label: "Nos services" },
   { to: "/accompagnement", label: "Propriétaires" },
+  { to: "/estimation", label: "Estimation" },
   { to: "/approche", label: "Notre approche" },
   { to: "/secteur", label: "Zone d'intervention" },
   { to: "/contact", label: "Contact" },
 ] as const;
+
+/** Nom « Maison Kaya » dans l'esprit du logo : monogramme + lettres fines et espacées. */
+export function Wordmark({ className = "" }: { className?: string }) {
+  return (
+    <span className={`wordmark ${className}`}>
+      <span className="wordmark-mark" aria-hidden="true"><img src={logoEncre} alt="" width={900} height={900} className="wm-encre" /><img src={logoIvoire} alt="" width={900} height={900} className="wm-ivoire" /></span>
+      <span className="wordmark-text">Maison <em>Kaya</em></span>
+    </span>
+  );
+}
 
 export function SkipLink() {
   return <a href="#contenu" className="skip-link">Aller au contenu</a>;
@@ -30,7 +42,7 @@ export function Header() {
     <header className="site-header">
       <div className="header-bar">
         <Link to="/" className="header-logo" onClick={() => setOpen(false)} aria-label="Maison Kaya Conciergerie, accueil">
-          Maison <em>Kaya</em>
+          <Wordmark />
         </Link>
         <nav aria-label="Navigation principale">
           {NAV.map((n) => (
@@ -38,7 +50,8 @@ export function Header() {
           ))}
         </nav>
         <div className="header-actions">
-          <a href={CALENDLY_URL} target="_blank" rel="noreferrer" className="pill header-cta">Prendre rendez-vous</a>
+          <Link to="/estimation" className="pill header-cta header-cta-main" onClick={() => setOpen(false)}>Estimer mon logement</Link>
+          <a href={CALENDLY_URL} target="_blank" rel="noreferrer" className="pill header-cta header-cta-second">Prendre rendez-vous</a>
           <button type="button" className="menu-toggle lg:hidden" aria-label={open ? "Fermer le menu" : "Ouvrir le menu"} aria-expanded={open} aria-controls="site-menu" onClick={() => setOpen(!open)}>
             {open ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -50,6 +63,7 @@ export function Header() {
             {NAV.map((n) => (
               <Link key={n.to} to={n.to} onClick={() => setOpen(false)}>{n.label}</Link>
             ))}
+            <a href={CALENDLY_URL} target="_blank" rel="noreferrer" onClick={() => setOpen(false)} className="text-primary">Prendre rendez-vous</a>
             <Link to="/contact" onClick={() => setOpen(false)} className="text-primary">Confier mon logement</Link>
           </div>
           <div className="mt-6 flex flex-col gap-2 border-t border-border pt-5 text-sm text-muted-foreground">
@@ -77,7 +91,7 @@ export function Footer() {
         <div className="mt-24 grid gap-10 border-t border-ink-foreground/15 pt-10 text-sm text-ink-foreground/70 md:grid-cols-4">
           <div>
             <img src={logoIvoire} alt="" width={900} height={900} className="h-16 w-16" loading="lazy" />
-            <p className="mt-4 font-display text-2xl text-ink-foreground">Maison Kaya</p>
+            <p className="wordmark-text mt-4 text-ink-foreground">Maison <em>Kaya</em></p>
             <p className="mt-1 font-display italic text-sand">{SLOGAN}</p>
             <p className="mt-4 max-w-xs">Conciergerie pour propriétaires de logements en location courte durée, dans le Val-de-Marne (94).</p>
           </div>
@@ -93,7 +107,6 @@ export function Footer() {
             <p className="eyebrow mb-2 text-ink-foreground/50">Pages</p>
             <Link to="/" className="hover:text-ink-foreground">Accueil</Link>
             {NAV.map((n) => <Link key={n.to} to={n.to} className="hover:text-ink-foreground">{n.label}</Link>)}
-            <Link to="/estimation" className="hover:text-ink-foreground">Estimation</Link>
           </div>
           <div className="flex flex-col items-start gap-2">
             <p className="eyebrow mb-2 text-ink-foreground/50">Communes desservies</p>

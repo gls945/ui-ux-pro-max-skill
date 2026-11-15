@@ -19,7 +19,7 @@ const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matc
 /** Le parcours : la photo d'accueil, puis les trois valeurs. */
 const JOURNEY_CHAPTERS = 4;
 
-export function pinnedMode() { return !reduced(); }
+export function pinnedMode() { return !reduced() && window.matchMedia("(min-width: 768px)").matches; }
 export function pinnedDelegation() { return !reduced() && window.matchMedia("(min-width: 768px)").matches; }
 
 export function initScroll(): () => void {
