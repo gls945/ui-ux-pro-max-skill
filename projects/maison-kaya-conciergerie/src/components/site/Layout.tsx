@@ -1,16 +1,21 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Menu, X, MessageCircle, Instagram } from "lucide-react";
-import { whatsappLink, PHONE_DISPLAY, INSTAGRAM_URL, CALENDLY_URL } from "@/lib/site";
-import { InteriorPhoto } from "@/components/site/InteriorPhoto";
+import { Menu, X, MessageCircle, ArrowUp, Instagram } from "lucide-react";
+import { whatsappLink, PHONE_DISPLAY, PHONE_TEL, EMAIL, ADDRESS_DISPLAY, INSTAGRAM_URL, CALENDLY_URL, SLOGAN, COMMUNES } from "@/lib/site";
+import { Split } from "@/components/site/Split";
+import logoIvoire from "@/assets/logo-mk-ivoire.png";
 
 const NAV = [
-  { to: "/services", label: "Services" },
-  { to: "/accompagnement", label: "Accompagnement" },
+  { to: "/services", label: "Nos services" },
+  { to: "/accompagnement", label: "Propriétaires" },
   { to: "/approche", label: "Notre approche" },
-  { to: "/secteur", label: "Secteur" },
+  { to: "/secteur", label: "Zone d'intervention" },
   { to: "/contact", label: "Contact" },
 ] as const;
+
+export function SkipLink() {
+  return <a href="#contenu" className="skip-link">Aller au contenu</a>;
+}
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -22,37 +27,34 @@ export function Header() {
   }, [open]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
-      <div className="header-bar mx-4 mt-4 flex max-w-7xl items-center justify-between px-5 py-3 md:mx-auto md:px-7">
-        <Link to="/" className="header-logo font-display text-xl tracking-tight" onClick={() => setOpen(false)}>
-          Maison <em className="text-primary">Kaya</em>
+    <header className="site-header">
+      <div className="header-bar">
+        <Link to="/" className="header-logo" onClick={() => setOpen(false)} aria-label="Maison Kaya Conciergerie, accueil">
+          Maison <em>Kaya</em>
         </Link>
-        <nav className="hidden items-center gap-7 text-sm lg:flex">
+        <nav aria-label="Navigation principale">
           {NAV.map((n) => (
-            <Link key={n.to} to={n.to} className="text-foreground/70 transition hover:text-foreground" activeProps={{ className: "text-foreground" }}>
-              {n.label}
-            </Link>
+            <Link key={n.to} to={n.to} activeProps={{ "aria-current": "page" }}>{n.label}</Link>
           ))}
         </nav>
-        <div className="hidden lg:block">
-          <a href={CALENDLY_URL} target="_blank" rel="noreferrer" className="rounded-full bg-ink px-5 py-2.5 text-sm text-ink-foreground transition hover:bg-primary">
-            Prendre rendez-vous
-          </a>
+        <div className="header-actions">
+          <a href={CALENDLY_URL} target="_blank" rel="noreferrer" className="pill header-cta">Prendre rendez-vous</a>
+          <button type="button" className="menu-toggle lg:hidden" aria-label={open ? "Fermer le menu" : "Ouvrir le menu"} aria-expanded={open} aria-controls="site-menu" onClick={() => setOpen(!open)}>
+            {open ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
-        <button type="button" className="menu-toggle lg:hidden" aria-label={open ? "Fermer le menu" : "Ouvrir le menu"} aria-expanded={open} aria-controls="site-menu" onClick={() => setOpen(!open)}>
-          {open ? <X /> : <Menu />}
-        </button>
       </div>
       {open && (
-        // Le bouton reste visible sur grand écran : le panneau doit l'être aussi (aligné à droite).
-        <div id="site-menu" className="mx-4 mt-2 rounded-3xl border border-border bg-background p-6 md:mx-auto md:max-w-7xl lg:flex lg:justify-end lg:border-0 lg:bg-transparent lg:p-0">
-          <div className="lg:w-80 lg:rounded-3xl lg:border lg:border-border lg:bg-background lg:p-6">
+        <div id="site-menu" className="site-menu lg:hidden">
           <div className="flex flex-col gap-4 font-display text-2xl">
             {NAV.map((n) => (
               <Link key={n.to} to={n.to} onClick={() => setOpen(false)}>{n.label}</Link>
             ))}
-            <a href={CALENDLY_URL} target="_blank" rel="noreferrer" onClick={() => setOpen(false)} className="text-primary">Prendre rendez-vous</a>
+            <Link to="/contact" onClick={() => setOpen(false)} className="text-primary">Confier mon logement</Link>
           </div>
+          <div className="mt-6 flex flex-col gap-2 border-t border-border pt-5 text-sm text-muted-foreground">
+            <a href={whatsappLink()} target="_blank" rel="noreferrer">WhatsApp · {PHONE_DISPLAY}</a>
+            <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
           </div>
         </div>
       )}
@@ -62,30 +64,45 @@ export function Header() {
 
 export function Footer() {
   return (
-    <footer className="grain overflow-hidden bg-ink text-ink-foreground">
+    <footer className="grain overflow-hidden bg-ink text-ink-foreground" data-dark>
       <div className="mx-auto max-w-7xl px-6 pb-10 pt-24">
-        <p className="display-lg max-w-4xl">
-          Votre logement mérite <em className="text-primary">qu'on en prenne soin.</em>
-        </p>
-        <div className="mt-14 flex flex-wrap gap-3">
-          <Link to="/estimation" className="rounded-full bg-primary px-6 py-3 text-primary-foreground transition hover:opacity-90">Estimer mes revenus</Link>
-          <a href={CALENDLY_URL} target="_blank" rel="noreferrer" className="rounded-full border border-ink-foreground/30 px-6 py-3 transition hover:bg-ink-foreground/10">Prendre rendez-vous</a>
+        <Split as="p" className="display-lg max-w-4xl">
+          Et si nous prenions soin <em className="text-sand">de votre logement ?</em>
+        </Split>
+        <p className="mt-6 max-w-xl text-ink-foreground/75">Échangeons sur votre projet et découvrons ensemble comment Maison Kaya peut vous accompagner.</p>
+        <div className="mt-10 flex flex-wrap gap-3">
+          <Link to="/contact" className="pill pill-primary">Parlons de votre projet</Link>
+          <a href={CALENDLY_URL} target="_blank" rel="noreferrer" className="pill pill-ghost-light">Prendre rendez-vous</a>
         </div>
-        <div className="mt-24 grid gap-10 border-t border-ink-foreground/15 pt-10 text-sm text-ink-foreground/70 md:grid-cols-3">
+        <div className="mt-24 grid gap-10 border-t border-ink-foreground/15 pt-10 text-sm text-ink-foreground/70 md:grid-cols-4">
           <div>
-            <p className="font-display text-2xl text-ink-foreground">Maison Kaya</p>
-            <p className="mt-2">Conciergerie pour propriétaires · Val-de-Marne (94)</p>
+            <img src={logoIvoire} alt="" width={900} height={900} className="h-16 w-16" loading="lazy" />
+            <p className="mt-4 font-display text-2xl text-ink-foreground">Maison Kaya</p>
+            <p className="mt-1 font-display italic text-sand">{SLOGAN}</p>
+            <p className="mt-4 max-w-xs">Conciergerie pour propriétaires de logements en location courte durée, dans le Val-de-Marne (94).</p>
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col items-start gap-2">
+            <p className="eyebrow mb-2 text-ink-foreground/50">Nous joindre</p>
+            <a href={`tel:${PHONE_TEL}`} className="hover:text-ink-foreground">Téléphone · {PHONE_DISPLAY}</a>
             <a href={whatsappLink()} target="_blank" rel="noreferrer" className="hover:text-ink-foreground">WhatsApp · {PHONE_DISPLAY}</a>
-            <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" className="hover:text-ink-foreground">Instagram · @kaya.conciergerie</a>
+            <a href={`mailto:${EMAIL}`} className="hover:text-ink-foreground" style={{ overflowWrap: "anywhere" }}>{EMAIL}</a>
+            <address className="not-italic">{ADDRESS_DISPLAY}</address>
+            <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" className="mt-1 inline-flex items-center gap-2 hover:text-ink-foreground"><Instagram size={16} aria-hidden="true" /> @kaya.conciergerie</a>
           </div>
-          <div className="flex flex-col gap-2">
-            <Link to="/mentions-legales" className="hover:text-ink-foreground">Mentions légales</Link>
+          <div className="flex flex-col items-start gap-2">
+            <p className="eyebrow mb-2 text-ink-foreground/50">Pages</p>
+            <Link to="/" className="hover:text-ink-foreground">Accueil</Link>
+            {NAV.map((n) => <Link key={n.to} to={n.to} className="hover:text-ink-foreground">{n.label}</Link>)}
+            <Link to="/estimation" className="hover:text-ink-foreground">Estimation</Link>
+          </div>
+          <div className="flex flex-col items-start gap-2">
+            <p className="eyebrow mb-2 text-ink-foreground/50">Communes desservies</p>
+            <ul className="flex flex-col gap-1">{COMMUNES.map((c) => <li key={c}>{c}</li>)}</ul>
+            <Link to="/mentions-legales" className="mt-3 hover:text-ink-foreground">Mentions légales</Link>
             <Link to="/confidentialite" className="hover:text-ink-foreground">Confidentialité & cookies</Link>
           </div>
         </div>
-        <p className="mt-16 select-none font-display text-[22vw] leading-none text-ink-foreground/5" data-parallax-x>Kaya</p>
+        <p aria-hidden="true" className="plx mt-16 select-none font-display text-[22vw] leading-none text-ink-foreground/5" data-speed="0.6">Kaya</p>
       </div>
     </footer>
   );
@@ -93,31 +110,36 @@ export function Footer() {
 
 export function WhatsAppFab() {
   return (
-    <a
-      href={whatsappLink()}
-      target="_blank"
-      rel="noreferrer"
-      aria-label="Écrire sur WhatsApp"
-      className="fixed bottom-5 right-5 z-50 flex items-center gap-2 rounded-full bg-olive px-4 py-3 text-ink-foreground shadow-2xl transition hover:scale-105"
-    >
-      <MessageCircle className="h-5 w-5" />
-      <span className="hidden text-sm sm:inline">WhatsApp</span>
-    </a>
+    <>
+      <button type="button" className="to-top" aria-label="Retour en haut de page" onClick={() => window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" })}>
+        <ArrowUp size={18} aria-hidden="true" />
+      </button>
+      <a
+        href={whatsappLink()}
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Écrire sur WhatsApp"
+        className="wa-fab fixed bottom-5 right-5 z-50 flex items-center gap-2 rounded-full bg-olive px-4 py-3 text-ink-foreground shadow-2xl transition-colors hover:bg-primary"
+      >
+        <MessageCircle className="h-5 w-5" />
+        <span className="hidden text-sm sm:inline">WhatsApp</span>
+      </a>
+    </>
   );
 }
 
-export function PageHero({ eyebrow, title, intro, image }: { eyebrow: string; title: React.ReactNode; intro?: string; image?: string }) {
+export function PageHero({ eyebrow, title, intro, image, imageAlt = "Intérieur préparé par Maison Kaya" }: { eyebrow: string; title: React.ReactNode; intro?: string; image?: string; imageAlt?: string }) {
   return (
-    <section className="relative overflow-hidden pt-36 md:pt-44">
+    <section className="relative overflow-hidden pt-32 md:pt-44">
       <div className="mx-auto max-w-7xl px-6">
         <p className="eyebrow animate-rise">{eyebrow}</p>
-        <h1 className="display-xl mt-6 max-w-5xl animate-rise">{title}</h1>
-        {intro && <p className="mt-8 max-w-xl text-lg text-muted-foreground animate-rise">{intro}</p>}
+        <Split as="h1" className="display-xl mt-6 max-w-5xl">{title}</Split>
+        {intro && <p className="mt-8 max-w-xl text-lg text-muted-foreground">{intro}</p>}
       </div>
       {image && (
-        <div className="mx-auto mt-16 max-w-7xl px-6">
-          <div className="overflow-hidden rounded-[2rem]">
-            <InteriorPhoto src={image} alt="Intérieur préparé par Maison Kaya" imageClassName="h-[50vh] w-full object-cover animate-slowzoom md:h-[70vh]" />
+        <div className="mx-auto mt-12 max-w-7xl px-6 md:mt-16">
+          <div className="page-hero-media" data-expand data-no-reveal>
+            <img src={image} alt={imageAlt} width={1600} height={900} className="plx" data-speed="0.18" style={{ scale: "1.14" }} />
           </div>
         </div>
       )}

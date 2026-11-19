@@ -29,7 +29,7 @@ use the editor.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
 
-- Keep the site entrance in a root-mounted component so it plays once per document load, not on internal navigation; respect reduced-motion preferences.
+- Scroll animation lives in `src/lib/scroll.ts` (mounted once by `MotionLayer`). No custom cursor, no ticker, no page-transition veil, and links/buttons never move on hover. The header must never carry a translucent bar that blocks clicks. Respect reduced-motion preferences.
 - Keep commission terms in shared site data and render them across pricing pages to prevent conflicting fee disclosures.
 - Keep decorative Three.js scenes lazy-loaded behind ClientOnly and pause offscreen; preserve SSR for the site's content and respect reduced motion.
-- Use shared InteriorPhoto for depth-animated interior media without a viewer; keep background instances absolutely positioned so foreground copy overlays the photograph.
+- The home page is a pinned scroll journey (`data-scene="journey"`): one photo per chapter, copy in `.j-copy`. It falls back to a stacked layout on mobile and with reduced motion.
