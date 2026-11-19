@@ -28,10 +28,10 @@ export const Route = createFileRoute("/approche")({
           <p className="mt-8 text-lg text-muted-foreground">Maison Kaya Conciergerie a été créée dans le Val-de-Marne avec une volonté simple : proposer aux propriétaires un service de proximité, fondé sur la confiance et le soin apporté à chaque logement. Un interlocuteur qui connaît votre logement, votre secteur, et vous.</p>
 
           <p className="eyebrow mt-16">Notre mission</p>
-          <p className="mt-4 font-display text-2xl leading-snug md:text-3xl">« Offrir aux propriétaires un accompagnement personnalisé et attentif, en prenant soin de chaque logement comme d'un lieu qui mérite toute notre attention. »</p>
+          <p className="mt-4 font-display text-2xl italic leading-snug text-accent md:text-3xl">« Offrir aux propriétaires un accompagnement personnalisé et attentif, en prenant soin de chaque logement comme d'un lieu qui mérite toute notre attention. »</p>
 
           <p className="eyebrow mt-16">Notre vision</p>
-          <p className="mt-4 font-display text-2xl leading-snug md:text-3xl">« Faire de Maison Kaya une référence locale de la conciergerie de qualité, reconnue pour son sérieux, sa proximité et son sens du détail. »</p>
+          <p className="mt-4 font-display text-2xl italic leading-snug text-accent md:text-3xl">« Faire de Maison Kaya une référence locale de la conciergerie de qualité, reconnue pour son sérieux, sa proximité et son sens du détail. »</p>
         </div>
       </section>
 

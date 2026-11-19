@@ -4,8 +4,9 @@ export const WHATSAPP_NUMBER = "33763901469";
 export const PHONE_DISPLAY = "07 63 90 14 69";
 export const PHONE_TEL = "+33763901469";
 export const EMAIL = "maisonkayaconciergerie@gmail.com";
-export const ADDRESS = { street: "17 ter rue Jean Allemane", zip: "94500", city: "Champigny-sur-Marne" };
-export const ADDRESS_DISPLAY = `${ADDRESS.street}, ${ADDRESS.zip} ${ADDRESS.city}`;
+export const ADDRESS = { city: "Champigny-sur-Marne" };
+// Adresse exacte volontairement non publiée : seule la ville est affichée.
+export const ADDRESS_DISPLAY = ADDRESS.city;
 export const whatsappLink = (msg = "Bonjour Maison Kaya, je suis propriétaire d'un logement et souhaiterais obtenir des informations sur votre accompagnement.") =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
 /** Lien Calendly fourni par Maison Kaya (événement « 30min » côté Calendly) ; le suivi UTM identifie le site. */

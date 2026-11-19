@@ -120,7 +120,7 @@ const LOCAL_BUSINESS = {
   description: "Conciergerie pour propriétaires de logements en location courte durée dans le Val-de-Marne.",
   telephone: PHONE_TEL,
   email: EMAIL,
-  address: { "@type": "PostalAddress", streetAddress: ADDRESS.street, postalCode: ADDRESS.zip, addressLocality: ADDRESS.city, addressCountry: "FR" },
+  address: { "@type": "PostalAddress", addressLocality: ADDRESS.city, addressCountry: "FR" },
   areaServed: COMMUNES.map((name) => ({ "@type": "City", name })),
   sameAs: [INSTAGRAM_URL],
 };

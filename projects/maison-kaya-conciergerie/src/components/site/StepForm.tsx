@@ -2,7 +2,7 @@ import { useState } from "react";
 import { z } from "zod";
 import { ArrowLeft, Check } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { COMMUNES } from "@/lib/site";
+import { EMAIL, COMMUNES } from "@/lib/site";
 import { Link } from "@tanstack/react-router";
 
 type Field =
@@ -41,10 +41,23 @@ export function StepForm({ kind, steps }: { kind: "contact" | "estimation"; step
     setSending(true);
     const { full_name, email, phone, city, housing_type, message, ...rest } = data;
     setConfirm(false);
-    const { error } = await supabase.from("owner_requests").insert({
+    // Envoi direct par e-mail à Maison Kaya (FormSubmit) + enregistrement dans la base Lovable.
+    const mail = fetch(`https://formsubmit.co/ajax/${EMAIL}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({
+        _subject: `Nouvelle demande d'${kind === "estimation" ? "estimation" : "information"} — ${parsed.data.full_name}`,
+        _template: "table", _captcha: "false", _replyto: parsed.data.email,
+        Nom: parsed.data.full_name, "E-mail": parsed.data.email, Téléphone: parsed.data.phone ?? "",
+        Ville: city ?? "", "Type de logement": housing_type ?? "", ...rest, Message: message ?? "",
+      }),
+    }).then((r) => r.ok).catch(() => false);
+    const db = supabase.from("owner_requests").insert({
       kind, full_name: parsed.data.full_name, email: parsed.data.email, phone: parsed.data.phone ?? null,
       city: city ?? null, housing_type: housing_type ?? null, message: message?.slice(0, 3000) ?? null, details: rest,
-    });
+    }).then((r) => !r.error, () => false);
+    const [mailed, saved] = await Promise.all([mail, db]);
+    const error = !mailed && !saved;
     setSending(false);
     if (error) { setError("Votre demande n'a pas pu être envoyée. Vérifiez votre connexion et réessayez, ou écrivez-nous sur WhatsApp au 07 63 90 14 69."); return; }
     setDone(true);
